@@ -1,0 +1,78 @@
+/home/damian/Downloads/clion-2020.1.1/bin/cmake/linux/bin/cmake -DCMAKE_BUILD_TYPE=Debug -G "CodeBlocks - Unix Makefiles" /home/damian/RayTracer
+-- The CXX compiler identification is GNU 9.3.0
+-- Check for working CXX compiler: /usr/bin/c++
+-- Check for working CXX compiler: /usr/bin/c++ -- works
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+CMake Warning at cmake/Cache.cmake:20 (message):
+  ccache is enabled but was not found.  Not using it
+Call Stack (most recent call first):
+  CMakeLists.txt:22 (include)
+
+
+-- Downloading conan.cmake from https://github.com/conan-io/cmake-conan
+-- Conan: checking conan executable
+-- Conan: Found program /usr/local/bin/conan
+-- Conan: Version found Conan version 1.25.1
+
+-- Conan: Adding bincrafters remote repository (https://api.bintray.com/conan/bincrafters/public-conan)
+-- Conan: Automatic detection of conan settings from cmake
+-- Conan: Settings= -s;build_type=Debug;-s;compiler=gcc;-s;compiler.version=9;-s;compiler.libcxx=libstdc++11
+-- Conan: checking conan executable
+-- Conan: Found program /usr/local/bin/conan
+-- Conan: Version found Conan version 1.25.1
+
+-- Conan executing: /usr/local/bin/conan install . -s build_type=Debug -s compiler=gcc -s compiler.version=9 -s compiler.libcxx=libstdc++11 -g=cmake --build=missing
+Configuration:
+[settings]
+arch=x86_64
+arch_build=x86_64
+build_type=Debug
+compiler=gcc
+compiler.libcxx=libstdc++11
+compiler.version=9
+os=Linux
+os_build=Linux
+[options]
+[build_requires]
+[env]
+
+conanfile.txt: Installing package
+Requirements
+    catch2/2.11.0 from 'conan-center' - Cache
+    docopt.cpp/0.6.2 from 'conan-center' - Cache
+    fmt/6.1.2 from 'conan-center' - Cache
+    spdlog/1.5.0 from 'conan-center' - Cache
+Packages
+    catch2/2.11.0:5ab84d6acfe1f23c4fae0ab88f26e3a396351ac9 - Cache
+    docopt.cpp/0.6.2:038baac88f4c7bfa972ce5adac1616bed8fe2ef4 - Cache
+    fmt/6.1.2:038baac88f4c7bfa972ce5adac1616bed8fe2ef4 - Cache
+    spdlog/1.5.0:9df34d57e1d38147409e41fa69c20cd1153df23b - Cache
+
+Installing (downloading, building) binaries...
+catch2/2.11.0: Already installed!
+docopt.cpp/0.6.2: Already installed!
+fmt/6.1.2: Already installed!
+spdlog/1.5.0: Already installed!
+conanfile.txt: Generator cmake created conanbuildinfo.cmake
+conanfile.txt: Generator txt created conanbuildinfo.txt
+conanfile.txt: Generated conaninfo.txt
+conanfile.txt: Generated graphinfo
+WARN: spdlog/1.5.0: requirement fmt/6.2.0 overridden by your conanfile to fmt/6.1.2 
+-- Conan: Loading conanbuildinfo.cmake
+-- Conan: Adjusting output directories
+-- Conan: Using cmake targets configuration
+-- Library docopt found /home/damian/.conan/data/docopt.cpp/0.6.2/_/_/package/038baac88f4c7bfa972ce5adac1616bed8fe2ef4/lib/libdocopt.a
+-- Library spdlogd found /home/damian/.conan/data/spdlog/1.5.0/_/_/package/9df34d57e1d38147409e41fa69c20cd1153df23b/lib/libspdlogd.a
+-- Library fmtd found /home/damian/.conan/data/fmt/6.1.2/_/_/package/038baac88f4c7bfa972ce5adac1616bed8fe2ef4/lib/libfmtd.a
+-- Conan: Adjusting default RPATHs Conan policies
+-- Conan: Adjusting language standard
+-- Current conanbuildinfo.cmake directory: /home/damian/RayTracer/cmake-build-debug
+-- Conan: Compiler GCC>=5, checking major version 9
+-- Conan: Checking correct version: 9
+Building Tests. Be sure to check out test/constexpr_tests for constexpr testing
+-- Configuring done
+-- Generating done
+-- Build files have been written to: /home/damian/RayTracer/cmake-build-debug

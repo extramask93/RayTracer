@@ -1,0 +1,344 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6"/>
+	<Project>
+		<Option title="myproject"/>
+		<Option makefile_is_custom="1"/>
+		<Option compiler="gcc"/>
+		<Option virtualFolders="CMake Files\;CMake Files\cmake\;CMake Files\cmake-build-debug\;CMake Files\test\;CMake Files\..\;CMake Files\..\.conan\;CMake Files\..\.conan\data\;CMake Files\..\.conan\data\catch2\;CMake Files\..\.conan\data\catch2\2.11.0\;CMake Files\..\.conan\data\catch2\2.11.0\_\;CMake Files\..\.conan\data\catch2\2.11.0\_\_\;CMake Files\..\.conan\data\catch2\2.11.0\_\_\package\;CMake Files\..\.conan\data\catch2\2.11.0\_\_\package\5ab84d6acfe1f23c4fae0ab88f26e3a396351ac9\;CMake Files\..\.conan\data\catch2\2.11.0\_\_\package\5ab84d6acfe1f23c4fae0ab88f26e3a396351ac9\lib\;CMake Files\..\.conan\data\catch2\2.11.0\_\_\package\5ab84d6acfe1f23c4fae0ab88f26e3a396351ac9\lib\cmake\;CMake Files\..\.conan\data\catch2\2.11.0\_\_\package\5ab84d6acfe1f23c4fae0ab88f26e3a396351ac9\lib\cmake\Catch2\;CMake Files\src\;"/>
+		<Build>
+			<Target title="all">
+				<Option working_dir="/home/damian/RayTracer/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j3 -f &quot;/home/damian/RayTracer/cmake-build-debug/Makefile&quot;  VERBOSE=1 all"/>
+					<CompileFile command="/usr/bin/make -j3 -f &quot;/home/damian/RayTracer/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j3 -f &quot;/home/damian/RayTracer/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j3 -f &quot;/home/damian/RayTracer/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="rebuild_cache">
+				<Option working_dir="/home/damian/RayTracer/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j3 -f &quot;/home/damian/RayTracer/cmake-build-debug/Makefile&quot;  VERBOSE=1 rebuild_cache"/>
+					<CompileFile command="/usr/bin/make -j3 -f &quot;/home/damian/RayTracer/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j3 -f &quot;/home/damian/RayTracer/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j3 -f &quot;/home/damian/RayTracer/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="test">
+				<Option working_dir="/home/damian/RayTracer/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j3 -f &quot;/home/damian/RayTracer/cmake-build-debug/Makefile&quot;  VERBOSE=1 test"/>
+					<CompileFile command="/usr/bin/make -j3 -f &quot;/home/damian/RayTracer/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j3 -f &quot;/home/damian/RayTracer/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j3 -f &quot;/home/damian/RayTracer/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="edit_cache">
+				<Option working_dir="/home/damian/RayTracer/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j3 -f &quot;/home/damian/RayTracer/cmake-build-debug/Makefile&quot;  VERBOSE=1 edit_cache"/>
+					<CompileFile command="/usr/bin/make -j3 -f &quot;/home/damian/RayTracer/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j3 -f &quot;/home/damian/RayTracer/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j3 -f &quot;/home/damian/RayTracer/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="tests">
+				<Option output="/home/damian/RayTracer/cmake-build-debug/bin/tests" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/damian/RayTracer/cmake-build-debug/bin"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/home/damian/.conan/data/catch2/2.11.0/_/_/package/5ab84d6acfe1f23c4fae0ab88f26e3a396351ac9/include"/>
+					<Add directory="/usr/include/c++/9"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/9"/>
+					<Add directory="/usr/include/c++/9/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/9/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j3 -f &quot;/home/damian/RayTracer/cmake-build-debug/test/Makefile&quot;  VERBOSE=1 tests"/>
+					<CompileFile command="/usr/bin/make -j3 -f &quot;/home/damian/RayTracer/cmake-build-debug/test/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j3 -f &quot;/home/damian/RayTracer/cmake-build-debug/test/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j3 -f &quot;/home/damian/RayTracer/cmake-build-debug/test/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="tests/fast">
+				<Option output="/home/damian/RayTracer/cmake-build-debug/bin/tests" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/damian/RayTracer/cmake-build-debug/bin"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/home/damian/.conan/data/catch2/2.11.0/_/_/package/5ab84d6acfe1f23c4fae0ab88f26e3a396351ac9/include"/>
+					<Add directory="/usr/include/c++/9"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/9"/>
+					<Add directory="/usr/include/c++/9/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/9/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j3 -f &quot;/home/damian/RayTracer/cmake-build-debug/test/Makefile&quot;  VERBOSE=1 tests/fast"/>
+					<CompileFile command="/usr/bin/make -j3 -f &quot;/home/damian/RayTracer/cmake-build-debug/test/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j3 -f &quot;/home/damian/RayTracer/cmake-build-debug/test/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j3 -f &quot;/home/damian/RayTracer/cmake-build-debug/test/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="catch_main">
+				<Option output="/home/damian/RayTracer/cmake-build-debug/lib/libcatch_main.a" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/damian/RayTracer/cmake-build-debug/test"/>
+				<Option object_output="./"/>
+				<Option type="2"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/home/damian/.conan/data/catch2/2.11.0/_/_/package/5ab84d6acfe1f23c4fae0ab88f26e3a396351ac9/include"/>
+					<Add directory="/usr/include/c++/9"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/9"/>
+					<Add directory="/usr/include/c++/9/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/9/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j3 -f &quot;/home/damian/RayTracer/cmake-build-debug/test/Makefile&quot;  VERBOSE=1 catch_main"/>
+					<CompileFile command="/usr/bin/make -j3 -f &quot;/home/damian/RayTracer/cmake-build-debug/test/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j3 -f &quot;/home/damian/RayTracer/cmake-build-debug/test/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j3 -f &quot;/home/damian/RayTracer/cmake-build-debug/test/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="catch_main/fast">
+				<Option output="/home/damian/RayTracer/cmake-build-debug/lib/libcatch_main.a" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/damian/RayTracer/cmake-build-debug/test"/>
+				<Option object_output="./"/>
+				<Option type="2"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/home/damian/.conan/data/catch2/2.11.0/_/_/package/5ab84d6acfe1f23c4fae0ab88f26e3a396351ac9/include"/>
+					<Add directory="/usr/include/c++/9"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/9"/>
+					<Add directory="/usr/include/c++/9/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/9/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j3 -f &quot;/home/damian/RayTracer/cmake-build-debug/test/Makefile&quot;  VERBOSE=1 catch_main/fast"/>
+					<CompileFile command="/usr/bin/make -j3 -f &quot;/home/damian/RayTracer/cmake-build-debug/test/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j3 -f &quot;/home/damian/RayTracer/cmake-build-debug/test/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j3 -f &quot;/home/damian/RayTracer/cmake-build-debug/test/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="constexpr_tests">
+				<Option output="/home/damian/RayTracer/cmake-build-debug/bin/constexpr_tests" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/damian/RayTracer/cmake-build-debug/bin"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/home/damian/.conan/data/catch2/2.11.0/_/_/package/5ab84d6acfe1f23c4fae0ab88f26e3a396351ac9/include"/>
+					<Add directory="/usr/include/c++/9"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/9"/>
+					<Add directory="/usr/include/c++/9/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/9/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j3 -f &quot;/home/damian/RayTracer/cmake-build-debug/test/Makefile&quot;  VERBOSE=1 constexpr_tests"/>
+					<CompileFile command="/usr/bin/make -j3 -f &quot;/home/damian/RayTracer/cmake-build-debug/test/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j3 -f &quot;/home/damian/RayTracer/cmake-build-debug/test/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j3 -f &quot;/home/damian/RayTracer/cmake-build-debug/test/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="constexpr_tests/fast">
+				<Option output="/home/damian/RayTracer/cmake-build-debug/bin/constexpr_tests" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/damian/RayTracer/cmake-build-debug/bin"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/home/damian/.conan/data/catch2/2.11.0/_/_/package/5ab84d6acfe1f23c4fae0ab88f26e3a396351ac9/include"/>
+					<Add directory="/usr/include/c++/9"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/9"/>
+					<Add directory="/usr/include/c++/9/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/9/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j3 -f &quot;/home/damian/RayTracer/cmake-build-debug/test/Makefile&quot;  VERBOSE=1 constexpr_tests/fast"/>
+					<CompileFile command="/usr/bin/make -j3 -f &quot;/home/damian/RayTracer/cmake-build-debug/test/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j3 -f &quot;/home/damian/RayTracer/cmake-build-debug/test/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j3 -f &quot;/home/damian/RayTracer/cmake-build-debug/test/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="relaxed_constexpr_tests">
+				<Option output="/home/damian/RayTracer/cmake-build-debug/bin/relaxed_constexpr_tests" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/damian/RayTracer/cmake-build-debug/bin"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add option="-DCATCH_CONFIG_RUNTIME_STATIC_REQUIRE"/>
+					<Add directory="/home/damian/.conan/data/catch2/2.11.0/_/_/package/5ab84d6acfe1f23c4fae0ab88f26e3a396351ac9/include"/>
+					<Add directory="/usr/include/c++/9"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/9"/>
+					<Add directory="/usr/include/c++/9/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/9/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j3 -f &quot;/home/damian/RayTracer/cmake-build-debug/test/Makefile&quot;  VERBOSE=1 relaxed_constexpr_tests"/>
+					<CompileFile command="/usr/bin/make -j3 -f &quot;/home/damian/RayTracer/cmake-build-debug/test/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j3 -f &quot;/home/damian/RayTracer/cmake-build-debug/test/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j3 -f &quot;/home/damian/RayTracer/cmake-build-debug/test/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="relaxed_constexpr_tests/fast">
+				<Option output="/home/damian/RayTracer/cmake-build-debug/bin/relaxed_constexpr_tests" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/damian/RayTracer/cmake-build-debug/bin"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add option="-DCATCH_CONFIG_RUNTIME_STATIC_REQUIRE"/>
+					<Add directory="/home/damian/.conan/data/catch2/2.11.0/_/_/package/5ab84d6acfe1f23c4fae0ab88f26e3a396351ac9/include"/>
+					<Add directory="/usr/include/c++/9"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/9"/>
+					<Add directory="/usr/include/c++/9/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/9/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j3 -f &quot;/home/damian/RayTracer/cmake-build-debug/test/Makefile&quot;  VERBOSE=1 relaxed_constexpr_tests/fast"/>
+					<CompileFile command="/usr/bin/make -j3 -f &quot;/home/damian/RayTracer/cmake-build-debug/test/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j3 -f &quot;/home/damian/RayTracer/cmake-build-debug/test/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j3 -f &quot;/home/damian/RayTracer/cmake-build-debug/test/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="intro">
+				<Option output="/home/damian/RayTracer/cmake-build-debug/bin/intro" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/damian/RayTracer/cmake-build-debug/bin"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add option="-DSPDLOG_COMPILED_LIB"/>
+					<Add option="-DSPDLOG_FMT_EXTERNAL"/>
+					<Add directory="/home/damian/.conan/data/docopt.cpp/0.6.2/_/_/package/038baac88f4c7bfa972ce5adac1616bed8fe2ef4/include"/>
+					<Add directory="/home/damian/.conan/data/fmt/6.1.2/_/_/package/038baac88f4c7bfa972ce5adac1616bed8fe2ef4/include"/>
+					<Add directory="/home/damian/.conan/data/spdlog/1.5.0/_/_/package/9df34d57e1d38147409e41fa69c20cd1153df23b/include"/>
+					<Add directory="/usr/include/c++/9"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/9"/>
+					<Add directory="/usr/include/c++/9/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/9/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j3 -f &quot;/home/damian/RayTracer/cmake-build-debug/src/Makefile&quot;  VERBOSE=1 intro"/>
+					<CompileFile command="/usr/bin/make -j3 -f &quot;/home/damian/RayTracer/cmake-build-debug/src/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j3 -f &quot;/home/damian/RayTracer/cmake-build-debug/src/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j3 -f &quot;/home/damian/RayTracer/cmake-build-debug/src/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="intro/fast">
+				<Option output="/home/damian/RayTracer/cmake-build-debug/bin/intro" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/damian/RayTracer/cmake-build-debug/bin"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add option="-DSPDLOG_COMPILED_LIB"/>
+					<Add option="-DSPDLOG_FMT_EXTERNAL"/>
+					<Add directory="/home/damian/.conan/data/docopt.cpp/0.6.2/_/_/package/038baac88f4c7bfa972ce5adac1616bed8fe2ef4/include"/>
+					<Add directory="/home/damian/.conan/data/fmt/6.1.2/_/_/package/038baac88f4c7bfa972ce5adac1616bed8fe2ef4/include"/>
+					<Add directory="/home/damian/.conan/data/spdlog/1.5.0/_/_/package/9df34d57e1d38147409e41fa69c20cd1153df23b/include"/>
+					<Add directory="/usr/include/c++/9"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/9"/>
+					<Add directory="/usr/include/c++/9/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/9/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j3 -f &quot;/home/damian/RayTracer/cmake-build-debug/src/Makefile&quot;  VERBOSE=1 intro/fast"/>
+					<CompileFile command="/usr/bin/make -j3 -f &quot;/home/damian/RayTracer/cmake-build-debug/src/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j3 -f &quot;/home/damian/RayTracer/cmake-build-debug/src/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j3 -f &quot;/home/damian/RayTracer/cmake-build-debug/src/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+		</Build>
+		<Unit filename="/home/damian/RayTracer/src/main.cpp">
+			<Option target="intro"/>
+		</Unit>
+		<Unit filename="/home/damian/RayTracer/test/catch_main.cpp">
+			<Option target="catch_main"/>
+		</Unit>
+		<Unit filename="/home/damian/RayTracer/test/constexpr_tests.cpp">
+			<Option target="constexpr_tests"/>
+			<Option target="relaxed_constexpr_tests"/>
+		</Unit>
+		<Unit filename="/home/damian/RayTracer/test/tests.cpp">
+			<Option target="tests"/>
+		</Unit>
+		<Unit filename="/home/damian/RayTracer/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\"/>
+		</Unit>
+		<Unit filename="/home/damian/RayTracer/cmake/Cache.cmake">
+			<Option virtualFolder="CMake Files\cmake\"/>
+		</Unit>
+		<Unit filename="/home/damian/RayTracer/cmake/CompilerWarnings.cmake">
+			<Option virtualFolder="CMake Files\cmake\"/>
+		</Unit>
+		<Unit filename="/home/damian/RayTracer/cmake/Conan.cmake">
+			<Option virtualFolder="CMake Files\cmake\"/>
+		</Unit>
+		<Unit filename="/home/damian/RayTracer/cmake/Doxygen.cmake">
+			<Option virtualFolder="CMake Files\cmake\"/>
+		</Unit>
+		<Unit filename="/home/damian/RayTracer/cmake/Sanitizers.cmake">
+			<Option virtualFolder="CMake Files\cmake\"/>
+		</Unit>
+		<Unit filename="/home/damian/RayTracer/cmake/StandardProjectSettings.cmake">
+			<Option virtualFolder="CMake Files\cmake\"/>
+		</Unit>
+		<Unit filename="/home/damian/RayTracer/cmake/StaticAnalyzers.cmake">
+			<Option virtualFolder="CMake Files\cmake\"/>
+		</Unit>
+		<Unit filename="/home/damian/RayTracer/cmake-build-debug/conan.cmake">
+			<Option virtualFolder="CMake Files\cmake-build-debug\"/>
+		</Unit>
+		<Unit filename="/home/damian/RayTracer/cmake-build-debug/conanbuildinfo.cmake">
+			<Option virtualFolder="CMake Files\cmake-build-debug\"/>
+		</Unit>
+		<Unit filename="/home/damian/RayTracer/test/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\test\"/>
+		</Unit>
+		<Unit filename="/home/damian/RayTracer/../.conan/data/catch2/2.11.0/_/_/package/5ab84d6acfe1f23c4fae0ab88f26e3a396351ac9/lib/cmake/Catch2/Catch.cmake">
+			<Option virtualFolder="CMake Files\..\.conan\data\catch2\2.11.0\_\_\package\5ab84d6acfe1f23c4fae0ab88f26e3a396351ac9\lib\cmake\Catch2\"/>
+		</Unit>
+		<Unit filename="/home/damian/RayTracer/src/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\src\"/>
+		</Unit>
+	</Project>
+</CodeBlocks_project_file>
