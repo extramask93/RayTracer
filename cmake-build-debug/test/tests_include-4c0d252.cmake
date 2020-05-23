@@ -1,5 +1,0 @@
-if(EXISTS "/home/damian/RayTracer/cmake-build-debug/test/tests_tests-4c0d252.cmake")
-  include("/home/damian/RayTracer/cmake-build-debug/test/tests_tests-4c0d252.cmake")
-else()
-  add_test(tests_NOT_BUILT-4c0d252 tests_NOT_BUILT-4c0d252)
-endif()
