@@ -18,7 +18,7 @@ public:
   {
     return Tuple(x_, y_, z_, 0.0);
   }
-  constexpr bool operator==(const Tuple &other) const
+  bool operator==(const Tuple &other) const
   {
     return equal(x , other.x) && equal(y, other.y) && equal(z, other.z) && equal(w , other.w);
   }
@@ -39,7 +39,7 @@ public:
   TupleType w;
 
 private:
-  static constexpr bool equal(TupleType lhs, TupleType rhs) {
+  static bool equal(TupleType lhs, TupleType rhs) {
     auto difference = std::abs(lhs-rhs);
     return difference > eps_ ? false : true;
   }
