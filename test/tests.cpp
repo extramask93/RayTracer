@@ -92,7 +92,7 @@ SCENARIO("vector() creates tuples with w==0")
     util::Tuple p = util::Tuple::vector(4, -4, 3);
     THEN("p == tuple(4,-4,3,0.0)")
     {
-      p == util::Tuple(4, -4, 3, 0.0);
+      REQUIRE(p == util::Tuple(4, -4, 3, 0.0));
     }
   }
 }

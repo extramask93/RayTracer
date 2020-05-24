@@ -39,7 +39,7 @@ public:
   TupleType w;
 
 private:
-  constexpr bool equal(TupleType lhs, TupleType rhs) const {
+  static constexpr bool equal(TupleType lhs, TupleType rhs) {
     auto difference = std::abs(lhs-rhs);
     return difference > eps_ ? false : true;
   }
