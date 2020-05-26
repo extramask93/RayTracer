@@ -35,11 +35,11 @@ SCENARIO("A tuple with w = 1.0 is a point")
     }
     AND_THEN("a is a point")
     {
-      REQUIRE(a.isPoint() == true);
+      REQUIRE(a.isPoint());
     }
     AND_THEN("a is not a vector")
     {
-      REQUIRE(a.isVector() == false);
+      REQUIRE(!a.isVector());
     }
   }
 }
@@ -66,11 +66,11 @@ SCENARIO("A tuple with w = 0.0 is a vector")
     }
     AND_THEN("a is a point")
     {
-      REQUIRE(a.isPoint() == false);
+      REQUIRE(!a.isPoint());
     }
     AND_THEN("a is not a vector")
     {
-      REQUIRE(a.isVector() == true);
+      REQUIRE(a.isVector());
     }
   }
 }
@@ -152,6 +152,153 @@ SCENARIO("Subtracting two vectors")
       THEN("p == tuple(1,1,6,1.0)")
       {
         REQUIRE(p1 - p2 == util::Tuple::vector(-2, -4, -6));
+      }
+    }
+  }
+}
+SCENARIO("Subtracting  a vector from the zero vector")
+{
+  GIVEN("zero = vector(0,0,0)")
+  {
+    auto zero = util::Tuple::vector(0, 0, 0);
+    AND_GIVEN("v = vector(1,-2,3)")
+    {
+      auto v = util::Tuple::vector(1, -2, 3);
+      THEN("zero - v  == vector(-1,2,-3)")
+      {
+        REQUIRE((zero - v) == util::Tuple::vector(-1, 2, -3));
+      }
+    }
+  }
+}
+SCENARIO("Negating a tuple")
+{
+  GIVEN("a <- tuple (1,-2,3,-4)")
+  {
+    auto a = util::Tuple(1, -2, 3, -4);
+    THEN("-a = tuple(-1,2,-3,4)")
+    {
+      REQUIRE(-a == util::Tuple(-1, 2, -3, 4));
+    }
+  }
+}
+SCENARIO("Multiplying by scalar")
+{
+  GIVEN("a = tuple(1,-2,3,-4)")
+  {
+    auto a = util::Tuple(1, -2, 3, -4);
+    THEN("a*3.5 = tuple(3.5,-7,10.5,-14)")
+    {
+      REQUIRE(a * 3.5 == util::Tuple(3.5, -7, 10.5, -14));
+    }
+  }
+}
+
+SCENARIO("Dividing by scalar")
+{
+  GIVEN("a = tuple(1,-2,3,-4)")
+  {
+    auto a = util::Tuple(1, -2, 3, -4);
+    THEN("a/2 = tuple(0.5,-1,1.5,-2)")
+    {
+      REQUIRE(a / 2 == util::Tuple(0.5, -1, 1.5, -2));
+    }
+  }
+}
+SCENARIO("Computing the magnitude of vector")
+{
+  GIVEN("v = vector(1,0,0)")
+  {
+    auto v = util::Tuple::vector(1, 0, 0);
+    THEN("magnitude(v) = 1")
+    {
+      REQUIRE(v.magnitude() == 1);
+    }
+  }
+  GIVEN("v = vector(0,1,0)")
+  {
+    auto v = util::Tuple::vector(0, 1, 0);
+    THEN("magnitude(v) = 1")
+    {
+      REQUIRE(v.magnitude() == 1);
+    }
+  }
+  GIVEN("v = vector(0,0,1)")
+  {
+    auto v = util::Tuple::vector(0, 0, 1);
+    THEN("magnitude(v) = 1")
+    {
+      REQUIRE(v.magnitude() == 1);
+    }
+  }
+  GIVEN("v = vector(1,2,3)")
+  {
+    auto v = util::Tuple::vector(1, 2, 3);
+    THEN("magnitude(v) = sqrt(14)")
+    {
+      REQUIRE(v.magnitude() == std::sqrt(14));
+    }
+  }
+  GIVEN("v = vector(-1,-2,-3)")
+  {
+    auto v = util::Tuple::vector(-1, -2, -3);
+    THEN("magnitude(v) = sqrt(14)")
+    {
+      REQUIRE(v.magnitude() == std::sqrt(14));
+    }
+  }
+}
+
+SCENARIO("Narmalizing vectors")
+{
+  GIVEN("v = vector(4,0,0)")
+  {
+    auto v = util::Tuple::vector(4, 0, 0);
+    THEN("normalize(v) = vector(1,0,0)")
+    {
+      REQUIRE(v.normalize() == util::Tuple::vector(1, 0, 0));
+    }
+  }
+  GIVEN("v = vector(1,2,3)")
+  {
+    auto v = util::Tuple::vector(1, 2, 3);
+    THEN("normalize(v) = vector(1/sqrt(14),2/sqrt(14),3/sqrt(14))")
+    {
+      REQUIRE(v.normalize() == util::Tuple::vector(0.26726, 0.53452, 0.80178));
+    }
+  }
+}
+
+SCENARIO("Dot product of two tuples")
+{
+  GIVEN("a = vector(4,0,0)")
+  {
+    auto a = util::Tuple::vector(1, 2, 3);
+    AND_GIVEN("b = vector(2,3,4)")
+    {
+      auto b = util::Tuple::vector(2, 3, 4);
+      THEN("dot(a,b) = 20")
+      {
+        REQUIRE(a.dot(b) == 20);
+      }
+    }
+  }
+}
+
+SCENARIO("Cross product of two tuples")
+{
+  GIVEN("a = vector(1,2,3)")
+  {
+    auto a = util::Tuple::vector(1, 2, 3);
+    AND_GIVEN("b = vector(2,3,4)")
+    {
+      auto b = util::Tuple::vector(2, 3, 4);
+      THEN("cross(a,b) = vector(-1,2,-1)")
+      {
+        REQUIRE(a.cross(b) == util::Tuple::vector(-1,2,-1));
+        AND_THEN("cross(b,a) = vector(1,-2,1)") {
+          REQUIRE(b.cross(a) == util::Tuple::vector(1,-2,1));
+        }
       }
     }
   }
