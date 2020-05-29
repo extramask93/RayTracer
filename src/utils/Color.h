@@ -11,7 +11,7 @@ class Color
 {
 
 public:
-  constexpr Color(TupleType red, TupleType green, TupleType blue) : r(red), g(green), b(blue) {}
+  explicit constexpr Color(TupleType red, TupleType green, TupleType blue) : r(red), g(green), b(blue) {}
   constexpr Color operator+(const Color &other) const
   {
     return Color(r + other.r, g + other.g, b + other.b);
