@@ -2,44 +2,33 @@
 #include <iostream>
 
 #include <spdlog/spdlog.h>
+#include <Tuple.h>
+struct Projectile {
+  util::Tuple position = util::Tuple::point(0,1,0);
+  util::Tuple velocity = util::Tuple::vector(1,1,0).normalize();
+};
+struct Environment {
+  util::Tuple gravity = util::Tuple::vector(0,-0.1,0);
+  util::Tuple wind = util::Tuple::vector(-0.01,0,0);
+};
 
-
-#include <docopt/docopt.h>
-
-#include <iostream>
-
-static constexpr auto USAGE =
-  R"(Naval Fate.
-
-    Usage:
-          naval_fate ship new <name>...
-          naval_fate ship <name> move <x> <y> [--speed=<kn>]
-          naval_fate ship shoot <x> <y>
-          naval_fate mine (set|remove) <x> <y> [--moored | --drifting]
-          naval_fate (-h | --help)
-          naval_fate --version
- Options:
-          -h --help     Show this screen.
-          --version     Show version.
-          --speed=<kn>  Speed in knots [default: 10].
-          --moored      Moored (anchored) mine.
-          --drifting    Drifting mine.
-)";
+void tick(const Environment &env, Projectile &p) {
+  p.position = p.position + p.velocity;
+  p.velocity = p.velocity + env.gravity + env.wind;
+}
 
 int main(int argc, const char **argv)
 {
-  std::map<std::string, docopt::value> args = docopt::docopt(USAGE,
-    { std::next(argv), std::next(argv, argc) },
-    true,// show help if requested
-    "Naval Fate 2.0");// version string
-
-  for (auto const &arg : args) {
-    std::cout << arg.first << arg.second << std::endl;
+  (void)argc;
+  (void)argv;
+  //Use the default logger (stdout, multi-threaded, colored)
+  Projectile projectile;
+  Environment environment;
+  while (projectile.position.y > 0 ) {
+    std::cout<<projectile.position<<'\n';
+ //     spdlog::info("Position: {}!", projectile.position);
+      tick(environment,projectile);
   }
 
-
-  //Use the default logger (stdout, multi-threaded, colored)
-  spdlog::info("Hello, {}!", "World");
-
-  fmt::print("Hello, from {}\n", "{fmt}");
+ // fmt::print("Hello, from {}\n", "{fmt}");
 }

@@ -4,8 +4,10 @@ target_link_libraries(utils PRIVATE project_options project_warnings CONAN_PKG::
 target_sources(utils
         PRIVATE
         Tuple.cpp
+        Color.cpp
         PUBLIC
        ${CMAKE_CURRENT_LIST_DIR}/Tuple.h
+        ${CMAKE_CURRENT_LIST_DIR}/Color.h
         )
 target_include_directories(utils
         PUBLIC
