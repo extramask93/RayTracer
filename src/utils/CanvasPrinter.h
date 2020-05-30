@@ -5,6 +5,7 @@
 #ifndef MYPROJECT_CANVASPRINTER_H
 #define MYPROJECT_CANVASPRINTER_H
 #include <filesystem>
+#include <string>
 #include <Canvas.h>
 namespace util {
 

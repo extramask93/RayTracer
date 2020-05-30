@@ -8,6 +8,8 @@ target_sources(utils
         PUBLIC
        ${CMAKE_CURRENT_LIST_DIR}/Tuple.h
         ${CMAKE_CURRENT_LIST_DIR}/Color.h
+        ${CMAKE_CURRENT_LIST_DIR}/Canvas.h
+        ${CMAKE_CURRENT_LIST_DIR}/CanvasPrinter.h
         )
 target_include_directories(utils
         PUBLIC

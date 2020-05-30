@@ -22,6 +22,7 @@ std::vector<util::Color>::const_iterator Canvas::end() const
 }
 const Color &Canvas::operator()(unsigned int x, unsigned int y) const
 {
+
   return m_buffer[xyToIndex(x,y)];
 }
 Color &Canvas::operator()(unsigned int x, unsigned int y)

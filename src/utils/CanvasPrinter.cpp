@@ -4,6 +4,7 @@
 
 #include "CanvasPrinter.h"
 #include <fstream>
+#include <sstream>
 void util::CanvasPrinter::printToPPM(const std::filesystem::path &path, const util::Canvas &canvas) const
 {
   std::ofstream file(path, std::ios::trunc);
