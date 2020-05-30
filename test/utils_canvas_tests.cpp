@@ -7,6 +7,10 @@
 #include <Canvas.h>
 #include <CanvasPrinter.h>
 #include <fstream>
+#include <algorithm>
+#include <string>
+#include <sstream>
+#include <filesystem>
 SCENARIO("Creating a canvas")
 {
   GIVEN("Width and height of canvas")
