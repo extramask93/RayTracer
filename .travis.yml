@@ -51,6 +51,7 @@ jobs:
           packages:
             - clang-9
             - libc++-9-dev
+            - libstdc++-9-dev
             - doxygen
       env:
         - MATRIX_EVAL="CC=clang-9 && CXX=clang++-9"
