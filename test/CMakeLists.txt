@@ -8,9 +8,6 @@ endif()
 
 add_library(catch_main STATIC catch_main.cpp)
 target_link_libraries(catch_main PUBLIC CONAN_PKG::catch2)
-target_link_libraries(catch_main PUBLIC
-        $<$<PLATFORM_ID:Linux>:stdc++fs>
-        $<$<PLATFORM_ID:Darwin>:c++fs>)
 target_link_libraries(catch_main PRIVATE project_options)
 
 add_executable(tests utils_tuple_tests.cpp utils_color_tests.cpp utils_canvas_tests.cpp)
