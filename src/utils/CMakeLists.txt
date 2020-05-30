@@ -1,4 +1,4 @@
-add_library(utils "" Canvas.cpp Canvas.h)
+add_library(utils "" Canvas.cpp Canvas.h CanvasPrinter.cpp CanvasPrinter.h)
 target_link_libraries(utils PRIVATE project_options project_warnings CONAN_PKG::docopt.cpp
         CONAN_PKG::fmt CONAN_PKG::spdlog)
 target_sources(utils

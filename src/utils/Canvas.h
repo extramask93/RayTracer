@@ -40,33 +40,10 @@ constexpr unsigned Canvas::height() const
 {
   return m_height;
 }
-std::vector<util::Color>::iterator Canvas::begin()
-{
-  return m_buffer.begin();
-}
-std::vector<util::Color>::iterator Canvas::end()
-{
-  return m_buffer.end();
-}
-std::vector<util::Color>::const_iterator Canvas::begin() const
-{
- return m_buffer.begin();
-}
-std::vector<util::Color>::const_iterator Canvas::end() const
-{
-  return m_buffer.end();
-}
+
 constexpr unsigned Canvas::xyToIndex(unsigned int x, unsigned int y) const
 {
   return y*m_width + x;
-}
-const Color &Canvas::operator()(unsigned int x, unsigned int y) const
-{
-  return m_buffer[xyToIndex(x,y)];
-}
-Color &Canvas::operator()(unsigned int x, unsigned int y)
-{
-  return m_buffer[xyToIndex(x,y)];
 }
 }// namespace util
 #endif//MYPROJECT_CANVAS_H
