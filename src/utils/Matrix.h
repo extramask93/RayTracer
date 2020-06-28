@@ -6,6 +6,8 @@
 #define MYPROJECT_MATRIX_H
 #include <vector>
 #include <Tuple.h>
+#pragma push_macro("minor")
+#undef minor
 namespace util {
 template<typename T>
 class Matrix
@@ -20,6 +22,11 @@ public:
   [[nodiscard]] constexpr unsigned nrOfCells() const;
   [[nodiscard]] constexpr unsigned nrOfRows() const;
   [[nodiscard]] constexpr unsigned nrOfColumns() const;
+  [[nodiscard]] constexpr Matrix<T> transpose() const;
+  [[nodiscard]] constexpr T det() const;
+  [[nodiscard]] constexpr Matrix<T> submatrix(unsigned row, unsigned column) const;
+  [[nodiscard]] constexpr T mminor(unsigned row, unsigned column) const;
+  [[nodiscard]] constexpr T cofactor(unsigned row, unsigned column) const;
   static Matrix<T> Identity(unsigned size);
   struct Loader {
     Matrix<T> &m_m;
@@ -131,6 +138,58 @@ Matrix<T> Matrix<T>::Identity(unsigned size)
   }
   return m;
 }
+template<typename T>
+constexpr Matrix<T> Matrix<T>::transpose() const
+{
+  util::Matrix<T> result(nrOfColumns(),nrOfRows());
+  for(unsigned row = 0; row < nrOfRows(); row++) {
+    for(unsigned col = 0; col < nrOfColumns();col++) {
+       result(col,row) = operator()(row,col);
+    }
+  }
+  return result;
+}
+template<typename T>
+constexpr T Matrix<T>::det() const
+{
+  T result;
+  result = operator()(0,0)*operator()(1,1) - operator()(0,1)*operator()(1,0);
+  return result;
+}
+template<typename T>
+constexpr Matrix<T> Matrix<T>::submatrix(unsigned row, unsigned column) const
+{
+  Matrix<T> result(nrOfRows()-1,nrOfColumns()-1);
+  unsigned rowcnt = 0;
+  unsigned colcnt = 0;
+  for(unsigned r = 0; r < nrOfRows(); r++) {
+    colcnt = 0;
+    if(r ==row) {
+      continue;
+    }
+    for(unsigned c =0; c < nrOfColumns(); c++) {
+      if(column == c) {
+        continue;
+      }
+      result(rowcnt,colcnt) = operator()(r,c);
+      colcnt++;
+    }
+    rowcnt++;
+  }
+  return result;
+}
+template<typename T>
+constexpr T Matrix<T>::mminor(unsigned int row, unsigned int column) const
+{
+  return submatrix(row,column).det();
+}
+template<typename T>
+constexpr T Matrix<T>::cofactor(unsigned int row, unsigned int column) const
+{
+  auto m = mminor(row,column);
+  return row+column % 2 ? -m : m;
+}
 
 }// namespace util
+#pragma pop_macro("minor")
 #endif//MYPROJECT_MATRIX_H

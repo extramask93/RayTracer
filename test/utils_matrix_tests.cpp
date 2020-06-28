@@ -8,7 +8,6 @@
 #include <CanvasPrinter.h>
 #include <fstream>
 #include <algorithm>
-#include <eigen3/Eigen/Eigen>
 #include <string>
 #include <sstream>
 #include <Matrix.h>
@@ -145,5 +144,104 @@ SCENARIO("Multiplying matrix by identity matrix") {
         REQUIRE(A * B == A);
       }
     }
+  }
+}
+SCENARIO("Transposing a matrix") {
+  GIVEN("Matrix A") {
+    util::Matrix<double> A(4,4);
+    A<<0,9,3,0,
+      9,8,0,8,
+      1,8,5,3,
+      0,0,5,8;
+    AND_GIVEN("Transpose of matrix A") {
+      util::Matrix<double> T(4,4);
+      T<<0,9,1,0,
+        9,8,8,0,
+        3,0,5,5,
+        0,8,3,8;
+      THEN("A.transpose == T")
+      {
+        REQUIRE(A.transpose() == T);
+      }
+    }
+  }
+}
+SCENARIO("Transposing an identity matrix") {
+  GIVEN("Identity Matrix A") {
+    util::Matrix<double> A = util::Matrix<double>::Identity(4);
+      THEN("A.transpose == A")
+      {
+        REQUIRE(A.transpose() == A);
+      }
+  }
+}
+SCENARIO("Calculating determinant of a 2x2 matrix") {
+  GIVEN("Matrix A") {
+    util::Matrix<double> A(2,2);
+    A<< 1,5,-3,2;
+    THEN("A.det() == 17")
+    {
+      REQUIRE(A.det() == 17);
+    }
+  }
+}
+SCENARIO("A submatrix of a 3x3 matrix is a 2x2 matrix") {
+  GIVEN("Matrix 3x3 A") {
+    util::Matrix<double> A(3,3);
+    A<< 1,5,0,
+      -3,2,7,
+      0,6,-3;
+    THEN("A.submatrix(0,2) is the following matrix")
+    {
+      util::Matrix<double> submatrix(2,2);
+      submatrix<<-3,2,0,6;
+      REQUIRE(A.submatrix(0,2) == submatrix);
+    }
+  }
+}
+SCENARIO("A submatrix of a 4x4 matrix is a 3x3 matrix") {
+  GIVEN("Matrix 3x3 A") {
+    util::Matrix<double> A(4,4);
+    A<< -6,1,1,6,
+      -8,5,8,6,
+      -1,0,8,2,
+      -7,1,-1,1;
+    THEN("A.submatrix(2,1) is the following matrix")
+    {
+      util::Matrix<double> submatrix(3,3);
+      submatrix<<-6,1,6,-8,8,6,-7,-1,1;
+      REQUIRE(A.submatrix(2,1) == submatrix);
+    }
+  }
+}
+SCENARIO("Calculating minor a 3x3 matrix") {
+  GIVEN("Matrix 3x3 A") {
+    util::Matrix<double> A(3,3);
+    A<< 3,5,0,2,-1,-7,6,-1,5;
+    AND_GIVEN("B = A.submatrinx(1,0)")
+    {
+      auto B = A.submatrix(1,0);
+      THEN("Determinant(B) ==25 ")
+      {
+        REQUIRE(B.det() == 25);
+        REQUIRE(A.mminor(1,0) == 25);
+      }
+    }
+  }
+}
+
+SCENARIO("Calculating cofactor a 3x3 matrix") {
+  GIVEN("Matrix 3x3 A") {
+    util::Matrix<double> A(3,3);
+    A<< 3,5,0,
+      2,-1,-7,
+      6,-1,5;
+      THEN("A.minor(0,0) == -12 ")
+      {
+        REQUIRE(A.mminor(0, 0) == -12);
+        REQUIRE(A.cofactor(0,0) == -12);
+        REQUIRE(A.mminor(1,0) == 25);
+        REQUIRE(A.cofactor(1,0) == -25);
+      }
   }
 }
