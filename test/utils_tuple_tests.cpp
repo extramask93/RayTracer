@@ -6,21 +6,21 @@ SCENARIO("A tuple with w = 1.0 is a point")
   GIVEN("Vector a with w set to 1.0")
   {
     util::Tuple a(4.3, -4.2, 3.1, 1.0);
-    THEN("a.x is set properly ")
+    THEN("a.x() is set proper.y() ")
     {
-      REQUIRE(a.x == 4.3);
+      REQUIRE(a.x() == 4.3);
     }
-    AND_THEN("a.y is set properly")
+    AND_THEN("a.y() is set proper.y()")
     {
-      REQUIRE(a.y == -4.2);
+      REQUIRE(a.y() == -4.2);
     }
-    AND_THEN("a.z is set properly")
+    AND_THEN("a.z is set proper.y()")
     {
-      REQUIRE(a.z == 3.1);
+      REQUIRE(a.z() == 3.1);
     }
     AND_THEN("a.w is equal to  1.0")
     {
-      REQUIRE(a.w == 1.0);
+      REQUIRE(a.w() == 1.0);
     }
     AND_THEN("a is a point")
     {
@@ -37,21 +37,21 @@ SCENARIO("A tuple with w = 0.0 is a vector")
   GIVEN("Vector a with w set to 1.0")
   {
     util::Tuple a(4.3, -4.2, 3.1, 0.0);
-    THEN("a.x is set properly ")
+    THEN("a.x() is set proper.y() ")
     {
-      REQUIRE(a.x == 4.3);
+      REQUIRE(a.x() == 4.3);
     }
-    AND_THEN("a.y is set properly")
+    AND_THEN("a.y() is set proper.y()")
     {
-      REQUIRE(a.y == -4.2);
+      REQUIRE(a.y() == -4.2);
     }
-    AND_THEN("a.z is set properly")
+    AND_THEN("a.z is set proper.y()")
     {
-      REQUIRE(a.z == 3.1);
+      REQUIRE(a.z() == 3.1);
     }
     AND_THEN("a.w is equal to  1.0")
     {
-      REQUIRE(a.w == 0.0);
+      REQUIRE(a.w() == 0.0);
     }
     AND_THEN("a is a point")
     {
@@ -171,7 +171,7 @@ SCENARIO("Negating a tuple")
     }
   }
 }
-SCENARIO("Multiplying by scalar")
+SCENARIO("Multip.y()ing .y() scalar")
 {
   GIVEN("a = tuple(1,-2,3,-4)")
   {
@@ -183,7 +183,7 @@ SCENARIO("Multiplying by scalar")
   }
 }
 
-SCENARIO("Dividing by scalar")
+SCENARIO("Dividing .y() scalar")
 {
   GIVEN("a = tuple(1,-2,3,-4)")
   {

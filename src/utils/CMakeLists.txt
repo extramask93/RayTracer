@@ -5,10 +5,12 @@ target_sources(utils
         PRIVATE
         Tuple.cpp
         Color.cpp
+        Matrix.cpp
         PUBLIC
        ${CMAKE_CURRENT_LIST_DIR}/Tuple.h
         ${CMAKE_CURRENT_LIST_DIR}/Color.h
         ${CMAKE_CURRENT_LIST_DIR}/Canvas.h
+        ${CMAKE_CURRENT_LIST_DIR}/Matrix.h
         ${CMAKE_CURRENT_LIST_DIR}/CanvasPrinter.h
         )
 target_include_directories(utils

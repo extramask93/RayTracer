@@ -30,10 +30,10 @@ int main(int argc, const char **argv)
   Projectile projectile;
   Environment environment;
   util::Canvas canvas(900, 550);
-  while (projectile.position.y > 0) {
+  while (projectile.position.y() > 0) {
     std::cout << projectile.position << '\n';
-    unsigned int x = static_cast<unsigned int>(projectile.position.x);
-    unsigned int y = canvas.height() - static_cast<unsigned int>(projectile.position.y);
+    unsigned int x = static_cast<unsigned int>(projectile.position.x());
+    unsigned int y = canvas.height() - static_cast<unsigned int>(projectile.position.y());
     tick(environment, projectile);
     if (x <= canvas.width() && y <= canvas.height())
       canvas(x, y) = util::Color(1, 0, 0);
