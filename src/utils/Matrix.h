@@ -20,9 +20,11 @@ public:
   [[nodiscard]] constexpr bool operator!=(const Matrix<T> &other) const;
   [[nodiscard]] constexpr Matrix<T> operator*(const Matrix<T> &other) const;
   [[nodiscard]] constexpr unsigned nrOfCells() const;
+  [[nodiscard]] constexpr bool isInvertible() const;
   [[nodiscard]] constexpr unsigned nrOfRows() const;
   [[nodiscard]] constexpr unsigned nrOfColumns() const;
   [[nodiscard]] constexpr Matrix<T> transpose() const;
+  [[nodiscard]] constexpr Matrix<T> inverse() const;
   [[nodiscard]] constexpr T det() const;
   [[nodiscard]] constexpr Matrix<T> submatrix(unsigned row, unsigned column) const;
   [[nodiscard]] constexpr T mminor(unsigned row, unsigned column) const;
@@ -39,9 +41,16 @@ public:
   };
   Loader operator<<(T data);
 private:
+  static bool equal(double lhs, double rhs)
+  {
+    auto difference = std::abs(lhs - rhs);
+    return difference <= eps_;
+  }
+private:
   unsigned m_columns;
   unsigned m_rows;
   std::vector<T> m_data;
+  static constexpr double eps_ = 0.00001;
 };
 template<typename T>
 util::Tuple operator*(const Matrix<T> &m, const util::Tuple &t) {
@@ -87,7 +96,7 @@ constexpr bool Matrix<T>::operator==(const Matrix<T> &other) const
     return false;
   }
   for(unsigned i =0; i < nrOfCells(); i++) {
-    if(m_data[i] != other.m_data[i]) {
+    if(!equal(m_data[i], other.m_data[i])) {
       return false;
     }
   }
@@ -152,8 +161,15 @@ constexpr Matrix<T> Matrix<T>::transpose() const
 template<typename T>
 constexpr T Matrix<T>::det() const
 {
-  T result;
-  result = operator()(0,0)*operator()(1,1) - operator()(0,1)*operator()(1,0);
+  T result{};
+  if(nrOfRows() == 2 && nrOfColumns() ==2) {
+    result = operator()(0, 0) * operator()(1, 1) - operator()(0, 1) * operator()(1, 0);
+  }
+  else {
+    for(unsigned i = 0; i < nrOfColumns(); i++) {
+      result += operator()(0,i) * cofactor(0,i);
+    }
+  }
   return result;
 }
 template<typename T>
@@ -162,6 +178,7 @@ constexpr Matrix<T> Matrix<T>::submatrix(unsigned row, unsigned column) const
   Matrix<T> result(nrOfRows()-1,nrOfColumns()-1);
   unsigned rowcnt = 0;
   unsigned colcnt = 0;
+
   for(unsigned r = 0; r < nrOfRows(); r++) {
     colcnt = 0;
     if(r ==row) {
@@ -181,13 +198,46 @@ constexpr Matrix<T> Matrix<T>::submatrix(unsigned row, unsigned column) const
 template<typename T>
 constexpr T Matrix<T>::mminor(unsigned int row, unsigned int column) const
 {
+
   return submatrix(row,column).det();
 }
 template<typename T>
 constexpr T Matrix<T>::cofactor(unsigned int row, unsigned int column) const
 {
   auto m = mminor(row,column);
-  return row+column % 2 ? -m : m;
+  if ((row + column) % 2) {
+    return -m;
+  } else {
+    return m;
+  }
+}
+template<typename T>
+constexpr bool Matrix<T>::isInvertible() const
+{
+  return !equal(det(), 0.0);
+}
+template<typename T>
+constexpr Matrix<T> Matrix<T>::inverse() const
+{
+  if(!isInvertible()) {
+    throw std::runtime_error("Matrix not invertible");
+  }
+  auto M = *this;
+  auto d = det();
+  if(nrOfRows() ==2 ) {
+    M(0,0) = operator()(1,1)/d;
+    M(0,1) = -operator()(1,0)/d;
+    M(1,0) = -operator()(0,1)/d;
+    M(1,1) = operator()(0,0)/d;
+    return M;
+  }
+  for(unsigned row = 0 ; row < nrOfRows(); row++) {
+    for(unsigned col = 0; col < nrOfColumns(); col++) {
+      auto c = cofactor(row,col);
+      M(col,row) = c / d;
+    }
+  }
+  return M;
 }
 
 }// namespace util

@@ -245,3 +245,121 @@ SCENARIO("Calculating cofactor a 3x3 matrix") {
       }
   }
 }
+SCENARIO("Calculating determinant of a 3x3 matrix") {
+  GIVEN("Matrix 3x3 A") {
+    util::Matrix<double> A(3,3);
+    A<< 1,2,6,
+      -5,8,-4,
+      2,6,4;
+    THEN("A.cofactor(0,0) == 56 ")
+    {
+      REQUIRE(A.cofactor(0, 0) == 56);
+      REQUIRE(A.cofactor(0,1) == 12);
+      REQUIRE(A.cofactor(0,2) == -46);
+      REQUIRE(A.det() == -196);
+    }
+  }
+}
+SCENARIO("Calculating determinant of a 4x4 matrix") {
+  GIVEN("Matrix 4x4 A") {
+    util::Matrix<double> A(4,4);
+    A<< -2,-8,3,5,
+      -3,1,7,3,
+      1,2,-9,6,
+      -6,7,7,-9;
+    THEN("A.cofactor(0,0) == 690 ")
+    {
+      REQUIRE(A.cofactor(0, 0) == 690);
+      REQUIRE(A.cofactor(0,1) == 447);
+      REQUIRE(A.cofactor(0,2) == 210);
+      REQUIRE(A.cofactor(0,3) == 51);
+      REQUIRE(A.det() == -4071);
+    }
+  }
+}
+SCENARIO("Testing an invertible matrix for inveribility") {
+  GIVEN("Matrix 4x4 A") {
+    util::Matrix<double> A(4,4);
+    A<< 6,4,4,4,
+      5,5,7,6,
+      4,-9,3,-7,
+      9,1,7,-6;
+    THEN("A.det() ==-2120 ")
+    {
+      REQUIRE(A.det() == -2120);
+      REQUIRE(A.isInvertible() == true);
+    }
+  }
+}
+
+SCENARIO("Testing a noninvertible matrix for inveribility") {
+  GIVEN("Matrix 4x4 A") {
+    util::Matrix<double> A(4,4);
+    A<< -4,2,-2,-3,
+      9,6,2,6,
+      0,-5,1,-5,
+      0,0,0,0;
+    THEN("A.det() ==0 ")
+    {
+      REQUIRE(A.det() < 0.00001);
+      REQUIRE(A.isInvertible() == false);
+    }
+  }
+}
+SCENARIO("Calculating the inverse of a matrix") {
+  GIVEN("Matrix 4x4 A") {
+    util::Matrix<double> A(4,4);
+    A<< -5,2,6,-8,
+      1,-5,1,8,
+      7,7,-6,-7,
+      1,-3,7,4;
+    AND_GIVEN("Matrix B which is it's inverse")
+    {
+      auto B = A.inverse();
+      util::Matrix<double> B2(4,4);
+
+      THEN("A.det() == 532 ")
+      {
+        REQUIRE(A.det() == 532);
+        REQUIRE(A.cofactor(2,3)== -160);
+        REQUIRE(B(3,2) == -160/532.0);
+        REQUIRE(A.cofactor(3,2) == 105);
+        REQUIRE(B(2,3) == (105.0/532.0));
+      }
+    }
+  }
+}
+SCENARIO("Multiplying matrix by its inverse") {
+  GIVEN("Matrix A") {
+    util::Matrix<double> A(4,4);
+    A<< 3,-9,7,3,
+      3,-8,2,-9,
+      -4,4,4,1,
+      -6,5,-1,1;
+    AND_GIVEN("Matrix B - its inverse") {
+      util::Matrix<double> B(4,4);
+      B<< 8,2,2,2,
+          3,-1,7,0,
+          7,0,5,4,
+          6,-2,0,5;
+      AND_GIVEN("MAtirx C = A*B") {
+        auto C = A*B;
+        auto i = B.inverse();
+        (void)i;
+        auto D = C*B.inverse();
+        THEN("C*B.inverse() == A") {
+          REQUIRE(D == A);
+        }
+      }
+    }
+  }
+}
+SCENARIO("asd") {
+  util::Matrix<double> m(2,2);
+  m << 3,3.5,3.2,3.6;
+  auto i = util::Matrix<double>::Identity(4);
+  auto d = i.inverse();
+  auto inv = m.inverse();
+  auto c = m * inv;
+  REQUIRE(m.Identity(2) == c);
+}
