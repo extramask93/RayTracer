@@ -6,6 +6,7 @@
 #define MYPROJECT_MATRIX_H
 #include <vector>
 #include <Tuple.h>
+#include <cmath>
 #pragma push_macro("minor")
 #undef minor
 namespace util {
@@ -35,6 +36,7 @@ public:
   [[nodiscard]] static Matrix<T> rotation_x(double rad);
   [[nodiscard]] static Matrix<T> rotation_y(double rad);
   [[nodiscard]] static Matrix<T> rotation_z(double rad);
+  [[nodiscard]] static Matrix<T> shearing(double Xy, double Xz, double Yx, double Yz, double Zx, double Zy);
   struct Loader {
     Matrix<T> &m_m;
     unsigned m_i;
@@ -290,6 +292,18 @@ Matrix<T> Matrix<T>::rotation_z(double rad)
   result(0,1) = -sin(rad);
   result(1,1) = cos(rad);
   result(1,0) = sin(rad);
+  return result;
+}
+template<typename T>
+Matrix<T> Matrix<T>::shearing(double Xy, double Xz, double Yx, double Yz, double Zx, double Zy)
+{
+  auto result = util::Matrix<T>::Identity(4);
+  result(0,1) = Xy;
+  result(0,2)= Xz;
+  result(1,0) = Yx;
+  result(1,2)= Yz;
+  result(2,0)=Zx;
+  result(2,1)=Zy;
   return result;
 }
 
