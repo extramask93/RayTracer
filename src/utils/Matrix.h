@@ -29,7 +29,12 @@ public:
   [[nodiscard]] constexpr Matrix<T> submatrix(unsigned row, unsigned column) const;
   [[nodiscard]] constexpr T mminor(unsigned row, unsigned column) const;
   [[nodiscard]] constexpr T cofactor(unsigned row, unsigned column) const;
-  static Matrix<T> Identity(unsigned size);
+  [[nodiscard]] static Matrix<T> Identity(unsigned size);
+  [[nodiscard]] static Matrix<T> translation(T x, T y, T z);
+  [[nodiscard]] static Matrix<T> scaling(T x, T y, T z);
+  [[nodiscard]] static Matrix<T> rotation_x(double rad);
+  [[nodiscard]] static Matrix<T> rotation_y(double rad);
+  [[nodiscard]] static Matrix<T> rotation_z(double rad);
   struct Loader {
     Matrix<T> &m_m;
     unsigned m_i;
@@ -226,8 +231,8 @@ constexpr Matrix<T> Matrix<T>::inverse() const
   auto d = det();
   if(nrOfRows() ==2 ) {
     M(0,0) = operator()(1,1)/d;
-    M(0,1) = -operator()(1,0)/d;
-    M(1,0) = -operator()(0,1)/d;
+    M(0,1) = -operator()(0,1)/d;
+    M(1,0) = -operator()(1,0)/d;
     M(1,1) = operator()(0,0)/d;
     return M;
   }
@@ -238,6 +243,54 @@ constexpr Matrix<T> Matrix<T>::inverse() const
     }
   }
   return M;
+}
+template<typename T>
+Matrix<T> Matrix<T>::translation(T x, T y, T z)
+{
+  auto result = util::Matrix<T>::Identity(4);
+  result(0,3) = x;
+  result(1,3) = y;
+  result(2,3) = z;
+  return result;
+}
+template<typename T>
+Matrix<T> Matrix<T>::scaling(T x, T y, T z)
+{
+  auto result = util::Matrix<T>::Identity(4);
+  result(0,0)=x;
+  result(1,1) = y;
+  result(2,2)=z;
+  return result;
+}
+template<typename T>
+Matrix<T> Matrix<T>::rotation_x(double rad)
+{
+  auto result = util::Matrix<T>::Identity(4);
+  result(1,1) = cos(rad);
+  result(2,2) = cos(rad);
+  result(2,1) =  sin(rad);
+  result(1,2) = -sin(rad);
+  return result;
+}
+template<typename T>
+Matrix<T> Matrix<T>::rotation_y(double rad)
+{
+  auto result = util::Matrix<T>::Identity(4);
+  result(0,0) = cos(rad);
+  result(2,0) = -sin(rad);
+  result(2,2) = cos(rad);
+  result(0,2) = sin(rad);
+  return result;
+}
+template<typename T>
+Matrix<T> Matrix<T>::rotation_z(double rad)
+{
+  auto result = util::Matrix<T>::Identity(4);
+  result(0,0) = cos(rad);
+  result(0,1) = -sin(rad);
+  result(1,1) = cos(rad);
+  result(1,0) = sin(rad);
+  return result;
 }
 
 }// namespace util

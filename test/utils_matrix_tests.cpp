@@ -354,11 +354,9 @@ SCENARIO("Multiplying matrix by its inverse") {
     }
   }
 }
-SCENARIO("asd") {
+SCENARIO("Inverse of 2x2 matrix") {
   util::Matrix<double> m(2,2);
-  m << 3,3.5,3.2,3.6;
-  auto i = util::Matrix<double>::Identity(4);
-  auto d = i.inverse();
+  m << 5,2,-7,-3;
   auto inv = m.inverse();
   auto c = m * inv;
   REQUIRE(m.Identity(2) == c);
