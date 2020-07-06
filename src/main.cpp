@@ -39,8 +39,8 @@ int main(int argc, const char **argv)
   (void)argc;
   (void)argv;
   //Use the default logger (stdout, multi-threaded, colored)
-  Projectile projectile;
-  Environment environment;
+  //Projectile projectile;
+  //Environment environment;
   util::Canvas canvas(900, 550);
   drawClock(canvas);
  /* while (projectile.position.y() > 0) {
