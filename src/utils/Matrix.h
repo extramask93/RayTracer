@@ -10,6 +10,7 @@
 #pragma push_macro("minor")
 #undef minor
 namespace util {
+
 template<typename T>
 class Matrix
 {
@@ -30,6 +31,13 @@ public:
   [[nodiscard]] constexpr Matrix<T> submatrix(unsigned row, unsigned column) const;
   [[nodiscard]] constexpr T mminor(unsigned row, unsigned column) const;
   [[nodiscard]] constexpr T cofactor(unsigned row, unsigned column) const;
+  [[nodiscard]] constexpr Matrix<T>& translate(T x, T y, T z);
+  [[nodiscard]] constexpr Matrix<T>& scale(T x, T y, T z);
+  [[nodiscard]] constexpr Matrix<T>& rotate_x(double rad);
+  [[nodiscard]] constexpr Matrix<T>& rotate_y(double rad);
+  [[nodiscard]] constexpr Matrix<T>& rotate_z(double rad);
+  [[nodiscard]] constexpr Matrix<T>& shear(double Xy, double Xz, double Yx, double Yz, double Zx, double Zy);
+  //
   [[nodiscard]] static Matrix<T> Identity(unsigned size);
   [[nodiscard]] static Matrix<T> translation(T x, T y, T z);
   [[nodiscard]] static Matrix<T> scaling(T x, T y, T z);
@@ -306,7 +314,44 @@ Matrix<T> Matrix<T>::shearing(double Xy, double Xz, double Yx, double Yz, double
   result(2,1)=Zy;
   return result;
 }
+template<typename T>
+constexpr Matrix<T> &Matrix<T>::translate(T x, T y, T z)
+{
+  *this = *this * translation(x,y,z);
+  return *this;
+}
+template<typename T>
+constexpr Matrix<T> &Matrix<T>::scale(T x, T y, T z)
+{
+  *this = *this * scaling(x,y,z);
+  return *this;
+}
+template<typename T>
+constexpr Matrix<T> &Matrix<T>::rotate_x(double rad)
+{
+  *this = *this * rotation_x(rad);
+  return *this;
+}
+template<typename T>
+constexpr Matrix<T> &Matrix<T>::rotate_y(double rad)
+{
+  *this = *this * rotation_y(rad);
+  return *this;
+}
+template<typename T>
+constexpr Matrix<T> &Matrix<T>::rotate_z(double rad)
+{
+  *this = *this * rotation_z(rad);
+  return *this;
+}
+template<typename T>
+constexpr Matrix<T> &Matrix<T>::shear(double Xy, double Xz, double Yx, double Yz, double Zx, double Zy)
+{
+  *this = *this * shear(Xy,Xz,Yx,Yz,Zx,Zy);
+  return *this;
+}
 
+using Matrixd = Matrix<double>;
 }// namespace util
 #pragma pop_macro("minor")
 #endif//MYPROJECT_MATRIX_H

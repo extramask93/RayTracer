@@ -11,9 +11,9 @@ target_link_libraries(catch_main PUBLIC CONAN_PKG::catch2)
 target_link_libraries(catch_main PRIVATE project_options)
 
 add_executable(tests utils_tuple_tests.cpp utils_color_tests.cpp utils_canvas_tests.cpp utils_matrix_tests.cpp
-        utils_matrix_transformation_tests.cpp)
+        utils_matrix_transformation_tests.cpp rays_tests.cpp spheres_tests.cpp)
 target_link_libraries(tests PRIVATE project_warnings project_options
-                                    catch_main utils)
+                                    catch_main utils raytracer)
 
 
 # automatically discover tests that are defined in catch based test files you

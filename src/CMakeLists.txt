@@ -6,6 +6,7 @@ if(RAYTRACER_USE_SFML)
   add_subdirectory(sfml)
 endif()
 add_subdirectory(utils)
+add_subdirectory(raytracer)
 # Generic test that uses conan libs
 add_executable(intro main.cpp)
 target_link_libraries(

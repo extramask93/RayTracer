@@ -91,6 +91,7 @@ private:
   }
   static constexpr TupleType eps_ = 0.00001;
 };
+
 }// namespace util
 
 #endif//MYPROJECT_TUPLE_H

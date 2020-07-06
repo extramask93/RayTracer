@@ -27,11 +27,10 @@ void drawClock(util::Canvas &canvas) {
   auto fullCicrcle = 2*M_PI;
   auto radStep = fullCicrcle/12;
   auto origin = util::Tuple::point(0,0,0);
-  auto RADIOUS = util::Matrix<double>::translation(0,100,0);
-  auto ORIGIN = util::Matrix<double>::translation(450,275,0);
   for(unsigned i=0; i<12;i++) {
-    auto ROT = util::Matrix<double>::rotation_z(i*radStep);
-    auto pos = (ORIGIN * ROT*RADIOUS)*origin;
+    auto transform = util::Matrix<double>::Identity(4).
+                     translate(450,275,0).rotate_z(i*radStep).translate(0,100,0);
+    auto pos = transform*origin;//(ORIGIN * ROT*RADIOUS)*origin;
     canvas(static_cast<unsigned >(pos.x()), static_cast<unsigned>(pos.y())) = util::Color(1, 0, 0);
   }
 }
