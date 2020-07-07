@@ -10,6 +10,7 @@
 #include <vector>
 #include <algorithm>
 #include <shapes/Shape.h>
+#include <optional>
 namespace rt {
 
 class Intersection
