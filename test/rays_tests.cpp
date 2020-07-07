@@ -44,3 +44,29 @@ SCENARIO("Computing a point from a distance")
     }
   }
 }
+SCENARIO("Translating a ray") {
+  GIVEN("A ray") {
+    auto r = rt::Ray(util::Tuple::point(1,2,3), util::Tuple::vector(0,1,0));
+    auto m = util::Matrixd::translation(3,4,5);
+    WHEN("transforming") {
+      auto r2 = r.transform(m);
+      THEN("") {
+        REQUIRE(r2.origin() == util::Tuple::point(4,6,8));
+        REQUIRE(r2.direction() == util::Tuple::vector(0,1,0));
+      }
+    }
+  }
+}
+SCENARIO("Scaling a ray") {
+  GIVEN("A ray") {
+    auto r = rt::Ray(util::Tuple::point(1,2,3), util::Tuple::vector(0,1,0));
+    auto m = util::Matrixd::scaling(2,3,4);
+    WHEN("transforming") {
+      auto r2 = r.transform(m);
+      THEN("") {
+        REQUIRE(r2.origin() == util::Tuple::point(2,6,12));
+        REQUIRE(r2.direction() == util::Tuple::vector(0,3,0));
+      }
+    }
+  }
+}

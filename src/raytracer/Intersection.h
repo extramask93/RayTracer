@@ -15,19 +15,24 @@ namespace rt {
 class Intersection
 {
 public:
-  Intersection(double t, const rt::Shape &shape);
+  Intersection(double t, const Shape * shape);
+  bool operator==(const Intersection &other) const;
+  bool operator<(const Intersection &other) const;
   [[nodiscard]] constexpr double t() const;
-  [[nodiscard]] constexpr const rt::Shape& object() const;
+  [[nodiscard]] constexpr const rt::Shape*  object() const;
 private:
-  const rt::Shape &m_shape;
+  const Shape * m_shape;
   double m_t;
 };
 
 class Intersections : public std::vector<Intersection> {
-  using std::vector<Intersection>::vector;
-  /*currently no need for implementation*/
+ // using std::vector<Intersection>::vector;
+
+public:
+  std::optional<Intersection> hit();
+  explicit Intersections(const std::initializer_list<Intersection> &elems);
 };
-constexpr const rt::Shape &Intersection::object() const
+constexpr const rt::Shape* Intersection::object() const
 {
   return m_shape;
 }
@@ -35,6 +40,8 @@ constexpr double Intersection::t() const
 {
   return m_t;
 }
+
+
 
 }
 

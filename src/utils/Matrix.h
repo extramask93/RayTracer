@@ -71,7 +71,7 @@ private:
   static constexpr double eps_ = 0.00001;
 };
 template<typename T>
-util::Tuple operator*(const Matrix<T> &m, const util::Tuple &t) {
+constexpr util::Tuple operator*(const Matrix<T> &m, const util::Tuple &t) {
 
   Tuple result(t);
   for(unsigned r = 0 ;r < m.nrOfRows(); r++) {

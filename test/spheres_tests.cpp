@@ -94,9 +94,58 @@ SCENARIO("Intersect sets the object on the intersection") {
         auto xs = sphere.intersect(ray);
         THEN("") {
           REQUIRE(xs.size() ==2);
-          REQUIRE(xs[0].object() == sphere);
-          REQUIRE(xs[1].object() == sphere);
+          REQUIRE(xs[0].object() == &sphere);
+          REQUIRE(xs[1].object() == &sphere);
         }
+      }
+    }
+  }
+}
+SCENARIO("A sphere's default transformation") {
+  GIVEN("A sphere") {
+    auto s = rt::Sphere();
+    THEN("") {
+      REQUIRE(s.transform() == util::Matrixd::Identity(4));
+    }
+  }
+}
+SCENARIO("Changing a sphere's transformation") {
+  GIVEN("A sphere") {
+    auto s = rt::Sphere();
+    auto t = util::Matrixd ::translation(2,3,4);
+    WHEN("Set transform") {
+      s.setTransform(t);
+      THEN(""){
+        REQUIRE(s.transform() == t);
+      }
+    }
+  }
+}
+SCENARIO("Intersecting a scaled sphere with a ray") {
+  GIVEN("A ray and a sphere") {
+    auto r = rt::Ray(util::Tuple::point(0,0,-5),util::Tuple::vector(0,0,1));
+    auto s = rt::Sphere();
+    WHEN("setting transform and intersecting") {
+      s.setTransform(util::Matrixd::scaling(2,2,2));
+      auto xs = s.intersect(r);
+      THEN("") {
+        REQUIRE(xs.size() == 2);
+        REQUIRE(xs[0].t() == 3);
+        REQUIRE(xs[1].t() == 7);
+      }
+    }
+  }
+}
+
+SCENARIO("Intersecting a translated sphere with a ray") {
+  GIVEN("A ray and a sphere") {
+    auto r = rt::Ray(util::Tuple::point(0,0,-5),util::Tuple::vector(0,0,1));
+    auto s = rt::Sphere();
+    WHEN("setting transform and intersecting") {
+      s.setTransform(util::Matrixd::translation(5,0,0));
+      auto xs = s.intersect(r);
+      THEN("") {
+        REQUIRE(xs.size() == 0);
       }
     }
   }

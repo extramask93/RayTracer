@@ -11,6 +11,11 @@ class Sphere : public Shape
 public:
   explicit Sphere();
   Intersections intersect(Ray ray) override;
+  util::Matrixd transform() const;
+  void setTransform(const util::Matrixd &transform);
+
+private:
+  util::Matrixd m_transform;
 };
 }
 
