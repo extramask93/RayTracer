@@ -4,7 +4,7 @@
 #include <catch2/catch.hpp>
 #include <Tuple.h>
 #include <Matrix.h>
-#include <Ray.h>
+#include <ray/Ray.h>
 SCENARIO("Creating and querying a ray")
 {
   GIVEN("origin and direction")
