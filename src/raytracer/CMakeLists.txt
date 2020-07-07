@@ -5,14 +5,14 @@ target_link_libraries(raytracer PUBLIC utils)
 
 target_sources(raytracer
         PRIVATE
-        Ray.cpp
-        Sphere.cpp
-        Shape.cpp
+        ray/Ray.cpp
+        shapes/Sphere.cpp
+        shapes/Shape.cpp
         Intersection.cpp
         PUBLIC
-        ${CMAKE_CURRENT_LIST_DIR}/Ray.h
-        ${CMAKE_CURRENT_LIST_DIR}/Shape.h
-        ${CMAKE_CURRENT_LIST_DIR}/Sphere.h
+        ${CMAKE_CURRENT_LIST_DIR}/ray/Ray.h
+        ${CMAKE_CURRENT_LIST_DIR}/shapes/Shape.h
+        ${CMAKE_CURRENT_LIST_DIR}/shapes/Sphere.h
         ${CMAKE_CURRENT_LIST_DIR}/Intersection.h
         )
 target_include_directories(raytracer

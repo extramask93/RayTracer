@@ -4,19 +4,6 @@
 
 #include "Intersection.h"
 using namespace rt;
-std::size_t Intersection::count() const
+Intersection::Intersection(double t, const rt::Shape &shape):  m_shape(shape), m_t(t)
 {
-  return m_ticks.size();
-}
-double Intersection::operator[](unsigned int index) const
-{
-  return m_ticks[index];
-}
-Intersection::Intersection(std::initializer_list<double> ticks) : m_ticks(ticks)
-{
-  std::sort(m_ticks.begin(), m_ticks.end(),std::less<double>());
-}
-
-std::vector<Intersection> Intersections(std::initializer_list<Intersection> intersections){
-  return std::vector<Intersection>(intersections);
 }

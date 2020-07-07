@@ -5,15 +5,15 @@
 #ifndef MYPROJECT_SHAPE_H
 #define MYPROJECT_SHAPE_H
 
-#include <Ray.h>
-#include <Intersection.h>
+#include <ray/Ray.h>
 namespace rt {
-
+class Intersections;
 class Shape
 {
 public:
   explicit Shape();
-  virtual Intersection intersect(Ray ray) =0;
+  virtual Intersections intersect(Ray ray) =0;
+  virtual bool operator==(const Shape &other) const final;
   virtual ~Shape() = default;
   Shape(const Shape &copyFrom) = default;
   Shape(Shape &&moveFrom) = default;

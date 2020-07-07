@@ -4,13 +4,13 @@
 
 #ifndef MYPROJECT_SPHERE_H
 #define MYPROJECT_SPHERE_H
-#include <Shape.h>
+#include <shapes/Shape.h>
 namespace rt {
 class Sphere : public Shape
 {
 public:
   explicit Sphere();
-  Intersection intersect(Ray ray) override;
+  Intersections intersect(Ray ray) override;
 };
 }
 
