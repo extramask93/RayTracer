@@ -13,6 +13,7 @@ class Shape
 public:
   explicit Shape();
   virtual Intersections intersect(Ray ray) =0;
+  virtual util::Tuple normalAt(util::Tuple point) = 0;
   virtual bool operator==(const Shape &other) const final;
   virtual ~Shape() = default;
   Shape(const Shape &copyFrom) = default;

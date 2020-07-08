@@ -8,11 +8,15 @@ target_sources(raytracer
         ray/Ray.cpp
         shapes/Sphere.cpp
         shapes/Shape.cpp
+        lights/PointLight.cpp
+        materials/Material.cpp
         Intersection.cpp
         PUBLIC
         ${CMAKE_CURRENT_LIST_DIR}/ray/Ray.h
         ${CMAKE_CURRENT_LIST_DIR}/shapes/Shape.h
+        ${CMAKE_CURRENT_LIST_DIR}/materials/Material.h
         ${CMAKE_CURRENT_LIST_DIR}/shapes/Sphere.h
+        ${CMAKE_CURRENT_LIST_DIR}/lights/PointLight.h
         ${CMAKE_CURRENT_LIST_DIR}/Intersection.h
         )
 target_include_directories(raytracer

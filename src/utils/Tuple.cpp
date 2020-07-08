@@ -26,4 +26,5 @@ Tuple &Tuple::normalize()
   return *this;
 }
 
+
 }

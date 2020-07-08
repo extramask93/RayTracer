@@ -292,3 +292,28 @@ SCENARIO("Cross product of two tuples")
     }
   }
 }
+
+SCENARIO("Reflecting a vector approaching at 45 deg") {
+  GIVEN("Two vectors") {
+    auto v = util::Tuple::vector(1,-1,0);
+    auto n = util::Tuple::vector(0,1,0);
+    WHEN("Reflecting") {
+      auto r = v.reflect(n);
+      THEN(""){
+        REQUIRE(r == util::Tuple::vector(1,1,0));
+      }
+    }
+  }
+}
+SCENARIO("Reflecting a vector off a slanted surface") {
+  GIVEN("Two vectos") {
+    auto v = util::Tuple::vector(0,-1,0);
+    auto n = util::Tuple::vector(sqrt(2)/2,sqrt(2)/2,0);
+    WHEN("Reflecting") {
+      auto r = v.reflect(n);
+      THEN("") {
+        REQUIRE(r == util::Tuple::vector(1,0,0));
+      }
+    }
+  }
+}

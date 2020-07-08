@@ -13,9 +13,11 @@ public:
   Intersections intersect(Ray ray) override;
   util::Matrixd transform() const;
   void setTransform(const util::Matrixd &transform);
+  util::Tuple normalAt(util::Tuple point) override;
 
 private:
   util::Matrixd m_transform;
+  util::Tuple m_origin;
 };
 }
 

@@ -9,6 +9,10 @@ add_subdirectory(utils)
 add_subdirectory(raytracer)
 # Generic test that uses conan libs
 add_executable(intro main.cpp)
+add_executable(sphere sphere.cpp)
+target_link_libraries(
+        sphere PRIVATE project_options project_warnings utils raytracer CONAN_PKG::docopt.cpp
+        CONAN_PKG::fmt CONAN_PKG::spdlog)
 target_link_libraries(
   intro PRIVATE project_options project_warnings utils CONAN_PKG::docopt.cpp
                 CONAN_PKG::fmt CONAN_PKG::spdlog)

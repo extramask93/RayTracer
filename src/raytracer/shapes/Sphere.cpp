@@ -10,7 +10,7 @@ rt::Intersections rt::Sphere::intersect(rt::Ray ray)
   auto ray2 = ray;
   (void) ray2;
   ray = ray.transform(m_transform.inverse());
-  auto sphereToRay = ray.origin() - util::Tuple::point(0,0,0);
+  auto sphereToRay = ray.origin() - m_origin;
   auto a = ray.direction().dot(ray.direction());
   auto b = 2.0 * ray.direction().dot(sphereToRay);
   auto c = sphereToRay.dot(sphereToRay) -1.0;
@@ -23,7 +23,7 @@ rt::Intersections rt::Sphere::intersect(rt::Ray ray)
     return rt::Intersections { Intersection(t1,this) , Intersection(t2,this)};
   }
 }
-rt::Sphere::Sphere() : Shape(), m_transform(util::Matrixd::Identity(4))
+rt::Sphere::Sphere() : Shape(), m_transform(util::Matrixd::Identity(4)), m_origin(util::Tuple::point(0,0,0))
 {
 
 }
@@ -34,4 +34,13 @@ util::Matrixd rt::Sphere::transform() const
 void rt::Sphere::setTransform(const util::Matrixd &transorm)
 {
   m_transform=transorm;
+}
+util::Tuple rt::Sphere::normalAt(util::Tuple point)
+{
+  auto worldToObjectSpaceTransform = m_transform.inverse();
+  auto objectSpacePoint = worldToObjectSpaceTransform * point;
+  auto objectNormal = (objectSpacePoint - m_origin);
+  auto worldNormal =  m_transform.inverse().transpose()*objectNormal;
+  worldNormal.w() = 0;
+  return worldNormal.normalize();
 }
