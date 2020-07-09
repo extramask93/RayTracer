@@ -5,7 +5,8 @@
 #include <Tuple.h>
 #include <Matrix.h>
 #include <shapes/Sphere.h>
-#include <Intersection.h>
+#include <intersections/Intersection.h>
+#include <intersections/Intersections.h>
 
 SCENARIO("An intersection encapsulates t and object") {
 GIVEN("A sphere") {

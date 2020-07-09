@@ -5,6 +5,7 @@
 #ifndef MYPROJECT_SPHERE_H
 #define MYPROJECT_SPHERE_H
 #include <shapes/Shape.h>
+#include <intersections/Intersections.h>
 namespace rt {
 class Sphere : public Shape
 {

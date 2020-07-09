@@ -1,20 +1,9 @@
 //
-// Created by damian on 06.07.2020.
+// Created by damian on 09.07.2020.
 //
 
-#include "Intersection.h"
+#include "Intersections.h"
 using namespace rt;
-Intersection::Intersection(double t, const Shape * shape):  m_shape(shape), m_t(t)
-{
-}
-bool Intersection::operator==(const Intersection &other) const
-{
-  return (m_t == other.m_t) && (*m_shape == *other.m_shape);
-}
-bool Intersection::operator<(const Intersection &other) const
-{
-  return m_t < other.m_t;
-}
 std::optional<Intersection> Intersections::hit()
 {
   auto iter = std::find_if(this->begin(),this->end(),[](auto i){ return i.t() > 0 ;});

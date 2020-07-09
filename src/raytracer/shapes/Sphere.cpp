@@ -3,8 +3,9 @@
 //
 
 #include "Sphere.h"
+#include <intersections/Intersections.h>
 #include <cmath>
-#include <Intersection.h>
+#include <intersections/Intersection.h>
 rt::Intersections rt::Sphere::intersect(rt::Ray ray) const
 {
   auto ray2 = ray;
@@ -16,11 +17,11 @@ rt::Intersections rt::Sphere::intersect(rt::Ray ray) const
   auto c = sphereToRay.dot(sphereToRay) -1.0;
   auto discriminant = std::pow(b,2)  - 4 * a * c;
   if(discriminant < 0.0) {
-    return rt::Intersections{};
+    return Intersections{};
   } else {
     auto t1 = (-b - std::sqrt(discriminant))/(2*a);
     auto t2 = (-b + std::sqrt(discriminant))/(2*a);
-    return rt::Intersections { Intersection(t1,this) , Intersection(t2,this)};
+    return Intersections { Intersection(t1,this) , Intersection(t2,this)};
   }
 }
 rt::Sphere::Sphere() : Shape(), m_transform(util::Matrixd::Identity(4)), m_origin(util::Tuple::point(0,0,0))

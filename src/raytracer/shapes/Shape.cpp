@@ -3,7 +3,8 @@
 //
 
 #include "Shape.h"
-#include <Intersection.h>
+#include <intersections/Intersection.h>
+#include <intersections/Intersections.h>
 namespace rt {
   unsigned Shape::m_objCounter = 0;
 Shape::Shape() : m_id(m_objCounter), m_material(rt::Material())

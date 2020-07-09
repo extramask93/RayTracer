@@ -4,8 +4,9 @@
 #include <catch2/catch.hpp>
 #include <ray/Ray.h>
 #include <shapes/Sphere.h>
-#include <Intersection.h>
+#include <intersections/Intersection.h>
 #include <materials/Material.h>
+#include <intersections/Intersections.h>
 SCENARIO("A ray intersects a sphere at two points") {
   GIVEN("a ray") {
     auto ray = rt::Ray(util::Tuple::point(0,0,-5),util::Tuple::vector(0,0,1));

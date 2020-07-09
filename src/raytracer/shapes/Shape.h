@@ -8,6 +8,7 @@
 #include <ray/Ray.h>
 #include <materials/Material.h>
 namespace rt {
+class Intersection;
 class Intersections;
 class Shape
 {

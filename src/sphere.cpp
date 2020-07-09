@@ -8,7 +8,8 @@
 #include <shapes/Sphere.h>
 #include <materials/Material.h>
 #include <lights/PointLight.h>
-#include <Intersection.h>
+#include <intersections/Intersection.h>
+#include <intersections/Intersections.h>
 const double wall_z = 10;
 const double ray_z = -4;
 const unsigned canvas_size = 300;
