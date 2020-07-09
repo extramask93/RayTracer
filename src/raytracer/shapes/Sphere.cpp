@@ -5,7 +5,7 @@
 #include "Sphere.h"
 #include <cmath>
 #include <Intersection.h>
-rt::Intersections rt::Sphere::intersect(rt::Ray ray)
+rt::Intersections rt::Sphere::intersect(rt::Ray ray) const
 {
   auto ray2 = ray;
   (void) ray2;
@@ -35,7 +35,7 @@ void rt::Sphere::setTransform(const util::Matrixd &transorm)
 {
   m_transform=transorm;
 }
-util::Tuple rt::Sphere::normalAt(util::Tuple point)
+util::Tuple rt::Sphere::normalAt(util::Tuple point) const
 {
   auto worldToObjectSpaceTransform = m_transform.inverse();
   auto objectSpacePoint = worldToObjectSpaceTransform * point;

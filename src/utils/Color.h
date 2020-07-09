@@ -9,8 +9,8 @@
 namespace util {
 class Color
 {
-
 public:
+
   explicit constexpr Color(TupleType red, TupleType green, TupleType blue) : r(red), g(green), b(blue) {}
   constexpr Color operator+(const Color &other) const
   {
@@ -43,6 +43,7 @@ public:
   TupleType r;
   TupleType g;
   TupleType b;
+  static const util::Color BLACK;
 };
 }// namespace util
 

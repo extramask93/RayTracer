@@ -5,6 +5,7 @@
 #include <ray/Ray.h>
 #include <shapes/Sphere.h>
 #include <Intersection.h>
+#include <materials/Material.h>
 SCENARIO("A ray intersects a sphere at two points") {
   GIVEN("a ray") {
     auto ray = rt::Ray(util::Tuple::point(0,0,-5),util::Tuple::vector(0,0,1));
@@ -230,6 +231,30 @@ SCENARIO("Computing the normal on a transformed sphere") {
       auto normal = s.normalAt(util::Tuple::point(0,sqrt(2)/2, -sqrt(2)/2));
       THEN("") {
         REQUIRE(normal == util::Tuple::vector(0,0.97014,-0.24254));
+      }
+    }
+  }
+}
+SCENARIO("A sphere has a default material") {
+  GIVEN("A sphere") {
+    auto s = rt::Sphere();
+    WHEN("Obstaining material") {
+      auto m = s.material();
+      THEN(""){
+        REQUIRE(m == rt::Material());
+      }
+    }
+  }
+}
+SCENARIO("A sphere may be assigned a material") {
+  GIVEN("A sphere") {
+    auto s = rt::Sphere();
+    auto m = s.material();
+    m.setAmbient(1);
+    WHEN("Obstaining material") {
+      s.setMaterial(m);
+      THEN(""){
+        REQUIRE(m == s.material());
       }
     }
   }

@@ -10,10 +10,10 @@ class Sphere : public Shape
 {
 public:
   explicit Sphere();
-  Intersections intersect(Ray ray) override;
+  Intersections intersect(Ray ray)const override;
   util::Matrixd transform() const;
   void setTransform(const util::Matrixd &transform);
-  util::Tuple normalAt(util::Tuple point) override;
+  util::Tuple normalAt(util::Tuple point)const override;
 
 private:
   util::Matrixd m_transform;
