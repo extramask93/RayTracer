@@ -7,10 +7,11 @@
 
 #include <ray/Ray.h>
 #include <materials/Material.h>
+#include <intersections/IIntersect.h>
 namespace rt {
 class Intersection;
 class Intersections;
-class Shape
+class Shape : public IIntersect
 {
 public:
   explicit Shape();

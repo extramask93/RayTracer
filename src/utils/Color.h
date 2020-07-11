@@ -32,6 +32,8 @@ public:
   {
     return Color::equal(r, c.r) && equal(g, c.g) && equal(b,c.b) ;
   }
+
+  friend std::ostream &operator<<(std::ostream &o, const util::Color &c);
 private:
   static bool equal(TupleType lhs, TupleType rhs)
   {

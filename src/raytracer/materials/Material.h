@@ -9,11 +9,11 @@ namespace rt {
 class Material
 {
 public:
-   constexpr  void setAmbient(double ambient);
-   constexpr void setDiffuse(double diffuse);
-   constexpr  void setSpecular(double specular);
-   constexpr  void setShininess(double shininess);
-   constexpr void setColor(const util::Color &color);
+  constexpr void setAmbient(double ambient);
+  constexpr void setDiffuse(double diffuse);
+  constexpr void setSpecular(double specular);
+  constexpr void setShininess(double shininess);
+  constexpr void setColor(const util::Color &color);
   [[nodiscard]] constexpr double ambient() const;
   [[nodiscard]] constexpr double diffuse() const;
   [[nodiscard]] constexpr double specular() const;
@@ -50,10 +50,7 @@ constexpr util::Color Material::color() const
 }
 constexpr bool Material::operator==(const Material &other) const
 {
-  return (m_ambient == other.m_ambient) &&
-    (m_diffuse == other.m_diffuse) &&
-    (m_specular == other.m_specular) &&
-    (m_shininess == other.m_shininess);
+  return (m_ambient == other.m_ambient) && (m_diffuse == other.m_diffuse) && (m_specular == other.m_specular) && (m_shininess == other.m_shininess);
 }
 constexpr void Material::setAmbient(double ambient)
 {
@@ -75,5 +72,5 @@ constexpr void Material::setColor(const util::Color &color)
 {
   m_color = color;
 }
-}
+}// namespace rt
 #endif//MYPROJECT_MATERIAL_H

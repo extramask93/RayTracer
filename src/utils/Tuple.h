@@ -11,7 +11,7 @@ using TupleType = double;
 class Tuple
 {
 public:
-  constexpr Tuple(TupleType x_, TupleType y_, TupleType z_, TupleType w_)  {
+  constexpr Tuple(TupleType x_ = 0, TupleType y_ = 0, TupleType z_ = 0, TupleType w_ = 0)  {
     data[0] =x_;
     data[1] = y_;
     data[2] = z_;
@@ -72,6 +72,7 @@ public:
     return data[row];
   }
   Tuple &normalize();
+  Tuple normalization() const;
   [[nodiscard]] TupleType magnitude() const;
   [[nodiscard]] constexpr TupleType dot(const Tuple &other) const { return x()* other.x()+ y()* other.y()+ z()* other.z()+ w()* other.w(); }
   [[nodiscard]] constexpr Tuple cross(const Tuple &other) const
@@ -95,6 +96,7 @@ constexpr Tuple Tuple::reflect(Tuple normal) const
 {
   return *this - normal * 2 * this->dot(normal);
 }
+
 }// namespace util
 
 #endif//MYPROJECT_TUPLE_H

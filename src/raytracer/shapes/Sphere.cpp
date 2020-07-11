@@ -6,10 +6,8 @@
 #include <intersections/Intersections.h>
 #include <cmath>
 #include <intersections/Intersection.h>
-rt::Intersections rt::Sphere::intersect(rt::Ray ray) const
+rt::Intersections rt::Sphere::intersect(Ray ray) const
 {
-  auto ray2 = ray;
-  (void) ray2;
   ray = ray.transform(m_transform.inverse());
   auto sphereToRay = ray.origin() - m_origin;
   auto a = ray.direction().dot(ray.direction());

@@ -7,6 +7,7 @@
 #include <vector>
 #include <Tuple.h>
 #include <cmath>
+#include <algorithm>
 #pragma push_macro("minor")
 #undef minor
 #ifndef M_PI
@@ -18,7 +19,7 @@ template<typename T>
 class Matrix
 {
 public:
-  Matrix(unsigned rows, unsigned columns);
+  constexpr Matrix(unsigned rows, unsigned columns);
   [[nodiscard]] constexpr T operator()(unsigned row, unsigned column) const;
   [[nodiscard]] constexpr T& operator()(unsigned row, unsigned column);
   [[nodiscard]] constexpr bool operator==(const Matrix<T> &other) const;
@@ -41,13 +42,13 @@ public:
   [[nodiscard]] constexpr Matrix<T>& rotate_z(double rad);
   [[nodiscard]] constexpr Matrix<T>& shear(double Xy, double Xz, double Yx, double Yz, double Zx, double Zy);
   //
-  [[nodiscard]] static Matrix<T> Identity(unsigned size);
-  [[nodiscard]] static Matrix<T> translation(T x, T y, T z);
-  [[nodiscard]] static Matrix<T> scaling(T x, T y, T z);
+  [[nodiscard]] static constexpr Matrix<T> Identity(unsigned size);
+  [[nodiscard]] static constexpr Matrix<T> translation(T x, T y, T z);
+  [[nodiscard]] static constexpr Matrix<T> scaling(T x, T y, T z);
   [[nodiscard]] static Matrix<T> rotation_x(double rad);
   [[nodiscard]] static Matrix<T> rotation_y(double rad);
   [[nodiscard]] static Matrix<T> rotation_z(double rad);
-  [[nodiscard]] static Matrix<T> shearing(double Xy, double Xz, double Yx, double Yz, double Zx, double Zy);
+  [[nodiscard]] static constexpr Matrix<T> shearing(double Xy, double Xz, double Yx, double Yz, double Zx, double Zy);
   struct Loader {
     Matrix<T> &m_m;
     unsigned m_i;
@@ -67,7 +68,7 @@ private:
 private:
   unsigned m_columns;
   unsigned m_rows;
-  std::vector<T> m_data;
+  /*std::vector<T>*/std::array<T,16> m_data;
   static constexpr double eps_ = 0.00001;
 };
 template<typename T>
@@ -87,9 +88,10 @@ constexpr util::Tuple operator*(const Matrix<T> &m, const util::Tuple &t) {
 }
 
 template<typename T>
-Matrix<T>::Matrix(unsigned int rows, unsigned int columns) : m_columns(columns), m_rows(rows)
+constexpr Matrix<T>::Matrix(unsigned int rows, unsigned int columns) : m_columns(columns), m_rows(rows)
 {
-  m_data.resize(m_columns*m_rows,0.0);
+  std::transform(m_data.begin(), m_data.end(),m_data.begin(),[](const auto &elem){(void) elem;return 0.0;});
+  /*m_data.resize(m_columns*m_rows,0.0)*/;
 }
 template<typename T>
 constexpr T Matrix<T>::operator()(unsigned int row, unsigned int column) const
@@ -157,7 +159,7 @@ constexpr unsigned Matrix<T>::nrOfRows() const
   return m_rows;
 }
 template<typename T>
-Matrix<T> Matrix<T>::Identity(unsigned size)
+constexpr Matrix<T> Matrix<T>::Identity(unsigned size)
 {
   Matrix<T> m(size, size);
   for(unsigned row = 0; row < m.nrOfRows(); row++) {
@@ -258,7 +260,7 @@ constexpr Matrix<T> Matrix<T>::inverse() const
   return M;
 }
 template<typename T>
-Matrix<T> Matrix<T>::translation(T x, T y, T z)
+constexpr Matrix<T> Matrix<T>::translation(T x, T y, T z)
 {
   auto result = util::Matrix<T>::Identity(4);
   result(0,3) = x;
@@ -267,7 +269,7 @@ Matrix<T> Matrix<T>::translation(T x, T y, T z)
   return result;
 }
 template<typename T>
-Matrix<T> Matrix<T>::scaling(T x, T y, T z)
+constexpr Matrix<T> Matrix<T>::scaling(T x, T y, T z)
 {
   auto result = util::Matrix<T>::Identity(4);
   result(0,0)=x;
@@ -306,7 +308,7 @@ Matrix<T> Matrix<T>::rotation_z(double rad)
   return result;
 }
 template<typename T>
-Matrix<T> Matrix<T>::shearing(double Xy, double Xz, double Yx, double Yz, double Zx, double Zy)
+constexpr Matrix<T> Matrix<T>::shearing(double Xy, double Xz, double Yx, double Yz, double Zx, double Zy)
 {
   auto result = util::Matrix<T>::Identity(4);
   result(0,1) = Xy;

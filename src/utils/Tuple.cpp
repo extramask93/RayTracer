@@ -25,6 +25,16 @@ Tuple &Tuple::normalize()
   w() = w() / magnitude;
   return *this;
 }
+Tuple Tuple::normalization() const
+{
+  auto magnitude = Tuple::magnitude();
+  util::Tuple result(0,0,0);
+  result.x() = x() / magnitude;
+  result.y()= y() / magnitude;
+  result.z() = z() / magnitude;
+  result.w() = w() / magnitude;
+  return result;
+}
 
 
 }

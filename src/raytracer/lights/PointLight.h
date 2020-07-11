@@ -15,7 +15,6 @@ public:
   constexpr explicit PointLight(util::Tuple position, util::Color color);
   [[nodiscard]] constexpr util::Tuple position() const;
   [[nodiscard]] constexpr util::Color intensity() const;
-
 private:
   util::Color m_intensity;
   util::Tuple m_position;
