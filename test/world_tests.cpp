@@ -122,3 +122,57 @@ SCENARIO("The color with an intersection behind the ray") {
     }
   }
 }
+SCENARIO("There is no shadow when nothing is collinear with point and light") {
+  GIVEN("") {
+    auto w = rt::World::defaultWorld();
+    auto p = util::Tuple::point(0,10,0);
+    THEN("") {
+      REQUIRE(rt::isShadowed(*w,p) == false);
+    }
+  }
+}
+
+SCENARIO("The shadow when an object is between the point and the light") {
+  GIVEN("") {
+    auto w = rt::World::defaultWorld();
+    auto p = util::Tuple::point(10,-10,10);
+    THEN("") {
+      REQUIRE(rt::isShadowed(*w,p) == true);
+    }
+  }
+}
+SCENARIO("There is no shadow when an object is behind the light") {
+  GIVEN("") {
+    auto w = rt::World::defaultWorld();
+    auto p = util::Tuple::point(-20,20,-20);
+    THEN("") {
+      REQUIRE(rt::isShadowed(*w,p) == false);
+    }
+  }
+}
+
+SCENARIO("There is no shadow when an object is behind the point") {
+  GIVEN("") {
+    auto w = rt::World::defaultWorld();
+    auto p = util::Tuple::point(-2,2,-2);
+    THEN("") {
+      REQUIRE(rt::isShadowed(*w,p) == false);
+    }
+  }
+}
+SCENARIO("shadeHit is given an intersection in shadow") {
+  GIVEN("") {
+    auto world = rt::World();
+    world.lights().emplace_back(std::make_unique<rt::PointLight>(util::Tuple::point(0,0,-10),util::Color(1,1,1)));
+    world.shapes().emplace_back(std::make_unique<rt::Sphere>());
+    world.shapes().emplace_back(std::make_unique<rt::Sphere>());
+    world.shapes()[1].get()->setTransform(util::Matrixd::translation(0,0,10));
+    auto r = rt::Ray(util::Tuple::point(0,0,5), util::Tuple::vector(0,0,1));
+    auto i  = rt::Intersection(4,world.shapes()[1].get());
+    auto comps = rt::prepareComputations(i,r);
+    auto c = rt::Shader::shadeHit(world,comps);
+    THEN("") {
+      REQUIRE(c == util::Color(0.1,0.1,0.1));
+    }
+  }
+}

@@ -8,44 +8,56 @@
 #include <shapes/Sphere.h>
 #include <materials/Material.h>
 #include <lights/PointLight.h>
+#include <misc/Computations.h>
 #include <intersections/Intersection.h>
 #include <intersections/Intersections.h>
 const double wall_z = 10;
 const double ray_z = -4;
 const unsigned canvas_size = 300;
 const double wall_size = 12;
-const double pixel_size = wall_size/canvas_size;
-const double half = wall_size/2;
+const double pixel_size = wall_size / canvas_size;
+const double half = wall_size / 2;
 int main(int argc, const char **argv)
 {
   (void)argc;
   (void)argv;
-  util::Canvas canvas(canvas_size, canvas_size);
-  auto ray_origin = util::Tuple::point(0,0,ray_z);
-  auto sphere = rt::Sphere();
-  auto material = rt::Material();
-  material.setColor(util::Color(1,0.2,1));
-  sphere.setMaterial(material);
-  auto lightPosition = util::Tuple::point(-10,10,-10);
-  auto lightColor = util::Color(1,1,1);
-  auto light = rt::PointLight(lightPosition,lightColor);
-  //sphere.setTransform(util::Matrixd::rotation_z(M_PI/4)*util::Matrixd::scaling(1,0.5,1));
-  for(unsigned y =0 ; y < canvas_size; y++) {
-    double world_y = half - pixel_size *y;
-    for(unsigned x=0; x < canvas_size;x++) {
-      double world_x = -half + pixel_size*x;
-      auto position = util::Tuple::point(world_x,world_y,wall_z);
-      auto ray = rt::Ray(ray_origin, (position - ray_origin).normalize());
-      auto xs = sphere.intersect(ray);
-      if(xs.hit().has_value()) {
-        auto point = ray.position(xs[0].t());
-        auto normal = xs.hit().value().object()->normalAt(point);
-        auto eye = -ray.direction();
-        auto color = rt::lighting(material,light,point,eye,normal);
-        canvas(x,y) = color;
-      }
-    }
-  }
+  auto world = rt::World();
+  auto sphere1 = std::make_unique<rt::Sphere>();
+  sphere1->setTransform(util::Matrixd::translation(-0.5, 1, 0.5));
+  sphere1->setMaterial(rt::Material()
+                         .setColor(util::Color(0.1, 1, 0.5))
+                         .setDiffuse(0.7)
+                         .setSpecular(0.3));
+  world.shapes().emplace_back(std::move(sphere1));
+  /////////////////////////////////////////////////////////////////
+  auto sphere2 = std::make_unique<rt::Sphere>();
+  sphere2->setTransform(util::Matrixd::translation(-1,0.75,-0.5)*util::Matrixd::scaling(0.5,0.5,0.5));
+  sphere2->setMaterial(rt::Material()
+                         .setColor(util::Color(0.5, 0, 0))
+                         .setDiffuse(0.7)
+                         .setSpecular(0.3));
+  world.shapes().emplace_back(std::move(sphere2));
+  ////////////////////////////////////////////////////////////////
+  auto sphere3 = std::make_unique<rt::Sphere>();
+  sphere3->setTransform(util::Matrixd::translation(1.5,0.5,1)*util::Matrixd::scaling(0.5,0.5,0.5));
+  world.shapes().emplace_back(std::move(sphere3));
+  ///////////////////////////////////////////////////////////////
+  auto floor = std::make_unique<rt::Sphere>();
+  floor->setTransform(util::Matrixd::scaling(10,0.01,10));
+  floor->setMaterial(rt::Material()
+                         .setColor(util::Color(1, 0.9, 0.9))
+                         .setSpecular(0));
+  world.shapes().emplace_back(std::move(floor));
+  /////////////////////////////////////////////////////////////
+  auto light = std::make_unique<rt::PointLight>(util::Tuple::point(-10, 10, -10),
+    util::Color(1, 1, 1));
+  world.lights().emplace_back(std::move(light));
+
+  auto camera = rt::Camera(200, 100, M_PI / 3);
+  auto transform = rt::viewTransformation(util::Tuple::point(0,1.5,-4),util::Tuple::point(0,1,0),util::Tuple::vector(0,1,0));
+  camera.setTransform(transform);
+
+  util::Canvas canvas = rt::render(camera, world);
   auto printer = util::CanvasPrinter();
-  printer.printToPPM(std::filesystem::current_path() / "sphere.ppm", canvas);
+  printer.printToPPM(std::filesystem::current_path() / "sphere2.ppm", canvas);
 }

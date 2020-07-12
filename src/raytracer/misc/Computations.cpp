@@ -18,6 +18,7 @@ Computations prepareComputations(const Intersection &i, const Ray &ray){
     comp.inside = true;
     comp.normalv = -comp.normalv;
   }
+  comp.overPoint = comp.point + comp.normalv*EPSILON;
   return comp;
 }
 util::Color colorAt(const World &world, const Ray &ray)
@@ -67,5 +68,18 @@ util::Canvas render(const Camera &c, const World &world)
     }
   }
   return canvas;
+}
+bool isShadowed(const World &world, const util::Tuple &point)
+{
+  (void)world;
+  (void)point;
+  auto direction = world.lights()[0].get()->position() - point;
+  auto distance = direction.magnitude();
+  auto ray = rt::Ray(point,direction.normalization());
+  auto intersection = world.intersect(ray);
+  if(intersection.hit().has_value() && intersection.hit()->t() < distance) {
+    return true;
+  }
+  return false;
 }
 }

@@ -17,7 +17,7 @@ public:
   static std::unique_ptr<World> defaultWorld();
   [[nodiscard]] std::vector<std::unique_ptr<PointLight>>& lights() const;
   [[nodiscard]] std::vector<std::unique_ptr<Shape>>& shapes() const;
-  Intersections intersect(Ray ray) const override;
+  Intersections intersect(const Ray &ray) const override;
 
 private:
   mutable std::vector<std::unique_ptr<PointLight>> m_lights;

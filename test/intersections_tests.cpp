@@ -193,3 +193,22 @@ SCENARIO("The hit when an intersection occurs on the inside")
     }
   }
 }
+SCENARIO("The hit should offset the point")
+{
+  GIVEN("Ray, sphere and intersection")
+  {
+    auto r = rt::Ray(util::Tuple::point(0, 0, -5), util::Tuple::vector(0, 0, 1));
+    auto shape = rt::Sphere();
+    shape.setTransform(util::Matrixd::translation(0,0,1));
+    auto i = rt::Intersection(5, &shape);
+    WHEN("")
+    {
+      auto comps = rt::prepareComputations(i, r);
+      THEN("")
+      {
+        REQUIRE(comps.overPoint.z() < -EPSILON / 2);
+        REQUIRE(comps.point.z() >  comps.overPoint.z());
+      }
+    }
+  }
+}

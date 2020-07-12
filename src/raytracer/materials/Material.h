@@ -9,11 +9,11 @@ namespace rt {
 class Material
 {
 public:
-  constexpr void setAmbient(double ambient);
-  constexpr void setDiffuse(double diffuse);
-  constexpr void setSpecular(double specular);
-  constexpr void setShininess(double shininess);
-  constexpr void setColor(const util::Color &color);
+  constexpr Material &setAmbient(double ambient);
+  constexpr Material &setDiffuse(double diffuse);
+  constexpr Material &setSpecular(double specular);
+  constexpr Material &setShininess(double shininess);
+  constexpr Material &setColor(const util::Color &color);
   [[nodiscard]] constexpr double ambient() const;
   [[nodiscard]] constexpr double diffuse() const;
   [[nodiscard]] constexpr double specular() const;
@@ -52,25 +52,30 @@ constexpr bool Material::operator==(const Material &other) const
 {
   return (m_ambient == other.m_ambient) && (m_diffuse == other.m_diffuse) && (m_specular == other.m_specular) && (m_shininess == other.m_shininess);
 }
-constexpr void Material::setAmbient(double ambient)
+constexpr Material &Material::setAmbient(double ambient)
 {
   m_ambient = ambient;
+  return *this;
 }
-constexpr void Material::setDiffuse(double diffuse)
+constexpr Material &Material::setDiffuse(double diffuse)
 {
   m_diffuse = diffuse;
+  return *this;
 }
-constexpr void Material::setSpecular(double specular)
+constexpr Material &Material::setSpecular(double specular)
 {
   m_specular = specular;
+  return *this;
 }
-constexpr void Material::setShininess(double shininess)
+constexpr Material &Material::setShininess(double shininess)
 {
   m_shininess = shininess;
+  return *this;
 }
-constexpr void Material::setColor(const util::Color &color)
+constexpr Material &Material::setColor(const util::Color &color)
 {
   m_color = color;
+  return  *this;
 }
 }// namespace rt
 #endif//MYPROJECT_MATERIAL_H

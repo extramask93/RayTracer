@@ -6,9 +6,10 @@
 #include <intersections/Intersections.h>
 #include <cmath>
 #include <intersections/Intersection.h>
-rt::Intersections rt::Sphere::intersect(Ray ray) const
+
+rt::Intersections rt::Sphere::localIntersect(const Ray &ray)const
 {
-  ray = ray.transform(m_transform.inverse());
+  //ray = ray.transform(m_transform.inverse());
   auto sphereToRay = ray.origin() - m_origin;
   auto a = ray.direction().dot(ray.direction());
   auto b = 2.0 * ray.direction().dot(sphereToRay);
@@ -22,24 +23,12 @@ rt::Intersections rt::Sphere::intersect(Ray ray) const
     return Intersections { Intersection(t1,this) , Intersection(t2,this)};
   }
 }
-rt::Sphere::Sphere() : Shape(), m_transform(util::Matrixd::Identity(4)), m_origin(util::Tuple::point(0,0,0))
+rt::Sphere::Sphere() : Shape()
 {
 
 }
-util::Matrixd rt::Sphere::transform() const
+util::Tuple rt::Sphere::localNormalAt(const util::Tuple &point) const
 {
-  return m_transform;
+  return (point - m_origin);
 }
-void rt::Sphere::setTransform(const util::Matrixd &transorm)
-{
-  m_transform=transorm;
-}
-util::Tuple rt::Sphere::normalAt(util::Tuple point) const
-{
-  auto worldToObjectSpaceTransform = m_transform.inverse();
-  auto objectSpacePoint = worldToObjectSpaceTransform * point;
-  auto objectNormal = (objectSpacePoint - m_origin);
-  auto worldNormal =  m_transform.inverse().transpose()*objectNormal;
-  worldNormal.w() = 0;
-  return worldNormal.normalize();
-}
+

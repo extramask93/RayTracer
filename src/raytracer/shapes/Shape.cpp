@@ -7,7 +7,8 @@
 #include <intersections/Intersections.h>
 namespace rt {
   unsigned Shape::m_objCounter = 0;
-Shape::Shape() : m_id(m_objCounter), m_material(rt::Material())
+Shape::Shape() : m_id(m_objCounter), m_material(rt::Material()), m_transform(util::Matrixd::Identity(4)),
+                   m_origin(util::Tuple::point(0,0,0))
 {
   m_objCounter++;
 }
@@ -22,5 +23,30 @@ rt::Material Shape::material() const
 void Shape::setMaterial(const Material &mat)
 {
   m_material = mat;
+}
+void rt::Shape::setTransform(const util::Matrixd &transorm)
+{
+  m_transform=transorm;
+}
+
+util::Matrixd rt::Shape::transform() const
+{
+  return m_transform;
+}
+Intersections Shape::intersect(const Ray &ray) const
+{
+  auto rayInObjectSpace = ray.transform(m_transform.inverse());
+  return localIntersect(rayInObjectSpace);
+}
+util::Tuple Shape::normalAt(const util::Tuple &point) const
+{
+  auto worldToObjectSpaceTransform = m_transform.inverse();
+  auto objectSpacePoint = worldToObjectSpaceTransform * point;
+
+  auto objectNormal =  localNormalAt(objectSpacePoint);
+
+  auto worldNormal =  m_transform.inverse().transpose()*objectNormal;
+  worldNormal.w() = 0;
+  return worldNormal.normalize();
 }
 }

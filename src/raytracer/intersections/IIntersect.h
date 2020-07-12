@@ -10,7 +10,7 @@ class Intersections;
 class IIntersect
 {
 public:
-  virtual Intersections intersect(Ray ray) const = 0;
+  virtual Intersections intersect(const Ray &ray) const = 0;
   virtual ~IIntersect() = default;
   IIntersect() = default;
   IIntersect(const IIntersect &copyFrom) = default;

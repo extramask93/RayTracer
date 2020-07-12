@@ -33,7 +33,7 @@ std::vector<std::unique_ptr<PointLight>> &World::lights() const
 {
   return m_lights;
 }
-Intersections World::intersect(Ray ray) const
+Intersections World::intersect(const Ray &ray) const
 {
   auto intersections = Intersections{};
   for(const auto &shape : m_shapes) {

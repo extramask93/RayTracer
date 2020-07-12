@@ -15,8 +15,10 @@ class Shape : public IIntersect
 {
 public:
   explicit Shape();
-  virtual Intersections intersect(Ray ray)const =0;
-  virtual util::Tuple normalAt(util::Tuple point) const = 0;
+  virtual Intersections intersect(const Ray &ray) const override final;
+  virtual util::Tuple normalAt(const util::Tuple &point) const final;
+  virtual void setTransform(const util::Matrixd &transform);
+  virtual util::Matrixd transform() const;
   virtual rt::Material material() const;
   virtual void setMaterial(const rt::Material &mat);
   virtual bool operator==(const Shape &other) const final;
@@ -25,11 +27,14 @@ public:
   Shape(Shape &&moveFrom) = default;
   Shape& operator=(const Shape &assignFrom) = default;
   Shape& operator=(Shape &&moveFrom) = default;
-
+  virtual Intersections localIntersect(const Ray &ray) const = 0;
+  virtual util::Tuple localNormalAt(const util::Tuple &point) const = 0;
 protected:
   unsigned m_id;
   rt::Material m_material;
+  util::Matrixd m_transform;
   static unsigned m_objCounter;
+  util::Tuple m_origin;
 };
 
 }

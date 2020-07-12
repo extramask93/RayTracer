@@ -26,7 +26,7 @@ SCENARIO("Shading tests") {
       auto eyev = util::Tuple::vector(0,0,-1);
       auto normalv = util::Tuple::vector(0,0,-1);
       auto light = rt::PointLight(util::Tuple::point(0,0,-10),util::Color(1,1,1));
-      auto result = rt::lighting(m,light,position,eyev,normalv);
+      auto result = rt::lighting(m,light,position,eyev,normalv,false);
       THEN("") {
         REQUIRE(result == util::Color(1.9,1.9,1.9));
       }
@@ -36,7 +36,7 @@ SCENARIO("Shading tests") {
       auto eyev = util::Tuple::vector(0,sqrt(2)/2,sqrt(2)/2);
       auto normalv = util::Tuple::vector(0,0,-1);
       auto light = rt::PointLight(util::Tuple::point(0,0,-10),util::Color(1,1,1));
-      auto result = rt::lighting(m,light,position,eyev,normalv);
+      auto result = rt::lighting(m,light,position,eyev,normalv,false);
       THEN("") {
         REQUIRE(result == util::Color(1.0,1.0,1.0));
       }
@@ -46,7 +46,7 @@ SCENARIO("Shading tests") {
       auto eyev = util::Tuple::vector(0,0,-1);
       auto normalv = util::Tuple::vector(0,0,-1);
       auto light = rt::PointLight(util::Tuple::point(0,10,-10),util::Color(1,1,1));
-      auto result = rt::lighting(m,light,position,eyev,normalv);
+      auto result = rt::lighting(m,light,position,eyev,normalv,false);
       THEN("") {
         REQUIRE(result == util::Color(0.7364,0.7364,0.7364));
       }
@@ -56,7 +56,7 @@ SCENARIO("Shading tests") {
       auto eyev = util::Tuple::vector(0,-sqrt(2)/2,-sqrt(2)/2);
       auto normalv = util::Tuple::vector(0,0,-1);
       auto light = rt::PointLight(util::Tuple::point(0,10,-10),util::Color(1,1,1));
-      auto result = rt::lighting(m,light,position,eyev,normalv);
+      auto result = rt::lighting(m,light,position,eyev,normalv,false);
       THEN("") {
         REQUIRE(result == util::Color(1.6364,1.6364,1.6364));
       }
@@ -66,7 +66,16 @@ SCENARIO("Shading tests") {
       auto eyev = util::Tuple::vector(0,0,-1);
       auto normalv = util::Tuple::vector(0,0,-1);
       auto light = rt::PointLight(util::Tuple::point(0,0,10),util::Color(1,1,1));
-      auto result = rt::lighting(m,light,position,eyev,normalv);
+      auto result = rt::lighting(m,light,position,eyev,normalv,false);
+      THEN("") {
+        REQUIRE(result == util::Color(0.1,0.1,0.1));
+      }
+    }
+    WHEN("Lighting with the surface in shadow") {
+      auto eyev = util::Tuple::vector(0,0,-1);
+      auto normalv = util::Tuple::vector(0,0,-1);
+      auto light = rt::PointLight(util::Tuple::point(0,0,-10),util::Color(1,1,1));
+      auto result = rt::lighting(m,light,position,eyev,normalv, true);
       THEN("") {
         REQUIRE(result == util::Color(0.1,0.1,0.1));
       }

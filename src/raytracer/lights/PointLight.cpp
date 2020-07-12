@@ -4,13 +4,16 @@
 
 #include "PointLight.h"
 /*Phong reflection model*/
-util::Color rt::lighting(const rt::Material &material, const rt::PointLight &light, const util::Tuple &position, const util::Tuple &eye, const util::Tuple &normal)
+util::Color rt::lighting(const rt::Material &material, const rt::PointLight &light,
+  const util::Tuple &position, const util::Tuple &eye, const util::Tuple &normal, bool inShadow)
 {
   auto effectiveColor = material.color() * light.intensity();
 
   //ambient is const
   util::Color ambient = effectiveColor * material.ambient();
-
+  if(inShadow) {
+    return ambient;
+  }
   auto lightVector = (light.position() - position).normalize();
   auto light_dot_normal = lightVector.dot(normal);//cos(theta)
 
