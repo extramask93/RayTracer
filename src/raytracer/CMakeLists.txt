@@ -1,6 +1,6 @@
 add_library(raytracer "")
-target_link_libraries(raytracer PRIVATE project_options project_warnings CONAN_PKG::docopt.cpp
-        CONAN_PKG::fmt CONAN_PKG::spdlog)
+target_link_libraries(raytracer PRIVATE project_options project_warnings
+        )
 target_link_libraries(raytracer PUBLIC utils)
 
 target_sources(raytracer

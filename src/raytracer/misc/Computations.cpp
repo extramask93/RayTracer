@@ -31,6 +31,43 @@ util::Color colorAt(const World &world, const Ray &ray)
   }
   return result; //util::Color::BLACK;
 }
+
+/*Phong reflection model*/
+util::Color lighting(const rt::Material &material,const rt::Shape &object, const rt::PointLight &light,
+                         const util::Tuple &position, const util::Tuple &eye, const util::Tuple &normal, bool inShadow)
+{
+
+  auto effectiveColor = material.color() * light.intensity();
+  if(material.pattern() != nullptr) {
+    effectiveColor = rt::stripeAtObject(*material.pattern(),object,position);
+  }
+
+  //ambient is const
+  util::Color ambient = effectiveColor * material.ambient();
+  if(inShadow) {
+    return ambient;
+  }
+  auto lightVector = (light.position() - position).normalize();
+  auto light_dot_normal = lightVector.dot(normal);//cos(theta)
+
+  util::Color diffuse(0, 0, 0);
+  util::Color specular(0, 0, 0);
+  if (light_dot_normal < 0) {
+    diffuse = util::Color::BLACK;
+    specular = util::Color::BLACK;
+  } else {
+    diffuse = effectiveColor * material.diffuse() * light_dot_normal;
+    auto reflectVector = (-lightVector).reflect(normal);
+    auto reflect_dot_eye = reflectVector.dot(eye);
+    if (reflect_dot_eye <= 0) {
+      specular = util::Color::BLACK;
+    } else {
+      auto factor = std::pow(reflect_dot_eye, material.shininess());
+      specular = effectiveColor * material.specular() * factor;
+    }
+  }
+  return ambient + diffuse + specular;
+}
 util::Matrixd viewTransformation(const util::Tuple &from, const util::Tuple &to, const util::Tuple &up)
 {
   auto forwardv = (to - from).normalize();
@@ -89,5 +126,12 @@ util::Color stripeAt(const StripePattern &pattern, const util::Tuple &point)
   } else {
     return pattern.a();
   }
+}
+util::Color stripeAtObject(const StripePattern &pattern, const Shape &shape, const util::Tuple &point)
+{
+
+  auto pointInObjectSpace = shape.transform().inverse()* point;
+  auto pointInPatternSpace = pattern.transform().inverse() * pointInObjectSpace;
+  return stripeAt(pattern,pointInPatternSpace);
 }
 }

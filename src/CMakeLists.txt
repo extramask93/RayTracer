@@ -11,8 +11,8 @@ add_subdirectory(raytracer)
 add_executable(intro main.cpp)
 add_executable(sphere sphere.cpp)
 target_link_libraries(
-        sphere PRIVATE project_options project_warnings utils raytracer CONAN_PKG::docopt.cpp
-        CONAN_PKG::fmt CONAN_PKG::spdlog)
+        sphere PRIVATE project_options project_warnings utils raytracer
+        )
 target_link_libraries(
-  intro PRIVATE project_options project_warnings utils CONAN_PKG::docopt.cpp
-                CONAN_PKG::fmt CONAN_PKG::spdlog)
+  intro PRIVATE project_options project_warnings utils
+                )

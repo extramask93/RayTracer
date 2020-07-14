@@ -1,7 +1,6 @@
 #include <functional>
 #include <iostream>
 
-#include <spdlog/spdlog.h>
 #include <Tuple.h>
 #include <Matrix.h>
 #include <Canvas.h>
@@ -24,7 +23,7 @@ void tick(const Environment &env, Projectile &p)
 }
 
 void drawClock(util::Canvas &canvas) {
-  auto fullCicrcle = 2*M_PI;
+  auto fullCicrcle = 2*std::numbers::pi;
   auto radStep = fullCicrcle/12;
   auto origin = util::Tuple::point(0,0,0);
   for(unsigned i=0; i<12;i++) {

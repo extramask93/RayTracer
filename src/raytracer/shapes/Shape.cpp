@@ -16,7 +16,11 @@ bool Shape::operator==(const Shape &other) const
 {
   return m_id == other.m_id;
 }
-rt::Material Shape::material() const
+const rt::Material& Shape::material() const
+{
+  return m_material;
+}
+rt::Material& Shape::material()
 {
   return m_material;
 }

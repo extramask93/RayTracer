@@ -16,14 +16,47 @@ public:
   constexpr Material &setSpecular(double specular);
   constexpr Material &setShininess(double shininess);
   constexpr Material &setColor(const util::Color &color);
-  constexpr Material &setPattern(const rt::StripePattern &pattern);
+  Material &setPattern(std::unique_ptr<rt::StripePattern> &&pattern);
   [[nodiscard]] constexpr double ambient() const;
   [[nodiscard]] constexpr double diffuse() const;
   [[nodiscard]] constexpr double specular() const;
   [[nodiscard]] constexpr double shininess() const;
   [[nodiscard]] constexpr util::Color color() const;
-  [[nodiscard]] rt::StripePattern pattern() const;
+  [[nodiscard]] rt::StripePattern *pattern() const;
   [[nodiscard]] constexpr bool operator==(const Material &other) const;
+  /*rule of five */
+  Material() = default;
+  ~Material() = default;
+  Material(Material &&other) noexcept = default;
+  Material &operator=(Material &&other) noexcept = default;
+  Material(const Material &other)// copy constructor
+    : Material()
+  {
+    /*it may slice https://stackoverflow.com/questions/16030081/copy-constructor-for-a-class-with-unique-ptr*/
+    if(other.m_pattern != nullptr) {
+      m_pattern.reset(new rt::StripePattern(*other.m_pattern));
+    }
+    m_color  = other.m_color;
+    m_ambient = other.m_ambient;
+    m_diffuse = other.m_diffuse;
+    m_specular = other.m_specular;
+    m_shininess = other.m_shininess;
+  }
+  Material &operator=(const Material &other)// copy assignment
+  {
+
+    if(other.m_pattern != nullptr) {
+      m_pattern.reset(new rt::StripePattern(*other.m_pattern));
+    }
+
+    m_color  = other.m_color;
+    m_ambient = other.m_ambient;
+    m_diffuse = other.m_diffuse;
+    m_specular = other.m_specular;
+    m_shininess = other.m_shininess;
+    return *this;
+  }
+
 
 private:
   util::Color m_color = util::Color(1, 1, 1);
@@ -31,8 +64,7 @@ private:
   double m_diffuse = 0.9;
   double m_specular = 0.9;
   double m_shininess = 200.0;
-  rt::StripePattern m_pattern = rt::StripePattern(util::Color(1,1,1), util::Color(0,0,0));
- // std::unique_ptr<double> a;
+  std::unique_ptr<rt::StripePattern> m_pattern;
 };
 constexpr double Material::ambient() const
 {
@@ -81,13 +113,9 @@ constexpr Material &Material::setShininess(double shininess)
 constexpr Material &Material::setColor(const util::Color &color)
 {
   m_color = color;
-  return  *this;
-}
-constexpr Material &Material::setPattern(const StripePattern &pattern)
-{
-  m_pattern = pattern;
   return *this;
 }
+
 
 }// namespace rt
 #endif//MYPROJECT_MATERIAL_H

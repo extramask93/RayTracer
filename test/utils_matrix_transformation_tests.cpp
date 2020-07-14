@@ -86,8 +86,8 @@ SCENARIO("Rotating a point around x axis")
   GIVEN("Transform matrix")
   {
     auto point = util::Tuple::point(0, 1, 0);
-    auto half_quarter = util::Matrix<double>::rotation_x(M_PI / 4);
-    auto full_quarter = util::Matrix<double>::rotation_x(M_PI / 2);
+    auto half_quarter = util::Matrix<double>::rotation_x(std::numbers::pi / 4);
+    auto full_quarter = util::Matrix<double>::rotation_x(std::numbers::pi / 2);
     THEN(" ")
     {
       REQUIRE(full_quarter * point == util::Tuple::point(0, 0, 1));
@@ -100,8 +100,8 @@ SCENARIO("Rotating by inverse rotates point around x axis in opposite direction"
   GIVEN("Transform matrix")
   {
     auto point = util::Tuple::point(0, 1, 0);
-    auto half_quarter = util::Matrix<double>::rotation_x(M_PI / 4);
-    auto full_quarter = util::Matrix<double>::rotation_x(M_PI / 2);
+    auto half_quarter = util::Matrix<double>::rotation_x(std::numbers::pi / 4);
+    auto full_quarter = util::Matrix<double>::rotation_x(std::numbers::pi / 2);
     THEN(" ")
     {
       REQUIRE(full_quarter.inverse() * point == util::Tuple::point(0, 0, -1));
@@ -114,8 +114,8 @@ SCENARIO("Rotating a point around y axis")
   GIVEN("Transform matrix")
   {
     auto point = util::Tuple::point(0, 0, 1);
-    auto half_quarter = util::Matrix<double>::rotation_y(M_PI / 4);
-    auto full_quarter = util::Matrix<double>::rotation_y(M_PI / 2);
+    auto half_quarter = util::Matrix<double>::rotation_y(std::numbers::pi / 4);
+    auto full_quarter = util::Matrix<double>::rotation_y(std::numbers::pi / 2);
     THEN(" ")
     {
       REQUIRE(full_quarter * point == util::Tuple::point(1, 0, 0));
@@ -128,8 +128,8 @@ SCENARIO("Rotating a point around z axis")
   GIVEN("Transform matrix")
   {
     auto point = util::Tuple::point(0, 1, 0);
-    auto half_quarter = util::Matrix<double>::rotation_z(M_PI / 4);
-    auto full_quarter = util::Matrix<double>::rotation_z(M_PI / 2);
+    auto half_quarter = util::Matrix<double>::rotation_z(std::numbers::pi / 4);
+    auto full_quarter = util::Matrix<double>::rotation_z(std::numbers::pi / 2);
     THEN(" ")
     {
       REQUIRE(full_quarter * point == util::Tuple::point(-1, 0, 0));
@@ -234,7 +234,7 @@ SCENARIO("Individual transformations are applied in sequence")
     auto point = util::Tuple::point(1,0,1);
     AND_GIVEN("rotation matrix")
     {
-      auto A = util::Matrix<double>::rotation_x(M_PI/2);
+      auto A = util::Matrix<double>::rotation_x(std::numbers::pi/2);
       AND_GIVEN("scaling matrix") {
         auto B =util::Matrix<double>::scaling(5,5,5);
         AND_GIVEN("Translation matrix") {
@@ -266,7 +266,7 @@ SCENARIO("Chained transformations must be applied in reverse order") {
 GIVEN("") {
   auto p = util::Tuple::point(1,0,1);
   AND_GIVEN("") {
-    auto A= util::Matrix<double>::rotation_x(M_PI/2);
+    auto A= util::Matrix<double>::rotation_x(std::numbers::pi/2);
     AND_GIVEN("") {
         auto B= util::Matrix<double>::scaling(5,5,5);
         AND_GIVEN("") {

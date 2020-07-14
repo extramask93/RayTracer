@@ -19,8 +19,7 @@ private:
   util::Color m_intensity;
   util::Tuple m_position;
 };
-util::Color lighting(const rt::Material &material, const rt::PointLight &light, const util::Tuple &position,
-                     const util::Tuple &eye, const util::Tuple &normal, bool inShadow);
+
 constexpr util::Tuple PointLight::position() const
 {
   return m_position;

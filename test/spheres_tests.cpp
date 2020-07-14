@@ -227,7 +227,7 @@ SCENARIO("Computing the normal on a translated sphere") {
 SCENARIO("Computing the normal on a transformed sphere") {
   GIVEN("A sphere and transfrom") {
     auto s = rt::Sphere();
-    s.setTransform(util::Matrixd::scaling(1,0.5,1).rotate_z(M_PI/5));
+    s.setTransform(util::Matrixd::scaling(1,0.5,1).rotate_z(std::numbers::pi/5));
     WHEN("Computing normal") {
       auto normal = s.normalAt(util::Tuple::point(0,sqrt(2)/2, -sqrt(2)/2));
       THEN("") {

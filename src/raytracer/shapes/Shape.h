@@ -19,7 +19,8 @@ public:
   virtual util::Tuple normalAt(const util::Tuple &point) const final;
   virtual void setTransform(const util::Matrixd &transform);
   virtual util::Matrixd transform() const;
-  virtual rt::Material material() const;
+  virtual const rt::Material& material() const;
+  virtual rt::Material& material() ;
   virtual void setMaterial(const rt::Material &mat);
   virtual bool operator==(const Shape &other) const final;
   virtual ~Shape() = default;

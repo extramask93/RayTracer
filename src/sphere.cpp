@@ -24,11 +24,13 @@ int main(int argc, const char **argv)
   (void)argv;
   auto world = rt::World();
   auto sphere1 = std::make_unique<rt::Sphere>();
-  sphere1->setTransform(util::Matrixd::translation(-0.5, 1, 0.5));
+  sphere1->setTransform(util::Matrixd::translation(-0.5, 1.0, 0.5));
   sphere1->setMaterial(rt::Material()
-                         .setColor(util::Color(0.1, 1, 0.5))
+                         .setColor(util::Color(0.1, 1.0, 0.5))
                          .setDiffuse(0.7)
-                         .setSpecular(0.3));
+                         .setSpecular(0.3).setPattern(std::make_unique<rt::StripePattern>(util::Color(1,1,1),
+                           util::Color(0,0,0))));
+  sphere1->material().pattern()->transform() = util::Matrixd::rotation_y(std::numbers::pi/6)*util::Matrixd::scaling(0.2,0.2,0.2);
   world.shapes().emplace_back(std::move(sphere1));
   /////////////////////////////////////////////////////////////////
   auto sphere2 = std::make_unique<rt::Sphere>();
@@ -51,7 +53,7 @@ int main(int argc, const char **argv)
   world.shapes().emplace_back(std::move(floor));
   ///////////////////////////////////////////////////////////////
   auto wall = std::make_unique<rt::Plane>();
-  wall->setTransform(util::Matrixd::translation(0,0,10) *util::Matrixd::rotation_x(M_PI/2));
+  wall->setTransform(util::Matrixd::translation(0,0,10) *util::Matrixd::rotation_x(std::numbers::pi/2));
   wall->setMaterial(rt::Material()
                        .setColor(util::Color(0.5, 0.9, 0.9))
                        .setSpecular(0));
@@ -61,7 +63,7 @@ int main(int argc, const char **argv)
     util::Color(1, 1, 1));
   world.lights().emplace_back(std::move(light));
 
-  auto camera = rt::Camera(200, 100, M_PI / 3);
+  auto camera = rt::Camera(200, 100, std::numbers::pi / 3);
   auto transform = rt::viewTransformation(util::Tuple::point(0,1.5,-4),util::Tuple::point(0,1,0),util::Tuple::vector(0,1,0));
   camera.setTransform(transform);
 
