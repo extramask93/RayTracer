@@ -18,6 +18,7 @@ target_sources(raytracer
         misc/Shader.cpp
         misc/Computations.cpp
         camera/Camera.cpp
+        patterns/StripePattern.cpp
         PUBLIC
         ${CMAKE_CURRENT_LIST_DIR}/ray/Ray.h
         ${CMAKE_CURRENT_LIST_DIR}/camera/Camera.h
@@ -32,6 +33,7 @@ target_sources(raytracer
         ${CMAKE_CURRENT_LIST_DIR}/lights/PointLight.h
         ${CMAKE_CURRENT_LIST_DIR}/intersections/Intersection.h
         ${CMAKE_CURRENT_LIST_DIR}/intersections/IIntersect.h
+        ${CMAKE_CURRENT_LIST_DIR}/patterns/StripePattern.h
         )
 target_include_directories(raytracer
         PUBLIC

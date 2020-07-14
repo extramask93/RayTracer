@@ -8,6 +8,7 @@
 #include <world/World.h>
 #include <camera/Camera.h>
 #include <Canvas.h>
+#include <patterns/StripePattern.h>
 #define EPSILON 0.00001
 namespace rt {
 struct Computations
@@ -26,5 +27,6 @@ util::Matrixd viewTransformation(const util::Tuple &from, const util::Tuple &to,
 rt::Ray rayForPixel(const rt::Camera &c, unsigned px, unsigned py);
 bool isShadowed(const rt::World &world, const util::Tuple &point);
 util::Canvas render(const rt::Camera &c,const rt::World &world);
+util::Color stripeAt(const rt::StripePattern &pattern, const util::Tuple &point);
 }// namespace rt
 #endif//MYPROJECT_COMPUTATIONS_H

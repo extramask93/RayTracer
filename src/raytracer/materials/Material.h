@@ -5,6 +5,8 @@
 #ifndef MYPROJECT_MATERIAL_H
 #define MYPROJECT_MATERIAL_H
 #include <Color.h>
+#include <patterns/StripePattern.h>
+#include <memory>
 namespace rt {
 class Material
 {
@@ -14,11 +16,13 @@ public:
   constexpr Material &setSpecular(double specular);
   constexpr Material &setShininess(double shininess);
   constexpr Material &setColor(const util::Color &color);
+  constexpr Material &setPattern(const rt::StripePattern &pattern);
   [[nodiscard]] constexpr double ambient() const;
   [[nodiscard]] constexpr double diffuse() const;
   [[nodiscard]] constexpr double specular() const;
   [[nodiscard]] constexpr double shininess() const;
   [[nodiscard]] constexpr util::Color color() const;
+  [[nodiscard]] rt::StripePattern pattern() const;
   [[nodiscard]] constexpr bool operator==(const Material &other) const;
 
 private:
@@ -27,6 +31,8 @@ private:
   double m_diffuse = 0.9;
   double m_specular = 0.9;
   double m_shininess = 200.0;
+  rt::StripePattern m_pattern = rt::StripePattern(util::Color(1,1,1), util::Color(0,0,0));
+ // std::unique_ptr<double> a;
 };
 constexpr double Material::ambient() const
 {
@@ -77,5 +83,11 @@ constexpr Material &Material::setColor(const util::Color &color)
   m_color = color;
   return  *this;
 }
+constexpr Material &Material::setPattern(const StripePattern &pattern)
+{
+  m_pattern = pattern;
+  return *this;
+}
+
 }// namespace rt
 #endif//MYPROJECT_MATERIAL_H

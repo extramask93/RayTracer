@@ -3,4 +3,9 @@
 //
 
 #include "Material.h"
-
+namespace rt {
+rt::StripePattern Material::pattern() const
+{
+  return m_pattern;
+}
+}

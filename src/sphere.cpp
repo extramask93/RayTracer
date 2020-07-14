@@ -11,6 +11,7 @@
 #include <misc/Computations.h>
 #include <intersections/Intersection.h>
 #include <intersections/Intersections.h>
+#include <shapes/Plane.h>
 const double wall_z = 10;
 const double ray_z = -4;
 const unsigned canvas_size = 300;
@@ -31,7 +32,7 @@ int main(int argc, const char **argv)
   world.shapes().emplace_back(std::move(sphere1));
   /////////////////////////////////////////////////////////////////
   auto sphere2 = std::make_unique<rt::Sphere>();
-  sphere2->setTransform(util::Matrixd::translation(-1,0.75,-0.5)*util::Matrixd::scaling(0.5,0.5,0.5));
+  sphere2->setTransform(util::Matrixd::translation(-1,0,1)*util::Matrixd::scaling(0.5,0.5,0.5));
   sphere2->setMaterial(rt::Material()
                          .setColor(util::Color(0.5, 0, 0))
                          .setDiffuse(0.7)
@@ -42,12 +43,19 @@ int main(int argc, const char **argv)
   sphere3->setTransform(util::Matrixd::translation(1.5,0.5,1)*util::Matrixd::scaling(0.5,0.5,0.5));
   world.shapes().emplace_back(std::move(sphere3));
   ///////////////////////////////////////////////////////////////
-  auto floor = std::make_unique<rt::Sphere>();
-  floor->setTransform(util::Matrixd::scaling(10,0.01,10));
+  auto floor = std::make_unique<rt::Plane>();
+  //floor->setTransform(util::Matrixd::scaling(10,0.01,10));
   floor->setMaterial(rt::Material()
                          .setColor(util::Color(1, 0.9, 0.9))
                          .setSpecular(0));
   world.shapes().emplace_back(std::move(floor));
+  ///////////////////////////////////////////////////////////////
+  auto wall = std::make_unique<rt::Plane>();
+  wall->setTransform(util::Matrixd::translation(0,0,10) *util::Matrixd::rotation_x(M_PI/2));
+  wall->setMaterial(rt::Material()
+                       .setColor(util::Color(0.5, 0.9, 0.9))
+                       .setSpecular(0));
+  world.shapes().emplace_back(std::move(wall));
   /////////////////////////////////////////////////////////////
   auto light = std::make_unique<rt::PointLight>(util::Tuple::point(-10, 10, -10),
     util::Color(1, 1, 1));

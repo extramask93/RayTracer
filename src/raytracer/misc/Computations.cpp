@@ -82,4 +82,12 @@ bool isShadowed(const World &world, const util::Tuple &point)
   }
   return false;
 }
+util::Color stripeAt(const StripePattern &pattern, const util::Tuple &point)
+{
+  if(static_cast<int>(std::floor(point.x())) % 2) {
+    return pattern.b();
+  } else {
+    return pattern.a();
+  }
+}
 }
