@@ -39,7 +39,7 @@ util::Color lighting(const rt::Material &material,const rt::Shape &object, const
 
   auto effectiveColor = material.color() * light.intensity();
   if(material.pattern() != nullptr) {
-    effectiveColor = rt::stripeAtObject(*material.pattern(),object,position);
+    effectiveColor = rt::patternAtObject(*material.pattern(), object, position);
   }
 
   //ambient is const
@@ -119,19 +119,12 @@ bool isShadowed(const World &world, const util::Tuple &point)
   }
   return false;
 }
-util::Color stripeAt(const StripePattern &pattern, const util::Tuple &point)
-{
-  if(static_cast<int>(std::floor(point.x())) % 2) {
-    return pattern.b();
-  } else {
-    return pattern.a();
-  }
-}
-util::Color stripeAtObject(const StripePattern &pattern, const Shape &shape, const util::Tuple &point)
+
+util::Color patternAtObject(const Pattern &pattern, const Shape &shape, const util::Tuple &point)
 {
 
   auto pointInObjectSpace = shape.transform().inverse()* point;
   auto pointInPatternSpace = pattern.transform().inverse() * pointInObjectSpace;
-  return stripeAt(pattern,pointInPatternSpace);
+  return pattern.patternAt(pointInPatternSpace);
 }
 }

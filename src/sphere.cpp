@@ -12,6 +12,9 @@
 #include <intersections/Intersection.h>
 #include <intersections/Intersections.h>
 #include <shapes/Plane.h>
+#include <patterns/LinearGradientPattern.h>
+#include <patterns/RingPattern.h>
+#include <patterns/RadialGradientPattern.h>
 const double wall_z = 10;
 const double ray_z = -4;
 const unsigned canvas_size = 300;
@@ -28,9 +31,9 @@ int main(int argc, const char **argv)
   sphere1->setMaterial(rt::Material()
                          .setColor(util::Color(0.1, 1.0, 0.5))
                          .setDiffuse(0.7)
-                         .setSpecular(0.3).setPattern(std::make_unique<rt::StripePattern>(util::Color(1,1,1),
+                         .setSpecular(0.3).setPattern(std::make_unique<rt::RadialGradientPattern>(util::Color(1,1,1),
                            util::Color(0,0,0))));
-  sphere1->material().pattern()->transform() = util::Matrixd::rotation_y(std::numbers::pi/6)*util::Matrixd::scaling(0.2,0.2,0.2);
+  sphere1->material().pattern()->transform() = util::Matrixd::rotation_x(std::numbers::pi/2)*util::Matrixd::scaling(1,1,1);
   world.shapes().emplace_back(std::move(sphere1));
   /////////////////////////////////////////////////////////////////
   auto sphere2 = std::make_unique<rt::Sphere>();

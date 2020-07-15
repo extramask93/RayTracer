@@ -16,13 +16,13 @@ public:
   constexpr Material &setSpecular(double specular);
   constexpr Material &setShininess(double shininess);
   constexpr Material &setColor(const util::Color &color);
-  Material &setPattern(std::unique_ptr<rt::StripePattern> &&pattern);
+  Material &setPattern(std::unique_ptr<rt::Pattern> &&pattern);
   [[nodiscard]] constexpr double ambient() const;
   [[nodiscard]] constexpr double diffuse() const;
   [[nodiscard]] constexpr double specular() const;
   [[nodiscard]] constexpr double shininess() const;
   [[nodiscard]] constexpr util::Color color() const;
-  [[nodiscard]] rt::StripePattern *pattern() const;
+  [[nodiscard]] rt::Pattern *pattern() const;
   [[nodiscard]] constexpr bool operator==(const Material &other) const;
   /*rule of five */
   Material() = default;
@@ -30,13 +30,12 @@ public:
   Material(Material &&other) noexcept = default;
   Material &operator=(Material &&other) noexcept = default;
   Material(const Material &other)// copy constructor
-    : Material()
   {
     /*it may slice https://stackoverflow.com/questions/16030081/copy-constructor-for-a-class-with-unique-ptr*/
-    if(other.m_pattern != nullptr) {
-      m_pattern.reset(new rt::StripePattern(*other.m_pattern));
+    if (other.m_pattern != nullptr) {
+      m_pattern = other.m_pattern->clone();
     }
-    m_color  = other.m_color;
+    m_color = other.m_color;
     m_ambient = other.m_ambient;
     m_diffuse = other.m_diffuse;
     m_specular = other.m_specular;
@@ -44,12 +43,10 @@ public:
   }
   Material &operator=(const Material &other)// copy assignment
   {
-
-    if(other.m_pattern != nullptr) {
-      m_pattern.reset(new rt::StripePattern(*other.m_pattern));
+    if (other.m_pattern != nullptr) {
+      m_pattern = other.m_pattern->clone();
     }
-
-    m_color  = other.m_color;
+    m_color = other.m_color;
     m_ambient = other.m_ambient;
     m_diffuse = other.m_diffuse;
     m_specular = other.m_specular;
@@ -64,7 +61,7 @@ private:
   double m_diffuse = 0.9;
   double m_specular = 0.9;
   double m_shininess = 200.0;
-  std::unique_ptr<rt::StripePattern> m_pattern;
+  std::unique_ptr<rt::Pattern> m_pattern;
 };
 constexpr double Material::ambient() const
 {

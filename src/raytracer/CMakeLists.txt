@@ -19,6 +19,11 @@ target_sources(raytracer
         misc/Computations.cpp
         camera/Camera.cpp
         patterns/StripePattern.cpp
+        patterns/Pattern.cpp
+        patterns/LinearGradientPattern.cpp
+        patterns/RingPattern.cpp
+        patterns/CheckersPattern.cpp
+        patterns/RadialGradientPattern.cpp
         PUBLIC
         ${CMAKE_CURRENT_LIST_DIR}/ray/Ray.h
         ${CMAKE_CURRENT_LIST_DIR}/camera/Camera.h
@@ -34,6 +39,11 @@ target_sources(raytracer
         ${CMAKE_CURRENT_LIST_DIR}/intersections/Intersection.h
         ${CMAKE_CURRENT_LIST_DIR}/intersections/IIntersect.h
         ${CMAKE_CURRENT_LIST_DIR}/patterns/StripePattern.h
+        ${CMAKE_CURRENT_LIST_DIR}/patterns/Pattern.h
+        ${CMAKE_CURRENT_LIST_DIR}/patterns/LinearGradientPattern.h
+        ${CMAKE_CURRENT_LIST_DIR}/patterns/RingPattern.h
+        ${CMAKE_CURRENT_LIST_DIR}/patterns/CheckersPattern.h
+        ${CMAKE_CURRENT_LIST_DIR}/patterns/RadialGradientPattern.h
         )
 target_include_directories(raytracer
         PUBLIC

@@ -5,12 +5,12 @@
 #include "Material.h"
 namespace rt {
 
-Material &Material::setPattern(std::unique_ptr<rt::StripePattern>&& pattern)
+Material &Material::setPattern(std::unique_ptr<rt::Pattern>&& pattern)
 {
   m_pattern = std::move(pattern);
   return *this;
 }
-rt::StripePattern* Material::pattern() const
+rt::Pattern* Material::pattern() const
 {
   return m_pattern.get();
 }

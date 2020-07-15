@@ -28,7 +28,6 @@ util::Matrixd viewTransformation(const util::Tuple &from, const util::Tuple &to,
 rt::Ray rayForPixel(const rt::Camera &c, unsigned px, unsigned py);
 bool isShadowed(const rt::World &world, const util::Tuple &point);
 util::Canvas render(const rt::Camera &c, const rt::World &world);
-util::Color stripeAt(const rt::StripePattern &pattern, const util::Tuple &point);
-util::Color stripeAtObject(const rt::StripePattern &pattern, const rt::Shape &shape, const util::Tuple &point);
+util::Color patternAtObject(const rt::Pattern &pattern, const rt::Shape &shape, const util::Tuple &point);
 }// namespace rt
 #endif//MYPROJECT_COMPUTATIONS_H
