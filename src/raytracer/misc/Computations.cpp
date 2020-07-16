@@ -18,16 +18,18 @@ Computations prepareComputations(const Intersection &i, const Ray &ray){
     comp.inside = true;
     comp.normalv = -comp.normalv;
   }
+  comp.reflectv = ray.direction().reflect(comp.normalv);
   comp.overPoint = comp.point + comp.normalv*EPSILON;
   return comp;
 }
-util::Color colorAt(const World &world, const Ray &ray)
+util::Color colorAt(const World &world, const Ray &ray, short callsLeft)
 {
   auto result = util::Color::BLACK;
+
   auto intersections = world.intersect(ray);
   if(intersections.hit().has_value()) {
     auto comps = prepareComputations(intersections.hit().value(), ray);
-    result = result + rt::Shader::shadeHit(world, comps);
+    result = result + rt::Shader::shadeHit(world, comps, callsLeft);
   }
   return result; //util::Color::BLACK;
 }
@@ -126,5 +128,14 @@ util::Color patternAtObject(const Pattern &pattern, const Shape &shape, const ut
   auto pointInObjectSpace = shape.transform().inverse()* point;
   auto pointInPatternSpace = pattern.transform().inverse() * pointInObjectSpace;
   return pattern.patternAt(pointInPatternSpace);
+}
+util::Color reflectedColor(const World &world, const Computations &comps, short callsLeft)
+{
+  if(comps.object->material().reflective() ==0 || callsLeft < 1) {
+    return util::Color(0,0,0);
+  }
+  auto reflectedRay = rt::Ray(comps.overPoint, comps.reflectv);
+  auto newColor = rt::colorAt(world,reflectedRay,callsLeft-1);
+  return newColor * comps.object->material().reflective();
 }
 }

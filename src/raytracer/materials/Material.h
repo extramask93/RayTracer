@@ -16,12 +16,14 @@ public:
   constexpr Material &setSpecular(double specular);
   constexpr Material &setShininess(double shininess);
   constexpr Material &setColor(const util::Color &color);
+  constexpr Material &setReflective(double level);
   Material &setPattern(std::unique_ptr<rt::Pattern> &&pattern);
   [[nodiscard]] constexpr double ambient() const;
   [[nodiscard]] constexpr double diffuse() const;
   [[nodiscard]] constexpr double specular() const;
   [[nodiscard]] constexpr double shininess() const;
   [[nodiscard]] constexpr util::Color color() const;
+  [[nodiscard]] constexpr double reflective() const;
   [[nodiscard]] rt::Pattern *pattern() const;
   [[nodiscard]] constexpr bool operator==(const Material &other) const;
   /*rule of five */
@@ -61,6 +63,7 @@ private:
   double m_diffuse = 0.9;
   double m_specular = 0.9;
   double m_shininess = 200.0;
+  double m_reflective = 0.0;
   std::unique_ptr<rt::Pattern> m_pattern;
 };
 constexpr double Material::ambient() const
@@ -111,6 +114,16 @@ constexpr Material &Material::setColor(const util::Color &color)
 {
   m_color = color;
   return *this;
+}
+constexpr Material &Material::setReflective(double level)
+{
+  m_reflective = level;
+  return *this;
+
+}
+constexpr double Material::reflective() const
+{
+  return m_reflective;
 }
 
 

@@ -12,7 +12,7 @@ namespace rt {
 class Shader
 {
 public:
-  static util::Color shadeHit(const rt::World &world, const rt::Computations &comps);
+  static util::Color shadeHit(const rt::World &world, const rt::Computations &comps, short callsLeft =4);
 };
 
 }// namespace rt

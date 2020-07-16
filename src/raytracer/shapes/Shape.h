@@ -18,7 +18,8 @@ public:
   virtual Intersections intersect(const Ray &ray) const override final;
   virtual util::Tuple normalAt(const util::Tuple &point) const final;
   virtual void setTransform(const util::Matrixd &transform);
-  virtual util::Matrixd transform() const;
+  virtual const util::Matrixd& transform() const;
+  virtual util::Matrixd& transform() ;
   virtual const rt::Material& material() const;
   virtual rt::Material& material() ;
   virtual void setMaterial(const rt::Material &mat);

@@ -25,7 +25,7 @@ public:
   [[nodiscard]] constexpr TupleType y() const {return data[1];}
   [[nodiscard]] constexpr TupleType z() const {return data[2];}
   [[nodiscard]] constexpr TupleType w() const {return data[3];}
-  [[nodiscard]] constexpr Tuple reflect(Tuple normal) const;
+  [[nodiscard]] constexpr Tuple reflect(const Tuple &normal) const;
   static constexpr Tuple point(TupleType x_, TupleType y_, TupleType z_)
   {
     return Tuple(x_, y_, z_, 1.0);
@@ -92,7 +92,7 @@ private:
   }
   static constexpr TupleType eps_ = 0.00001;
 };
-constexpr Tuple Tuple::reflect(Tuple normal) const
+constexpr Tuple Tuple::reflect(const Tuple &normal) const
 {
   return *this - normal * 2 * this->dot(normal);
 }

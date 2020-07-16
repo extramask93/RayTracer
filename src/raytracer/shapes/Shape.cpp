@@ -33,7 +33,7 @@ void rt::Shape::setTransform(const util::Matrixd &transorm)
   m_transform=transorm;
 }
 
-util::Matrixd rt::Shape::transform() const
+const util::Matrixd& rt::Shape::transform() const
 {
   return m_transform;
 }
@@ -52,5 +52,9 @@ util::Tuple Shape::normalAt(const util::Tuple &point) const
   auto worldNormal =  m_transform.inverse().transpose()*objectNormal;
   worldNormal.w() = 0;
   return worldNormal.normalize();
+}
+util::Matrixd &Shape::transform()
+{
+  return m_transform;
 }
 }

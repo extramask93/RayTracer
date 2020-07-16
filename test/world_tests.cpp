@@ -9,6 +9,7 @@
 #include <shapes/Sphere.h>
 #include <misc/Computations.h>
 #include <misc/Shader.h>
+#include <shapes/Plane.h>
 SCENARIO("Creating a world") {
   GIVEN("A world") {
     auto w = rt::World();
@@ -137,7 +138,7 @@ SCENARIO("The shadow when an object is between the point and the light") {
     auto w = rt::World::defaultWorld();
     auto p = util::Tuple::point(10,-10,10);
     THEN("") {
-      REQUIRE(rt::isShadowed(*w,p) == true);
+      REQUIRE(rt::isShadowed(*w, p));
     }
   }
 }
@@ -173,6 +174,91 @@ SCENARIO("shadeHit is given an intersection in shadow") {
     auto c = rt::Shader::shadeHit(world,comps);
     THEN("") {
       REQUIRE(c == util::Color(0.1,0.1,0.1));
+    }
+  }
+}
+
+SCENARIO("The reflected color for a nonreflective material") {
+  GIVEN("") {
+    auto world = rt::World::defaultWorld();
+    world->shapes()[1].get()->material().setAmbient(1);
+    auto r = rt::Ray(util::Tuple::point(0,0,0), util::Tuple::vector(0,0,1));
+    auto i  = rt::Intersection(1,world->shapes()[1].get());
+    auto comps = rt::prepareComputations(i,r);
+    auto c = rt::reflectedColor(*world,comps,2);
+    THEN("") {
+      REQUIRE(c == util::Color(0,0,0));
+    }
+  }
+}
+
+SCENARIO("The reflected color for a reflective material") {
+  GIVEN("") {
+    auto world = rt::World::defaultWorld();
+    auto shape = new rt::Plane();
+    shape->material().setReflective(0.5);
+    shape->transform() = util::Matrixd::translation(0,-1,0);
+    world->shapes().emplace_back(shape);
+    auto r = rt::Ray(util::Tuple::point(0,0,-3), util::Tuple::vector(0,-sqrt(2)/2,sqrt(2)/2));
+    auto i  = rt::Intersection(sqrt(2),world->shapes()[2].get());
+    auto comps = rt::prepareComputations(i,r);
+    auto c = rt::reflectedColor(*world,comps);
+    THEN("") {
+      REQUIRE(c == util::Color(0.19033,0.23791,0.14274));
+    }
+  }
+}
+
+SCENARIO("shadeHit with a reflective material") {
+  GIVEN("") {
+    auto world = rt::World::defaultWorld();
+    auto shape = new rt::Plane();
+    shape->material().setReflective(0.5);
+    shape->transform() = util::Matrixd::translation(0,-1,0);
+    world->shapes().emplace_back(shape);
+    auto r = rt::Ray(util::Tuple::point(0,0,-3), util::Tuple::vector(0,-sqrt(2)/2,sqrt(2)/2));
+    auto i  = rt::Intersection(sqrt(2),world->shapes()[2].get());
+    auto comps = rt::prepareComputations(i,r);
+    auto c = rt::Shader::shadeHit(*world,comps);
+    THEN("") {
+      REQUIRE(c == util::Color(0.87676,0.92434,0.82918));
+    }
+  }
+}
+
+SCENARIO("colorAt with mutually reflective surfaces") {
+  GIVEN("") {
+    auto world = rt::World();
+    world.lights().emplace_back(std::make_unique<rt::PointLight>(util::Tuple::point(0,0,0),util::Color(1,1,1)));
+    auto lower = new rt::Plane();
+    lower->material().setReflective(1);
+    lower->transform() = util::Matrixd::translation(0,-1,0);
+    world.shapes().emplace_back(lower);
+    auto upper = new rt::Plane();
+    upper->material().setReflective(1);
+    upper->transform() = util::Matrixd::translation(0,1,0);
+    world.shapes().emplace_back(upper);
+    auto r = rt::Ray(util::Tuple::point(0,0,0), util::Tuple::vector(0,1,0));
+    THEN("") {
+      REQUIRE_NOTHROW(rt::colorAt(world,r));
+    }
+  }
+}
+
+
+SCENARIO("The reflected color at the maximum recursive depth") {
+  GIVEN("") {
+    auto world = rt::World::defaultWorld();
+    auto shape = new rt::Plane();
+    shape->material().setReflective(0.5);
+    shape->transform() = util::Matrixd::translation(0,-1,0);
+    world->shapes().emplace_back(shape);
+    auto r = rt::Ray(util::Tuple::point(0,0,-3), util::Tuple::vector(0,-sqrt(2)/2,sqrt(2)/2));
+    auto i  = rt::Intersection(sqrt(2),world->shapes()[2].get());
+    auto comps = rt::prepareComputations(i,r);
+    auto c = rt::reflectedColor(*world,comps,0);
+    THEN("") {
+      REQUIRE(c == util::Color(0,0,0));
     }
   }
 }
