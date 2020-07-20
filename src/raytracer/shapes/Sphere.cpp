@@ -31,4 +31,9 @@ util::Tuple rt::Sphere::localNormalAt(const util::Tuple &point) const
 {
   return (point - m_origin);
 }
-
+rt::Sphere rt::Sphere::glassSphere()
+{
+  auto sphere = rt::Sphere();
+  sphere.material().setTransparency(1.0).setRefractionIndex(1.5);
+  return sphere;
+}

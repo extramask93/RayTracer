@@ -10,6 +10,7 @@
 #include <misc/Computations.h>
 #include <misc/Shader.h>
 #include <shapes/Plane.h>
+#include <patterns/TestPattern.h>
 SCENARIO("Creating a world") {
   GIVEN("A world") {
     auto w = rt::World();
@@ -259,6 +260,130 @@ SCENARIO("The reflected color at the maximum recursive depth") {
     auto c = rt::reflectedColor(*world,comps,0);
     THEN("") {
       REQUIRE(c == util::Color(0,0,0));
+    }
+  }
+}
+SCENARIO("The refracted color with an opaque surface") {
+  GIVEN("") {
+    auto world = rt::World::defaultWorld();
+    auto shape = world->shapes()[0].get();
+    auto ray = rt::Ray(util::Tuple::point(0,0,-5), util::Tuple::vector(0,0,1));
+    auto xs = rt::Intersections{rt::Intersection(4,shape), rt::Intersection(6,shape)};
+    WHEN(""){
+      auto comps = rt::prepareComputations(xs[0],ray,xs);
+      auto c = rt::refractedColor(*world,comps,5);
+      THEN(""){
+        REQUIRE(c == util::Color(0,0,0));
+      }
+    }
+  }
+}
+SCENARIO("The refracted color at the maximum recursive dept") {
+  GIVEN("") {
+    auto world = rt::World::defaultWorld();
+    auto shape = world->shapes()[0].get();
+    shape->material().setRefractionIndex(1.5);
+    shape->material().setTransparency( 1.0);
+    auto ray = rt::Ray(util::Tuple::point(0,0,-5), util::Tuple::vector(0,0,1));
+    auto xs = rt::Intersections{rt::Intersection(4,shape), rt::Intersection(6,shape)};
+    WHEN(""){
+      auto comps = rt::prepareComputations(xs[0],ray,xs);
+      auto c = rt::refractedColor(*world,comps,0);
+      THEN(""){
+        REQUIRE(c == util::Color(0,0,0));
+      }
+    }
+  }
+}
+SCENARIO("The refracted color under total internal reflection") {
+  GIVEN("") {
+    auto world = rt::World::defaultWorld();
+    auto shape = world->shapes()[0].get();
+    shape->material().setRefractionIndex(1.5);
+    shape->material().setTransparency( 1.0);
+    auto ray = rt::Ray(util::Tuple::point(0,0,sqrt(2)/2), util::Tuple::vector(0,1,0));
+    auto xs = rt::Intersections{rt::Intersection(-sqrt(2)/2,shape), rt::Intersection(sqrt(2)/2,shape)};
+    WHEN(""){
+      auto comps = rt::prepareComputations(xs[1],ray,xs);
+      auto c = rt::refractedColor(*world,comps,5);
+      THEN(""){
+        REQUIRE(c == util::Color(0,0,0));
+      }
+    }
+  }
+}
+
+SCENARIO("The refracted color with a refracted ray") {
+  GIVEN("") {
+    auto world = rt::World::defaultWorld();
+    auto A = world->shapes()[0].get();
+    A->material().setAmbient(1.0);
+    A->material().setPattern( std::make_unique<rt::TestPattern>(util::Color::BLACK, util::Color::BLACK));
+    auto B = world->shapes()[1].get();
+    B->material().setTransparency(1.0);
+    B->material().setRefractionIndex( 1.5);
+    auto ray = rt::Ray(util::Tuple::point(0,0,0.1), util::Tuple::vector(0,1,0));
+    auto xs = rt::Intersections{rt::Intersection(-0.9899,A), rt::Intersection(-0.4899,B),
+      rt::Intersection(0.4899,B),rt::Intersection(0.9899,A)};
+    WHEN(""){
+      auto comps = rt::prepareComputations(xs[2],ray,xs);
+      //std::swap(comps.n1,comps.n2);
+      auto c = rt::refractedColor(*world,comps,5);
+      THEN(""){
+        REQUIRE(c == util::Color(0,0.99888,0.04725));
+      }
+    }
+  }
+}
+
+SCENARIO("ShadeHit with a transparent material") {
+  GIVEN("") {
+    auto world = rt::World::defaultWorld();
+    world->shapes().emplace_back(std::make_unique<rt::Plane>());
+    auto floor = world->shapes()[2].get();
+    floor->transform() = util::Matrixd::translation(0,-1,0);
+    floor->material().setTransparency(0.5);
+    floor->material().setRefractionIndex(1.5);
+    world->shapes().emplace_back(std::make_unique<rt::Sphere>());
+    auto ball = world->shapes()[3].get();
+    ball->transform() = util::Matrixd::translation(0,-3.5,-0.5);
+    ball->material().setColor(util::Color(1,0,0));
+    ball->material().setAmbient(0.5);
+
+    auto ray = rt::Ray(util::Tuple::point(0,0,-3), util::Tuple::vector(0,-sqrt(2)/2,sqrt(2)/2));
+    auto xs = rt::Intersections{rt::Intersection(sqrt(2),world->shapes()[2].get())};
+    WHEN(""){
+      auto comps = rt::prepareComputations(xs[0],ray,xs);
+      auto c = rt::Shader::shadeHit(*world,comps,5);
+      THEN(""){
+        REQUIRE(c == util::Color(0.93642,0.68642,0.68642));
+      }
+    }
+  }
+}
+
+SCENARIO("ShadeHit with a reflective, transparent material") {
+  GIVEN("") {
+    auto world = rt::World::defaultWorld();
+    world->shapes().emplace_back(std::make_unique<rt::Plane>());
+    auto floor = world->shapes()[2].get();
+    floor->transform() = util::Matrixd::translation(0,-1,0);
+    floor->material().setTransparency(0.5);
+    floor->material().setReflective(0.5);
+    floor->material().setRefractionIndex(1.5);
+    world->shapes().emplace_back(std::make_unique<rt::Sphere>());
+    auto ball = world->shapes()[3].get();
+    ball->transform() = util::Matrixd::translation(0,-3.5,-0.5);
+    ball->material().setColor(util::Color(1,0,0));
+    ball->material().setAmbient(0.5);
+    auto ray = rt::Ray(util::Tuple::point(0,0,-3), util::Tuple::vector(0,-sqrt(2)/2,sqrt(2)/2));
+    auto xs = rt::Intersections{rt::Intersection(sqrt(2),world->shapes()[2].get())};
+    WHEN(""){
+      auto comps = rt::prepareComputations(xs[0],ray,xs);
+      auto c = rt::Shader::shadeHit(*world,comps,5);
+      THEN(""){
+        REQUIRE(c == util::Color(0.93391,0.69643,0.69243));
+      }
     }
   }
 }

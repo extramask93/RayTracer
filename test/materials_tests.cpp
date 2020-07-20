@@ -146,3 +146,16 @@ SCENARIO("Precomputing the reflection vector")
     }
   }
 }
+
+SCENARIO("Transparency and Refractive index for the default material")
+{
+  GIVEN("")
+  {
+    auto m = rt::Material();
+    THEN("")
+    {
+      REQUIRE(m.transparency() == 0.0);
+      REQUIRE(m.refractionIndex() == 1.0);
+    }
+  }
+}

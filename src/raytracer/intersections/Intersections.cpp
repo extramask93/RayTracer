@@ -4,7 +4,7 @@
 
 #include "Intersections.h"
 using namespace rt;
-std::optional<Intersection> Intersections::hit()
+std::optional<Intersection> Intersections::hit() const
 {
   auto iter = std::find_if(this->begin(),this->end(),[](auto i){ return i.t() > 0 ;});
   if(iter == this->end()) {

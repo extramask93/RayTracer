@@ -260,3 +260,14 @@ SCENARIO("A sphere may be assigned a material") {
     }
   }
 }
+SCENARIO("A helper function for producing a sphere with a glassy material") {
+  GIVEN("A sphere") {
+    auto s = rt::Sphere::glassSphere();
+    WHEN("") {
+      THEN(""){
+        REQUIRE(s.material().transparency() == 1.0);
+        REQUIRE(s.material().refractionIndex() == 1.5);
+      }
+    }
+  }
+}

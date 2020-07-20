@@ -9,6 +9,7 @@ target_sources(raytracer
         shapes/Sphere.cpp
         shapes/Shape.cpp
         shapes/Plane.cpp
+        shapes/Cube.cpp
         lights/PointLight.cpp
         materials/Material.cpp
         intersections/Intersection.cpp
@@ -24,6 +25,7 @@ target_sources(raytracer
         patterns/RingPattern.cpp
         patterns/CheckersPattern.cpp
         patterns/RadialGradientPattern.cpp
+        patterns/TestPattern.cpp
         PUBLIC
         ${CMAKE_CURRENT_LIST_DIR}/ray/Ray.h
         ${CMAKE_CURRENT_LIST_DIR}/camera/Camera.h
@@ -35,6 +37,7 @@ target_sources(raytracer
         ${CMAKE_CURRENT_LIST_DIR}/materials/Material.h
         ${CMAKE_CURRENT_LIST_DIR}/intersections/Intersections.h
         ${CMAKE_CURRENT_LIST_DIR}/shapes/Sphere.h
+        ${CMAKE_CURRENT_LIST_DIR}/shapes/Cube.h
         ${CMAKE_CURRENT_LIST_DIR}/lights/PointLight.h
         ${CMAKE_CURRENT_LIST_DIR}/intersections/Intersection.h
         ${CMAKE_CURRENT_LIST_DIR}/intersections/IIntersect.h
@@ -44,6 +47,7 @@ target_sources(raytracer
         ${CMAKE_CURRENT_LIST_DIR}/patterns/RingPattern.h
         ${CMAKE_CURRENT_LIST_DIR}/patterns/CheckersPattern.h
         ${CMAKE_CURRENT_LIST_DIR}/patterns/RadialGradientPattern.h
+        ${CMAKE_CURRENT_LIST_DIR}/patterns/TestPattern.h
         )
 target_include_directories(raytracer
         PUBLIC

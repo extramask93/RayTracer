@@ -13,6 +13,7 @@ public:
   explicit Sphere();
   Intersections localIntersect(const Ray &ray)const override;
   util::Tuple localNormalAt(const util::Tuple &point)const override;
+  static Sphere glassSphere();
 private:
 };
 }

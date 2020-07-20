@@ -40,7 +40,7 @@ private:
     auto difference = std::abs(lhs - rhs);
     return difference <= eps_;
   }
-  static constexpr TupleType eps_ = 0.00001;
+  static constexpr TupleType eps_ = 0.0001;
 public:
   TupleType r;
   TupleType g;

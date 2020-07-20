@@ -15,7 +15,7 @@ class Intersections : public std::vector<Intersection>
 public:
   explicit Intersections(const std::initializer_list<Intersection> &elems);
   iterator insert(const_iterator pos, const_iterator first, const_iterator last);
-  std::optional<Intersection> hit();
+  std::optional<Intersection> hit() const;
 };
 
 }// namespace rt

@@ -6,7 +6,8 @@
 #include <intersections/Intersections.h>
 #include <misc/Shader.h>
 namespace rt {
-Computations prepareComputations(const Intersection &i, const Ray &ray){
+Computations prepareComputations(const Intersection &i, const Ray &ray,const rt::Intersections &intersections){
+  (void)intersections;
   Computations comp;
   comp.t = i.t();
   comp.object = i.object();
@@ -20,6 +21,34 @@ Computations prepareComputations(const Intersection &i, const Ray &ray){
   }
   comp.reflectv = ray.direction().reflect(comp.normalv);
   comp.overPoint = comp.point + comp.normalv*EPSILON;
+  comp.underPoint = comp.point - comp.normalv*EPSILON;
+  /*refraction logic*/
+  if(intersections.size() > 0 ) {
+    std::vector<const Shape *> containers;
+    for (const auto &ii : intersections) {
+      if (ii == i) {
+        if (containers.empty()) {
+          comp.n1 = 1.0;
+        } else {
+          comp.n1 = containers.back()->material().refractionIndex();
+        }
+      }
+      auto obj = std::find_if(containers.begin(), containers.end(), [&](const auto &o) { return o == i.object(); });
+      if (obj != containers.end()) {
+        containers.erase(obj);
+      } else {
+        containers.push_back(ii.object());
+      }
+      if (ii == i) {
+        if (containers.empty()) {
+          comp.n2 = 1.0;
+        } else {
+          comp.n2 = containers.back()->material().refractionIndex();
+        }
+      }
+    }
+  }
+  /******************/
   return comp;
 }
 util::Color colorAt(const World &world, const Ray &ray, short callsLeft)
@@ -28,7 +57,7 @@ util::Color colorAt(const World &world, const Ray &ray, short callsLeft)
 
   auto intersections = world.intersect(ray);
   if(intersections.hit().has_value()) {
-    auto comps = prepareComputations(intersections.hit().value(), ray);
+    auto comps = prepareComputations(intersections.hit().value(), ray, intersections);
     result = result + rt::Shader::shadeHit(world, comps, callsLeft);
   }
   return result; //util::Color::BLACK;
@@ -137,5 +166,46 @@ util::Color reflectedColor(const World &world, const Computations &comps, short 
   auto reflectedRay = rt::Ray(comps.overPoint, comps.reflectv);
   auto newColor = rt::colorAt(world,reflectedRay,callsLeft-1);
   return newColor * comps.object->material().reflective();
+}
+util::Color refractedColor(const World &world, const Computations &comps, short callsLeft)
+{
+  auto transparency = comps.object->material().transparency();
+  if(equal(transparency,0.0) || callsLeft < 1){
+    return util::Color(0,0,0);
+  }
+  /*from the definition of Snell's Law*/
+  auto ratio = comps.n1 / comps.n2;
+  auto cosi = comps.eyev.dot(comps.normalv);
+  auto sin2t = std::pow(ratio,2) * (1-std::pow(cosi,2));
+  if(sin2t > 1.0) { // critical angle of 90 deg, so we need sint > 1
+    return util::Color(0,0,0);
+  }
+  auto cos_t = sqrt(1.0-sin2t);
+  auto d = ratio*cosi- cos_t;
+  auto normal = comps.normalv *d;
+  auto eyeVector = comps.eyev *ratio;
+  auto direction = normal-eyeVector;
+  auto refractRay = rt::Ray(comps.underPoint,direction);
+  auto color = rt::colorAt(world,refractRay,callsLeft-1) * comps.object->material().transparency();
+  return color;
+}
+double schlick(const Computations &comps)
+{
+  auto c = comps.eyev.dot(comps.normalv);
+  if(comps.n1 > comps.n2) {
+    auto n = comps.n1/comps.n2;
+    auto sin2t = pow(n,2) * (1.0-pow(c,2));
+    if(sin2t > 1.0) {
+      return 1.0;
+    }
+    auto cost = sqrt(1.0-sin2t);
+    c = cost;
+  }
+  auto r0 = pow((comps.n1 - comps.n2) / (comps.n1 + comps.n2),2);
+  return r0 + (1.0-r0) * pow(1.0-c,5);
+}
+bool equal(double x, double y)
+{
+  return std::fabs(x-y) < EPSILON;
 }
 }

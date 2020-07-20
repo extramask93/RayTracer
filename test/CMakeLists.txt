@@ -13,7 +13,7 @@ target_link_libraries(catch_main PRIVATE project_options)
 add_executable(tests utils_tuple_tests.cpp utils_color_tests.cpp utils_canvas_tests.cpp utils_matrix_tests.cpp
         utils_matrix_transformation_tests.cpp rays_tests.cpp spheres_tests.cpp intersections_tests.cpp lights_tests.cpp
         materials_tests.cpp world_tests.cpp transformations_tests.cpp camera_tests.cpp planes_tests.cpp
-        patterns_tests.cpp)
+        patterns_tests.cpp cubes_tests.cpp)
 target_link_libraries(tests PRIVATE project_warnings project_options
                                     catch_main utils raytracer)
 
