@@ -15,12 +15,12 @@
 #include <patterns/LinearGradientPattern.h>
 #include <patterns/RingPattern.h>
 #include <patterns/RadialGradientPattern.h>
-const double wall_z = 10;
-const double ray_z = -4;
+//const double wall_z = 10;
+//const double ray_z = -4;
 const unsigned canvas_size = 300;
 const double wall_size = 12;
-const double pixel_size = wall_size / canvas_size;
-const double half = wall_size / 2;
+//const double pixel_size = wall_size / canvas_size;
+//const double half = wall_size / 2;
 int main(int argc, const char **argv)
 {
   (void)argc;

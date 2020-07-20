@@ -316,7 +316,7 @@ SCENARIO("Calculating the inverse of a matrix") {
     AND_GIVEN("Matrix B which is it's inverse")
     {
       auto B = A.inverse();
-      util::Matrix<double> B2(4,4);
+      //util::Matrix<double> B2(4,4);
 
       THEN("A.det() == 532 ")
       {
