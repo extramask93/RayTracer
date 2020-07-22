@@ -15,10 +15,11 @@
 #include <patterns/LinearGradientPattern.h>
 #include <patterns/RingPattern.h>
 #include <patterns/RadialGradientPattern.h>
+#include <shapes/Cone.h>
 //const double wall_z = 10;
 //const double ray_z = -4;
-const unsigned canvas_size = 300;
-const double wall_size = 12;
+//const unsigned canvas_size = 300;
+//const double wall_size = 12;
 //const double pixel_size = wall_size / canvas_size;
 //const double half = wall_size / 2;
 int main(int argc, const char **argv)
@@ -26,18 +27,15 @@ int main(int argc, const char **argv)
   (void)argc;
   (void)argv;
   auto world = rt::World();
-  auto sphere1 = std::make_unique<rt::Sphere>();
-  sphere1->setTransform(util::Matrixd::translation(-0.5, 1.0, 0.5));
-  sphere1->setMaterial(rt::Material()
-                         .setColor(util::Color(0.1, 1.0, 0.5))
-                         .setDiffuse(0.7)
-                         .setSpecular(0.3).setPattern(std::make_unique<rt::RadialGradientPattern>(util::Color(1,1,1),
-                           util::Color(0,0,0))));
-  sphere1->material().pattern()->transform() = util::Matrixd::rotation_x(std::numbers::pi/2)*util::Matrixd::scaling(1,1,1);
-  world.shapes().emplace_back(std::move(sphere1));
+  auto cone = rt::Cone();
+  cone.maximum() = 0.5;
+  cone.minimum() = 0;
+  cone.setTransform(util::Matrixd::translation(-1,0,0.5) *util::Matrixd::scaling(1,3,1)
+                    );
+  world.shapes().emplace_back(std::make_unique<rt::Cone>(cone));
   /////////////////////////////////////////////////////////////////
   auto sphere2 = std::make_unique<rt::Sphere>();
-  sphere2->setTransform(util::Matrixd::translation(-1,0,1)*util::Matrixd::scaling(0.5,0.5,0.5));
+  sphere2->setTransform(util::Matrixd::translation(-1.25,1.5,0.5)*util::Matrixd::scaling(0.25,0.25,0.25));
   sphere2->setMaterial(rt::Material()
                          .setColor(util::Color(0.5, 0, 0))
                          .setDiffuse(0.7)

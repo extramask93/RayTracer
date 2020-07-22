@@ -19,10 +19,10 @@ public:
   bool &closed();
   const bool &closed() const;
 
-private:
+protected:
   bool checkCap(const rt::Ray &ray, double t) const;
   void intersectCaps(const rt::Ray &ray, Intersections &intersections) const;
-private:
+protected:
   double m_min = -std::numeric_limits<double>::infinity();
   double m_max = std::numeric_limits<double>::infinity();
   bool m_closed = false;

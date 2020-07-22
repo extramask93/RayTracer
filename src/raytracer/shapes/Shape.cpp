@@ -57,4 +57,12 @@ util::Matrixd &Shape::transform()
 {
   return m_transform;
 }
+const std::shared_ptr<const Shape> Shape::parent() const
+{
+  return m_parent.lock();
+}
+void Shape::setParent(const std::shared_ptr<Shape> &parent)
+{
+  m_parent = parent;
+}
 }

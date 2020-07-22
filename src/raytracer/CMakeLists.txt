@@ -11,6 +11,8 @@ target_sources(raytracer
         shapes/Plane.cpp
         shapes/Cube.cpp
         shapes/Cylinder.cpp
+        shapes/Cone.cpp
+        shapes/Group.cpp
         lights/PointLight.cpp
         materials/Material.cpp
         intersections/Intersection.cpp
@@ -36,6 +38,8 @@ target_sources(raytracer
         ${CMAKE_CURRENT_LIST_DIR}/shapes/Shape.h
         ${CMAKE_CURRENT_LIST_DIR}/shapes/Plane.h
         ${CMAKE_CURRENT_LIST_DIR}/shapes/Cylinder.h
+        ${CMAKE_CURRENT_LIST_DIR}/shapes/Cone.h
+        ${CMAKE_CURRENT_LIST_DIR}/shapes/Group.h
         ${CMAKE_CURRENT_LIST_DIR}/materials/Material.h
         ${CMAKE_CURRENT_LIST_DIR}/intersections/Intersections.h
         ${CMAKE_CURRENT_LIST_DIR}/shapes/Sphere.h
