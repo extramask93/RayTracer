@@ -16,7 +16,7 @@ rt::Intersections rt::Group::localIntersect(const rt::Ray &ray) const
 util::Tuple rt::Group::localNormalAt(const util::Tuple &point) const
 {
   (void)point;
-  return util::Tuple();
+  throw std::runtime_error("Calling normal At for a group is illegal");
 }
 rt::Group::Group() : Shape()
 {
@@ -30,4 +30,8 @@ rt::Group& rt::Group::addChild(const std::shared_ptr<Shape> &child)
   auto &added =  m_childrenList.emplace_back(child);
   added->setParent(std::static_pointer_cast<rt::Shape>(shared_from_this()));
   return *this;
+}
+rt::AABB rt::Group::bounds() const
+{
+  return rt::AABB();
 }

@@ -21,6 +21,7 @@ target_sources(raytracer
         world/World.cpp
         misc/Shader.cpp
         misc/Computations.cpp
+        misc/AABB.cpp
         camera/Camera.cpp
         patterns/StripePattern.cpp
         patterns/Pattern.cpp
@@ -34,6 +35,7 @@ target_sources(raytracer
         ${CMAKE_CURRENT_LIST_DIR}/camera/Camera.h
         ${CMAKE_CURRENT_LIST_DIR}/misc/Shader.h
         ${CMAKE_CURRENT_LIST_DIR}/misc/Computations.h
+        ${CMAKE_CURRENT_LIST_DIR}/misc/AABB.h
         ${CMAKE_CURRENT_LIST_DIR}/world/World.h
         ${CMAKE_CURRENT_LIST_DIR}/shapes/Shape.h
         ${CMAKE_CURRENT_LIST_DIR}/shapes/Plane.h

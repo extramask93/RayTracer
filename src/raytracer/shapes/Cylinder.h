@@ -18,13 +18,14 @@ public:
   const double &maximum() const;
   bool &closed();
   const bool &closed() const;
+  AABB bounds() const override;
 
 protected:
   bool checkCap(const rt::Ray &ray, double t) const;
   void intersectCaps(const rt::Ray &ray, Intersections &intersections) const;
 protected:
-  double m_min = -std::numeric_limits<double>::infinity();
-  double m_max = std::numeric_limits<double>::infinity();
+  double m_min = math::ninf<>;
+  double m_max = math::inf<>;
   bool m_closed = false;
 };
 

@@ -6,6 +6,7 @@
 #define MYPROJECT_SHAPE_H
 
 #include <ray/Ray.h>
+#include <misc/AABB.h>
 #include <materials/Material.h>
 #include <intersections/IIntersect.h>
 namespace rt {
@@ -26,6 +27,9 @@ public:
   virtual const std::shared_ptr<const Shape> parent() const;
   virtual void setParent(const std::shared_ptr<Shape> &parent);
   virtual bool operator==(const Shape &other) const final;
+  virtual util::Tuple worldToObject(const util::Tuple &point) const;
+  virtual util::Tuple normalToWorld(const util::Tuple &vector) const;
+  virtual rt::AABB bounds() const = 0;
   virtual ~Shape() = default;
   Shape(const Shape &copyFrom) = default;
   Shape(Shape &&moveFrom) = default;

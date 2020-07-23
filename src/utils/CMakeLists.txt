@@ -11,6 +11,7 @@ target_sources(utils
         ${CMAKE_CURRENT_LIST_DIR}/Color.h
         ${CMAKE_CURRENT_LIST_DIR}/Canvas.h
         ${CMAKE_CURRENT_LIST_DIR}/Matrix.h
+        ${CMAKE_CURRENT_LIST_DIR}/Math.h
         ${CMAKE_CURRENT_LIST_DIR}/CanvasPrinter.h
         )
 target_include_directories(utils

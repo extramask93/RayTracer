@@ -19,4 +19,12 @@ util::Tuple rt::Plane::localNormalAt(const util::Tuple &point) const
   (void)point;
   return util::Tuple::vector(0,1,0);
 }
-
+rt::AABB rt::Plane::bounds() const
+{
+  static const auto maxx = math::inf<>;
+  static const auto minn = math::ninf<>;
+  auto result =  rt::AABB();
+  result.add(util::Tuple::point(maxx,0,maxx));
+  result.add(util::Tuple::point(minn,0,minn));
+  return result;
+}

@@ -48,3 +48,7 @@ std::pair<double, double> rt::Cube::checkAxis(double origin, double direction) c
   }
   return std::make_pair(tmin,tmax);
 }
+rt::AABB rt::Cube::bounds() const
+{
+  return rt::AABB(util::Tuple::point(-1,-1,-1), util::Tuple::point(1,1,1));
+}

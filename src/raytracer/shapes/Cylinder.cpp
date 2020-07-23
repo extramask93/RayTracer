@@ -84,3 +84,7 @@ void rt::Cylinder::intersectCaps(const rt::Ray &ray, rt::Intersections &intersec
     intersections.emplace_back(Intersection(t,this));
   }
 }
+rt::AABB rt::Cylinder::bounds() const
+{
+  return rt::AABB(util::Tuple::point(-1,m_min,-1), util::Tuple::point(1,m_max,1));
+}

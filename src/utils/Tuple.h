@@ -6,6 +6,7 @@
 #include <cmath>
 #include <ostream>
 #include <array>
+#include <Math.h>
 namespace util {
 using TupleType = double;
 class Tuple
@@ -87,7 +88,11 @@ public:
 private:
   static bool equal(TupleType lhs, TupleType rhs)
   {
-    auto difference = std::abs(lhs - rhs);
+    if((lhs == math::inf<> && rhs == math::inf<>) ||
+      (lhs == math::ninf<> && rhs == math::ninf<>)) {
+      return true;
+    }
+    auto difference = math::absd(lhs - rhs);
     return difference <= eps_;
   }
   static constexpr TupleType eps_ = 0.00001;

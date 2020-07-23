@@ -154,7 +154,7 @@ bool isShadowed(const World &world, const util::Tuple &point)
 util::Color patternAtObject(const Pattern &pattern, const Shape &shape, const util::Tuple &point)
 {
 
-  auto pointInObjectSpace = shape.transform().inverse()* point;
+  auto pointInObjectSpace = shape.worldToObject(point);//shape.transform().inverse()* point;
   auto pointInPatternSpace = pattern.transform().inverse() * pointInObjectSpace;
   return pattern.patternAt(pointInPatternSpace);
 }
@@ -206,6 +206,6 @@ double schlick(const Computations &comps)
 }
 bool equal(double x, double y)
 {
-  return std::fabs(x-y) < EPSILON;
+  return std::fabs(x-y) < std::numeric_limits<double>::epsilon()*EPSILON;
 }
 }

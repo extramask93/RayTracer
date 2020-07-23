@@ -37,3 +37,10 @@ rt::Sphere rt::Sphere::glassSphere()
   sphere.material().setTransparency(1.0).setRefractionIndex(1.5);
   return sphere;
 }
+rt::AABB rt::Sphere::bounds() const
+{
+  auto bb = rt::AABB();
+  bb.min() = util::Tuple::point(-1,-1,-1);
+  bb.max() = util::Tuple::point(1,1,1);
+  return bb;
+}
