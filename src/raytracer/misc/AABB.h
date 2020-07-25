@@ -6,13 +6,19 @@
 #define MYPROJECT_AABB_H
 #include <Tuple.h>
 #include <Math.h>
+#include <Matrix.h>
 namespace rt {
+class Ray;
 class AABB
 {
 public:
   explicit AABB(const util::Tuple &pmin, const util::Tuple &pmax);
   explicit AABB() = default;
   AABB& add(const util::Tuple &point);
+  AABB& add(const rt::AABB &box);
+  AABB transform(const util::Matrixd &transform);
+  bool intersect(const rt::Ray &ray) const;
+  std::pair<double,double> checkAxis(double origin, double direction, double min, double max) const;
   const util::Tuple& min() const;
   const util::Tuple& max() const;
   util::Tuple& min() ;

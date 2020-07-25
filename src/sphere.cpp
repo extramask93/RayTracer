@@ -16,19 +16,42 @@
 #include <patterns/RingPattern.h>
 #include <patterns/RadialGradientPattern.h>
 #include <shapes/Cone.h>
-//const double wall_z = 10;
-//const double ray_z = -4;
-//const unsigned canvas_size = 300;
-//const double wall_size = 12;
-//const double pixel_size = wall_size / canvas_size;
-//const double half = wall_size / 2;
+#include <shapes/Group.h>
+auto hexagonCorner() {
+  auto corner = std::make_shared<rt::Sphere>();
+  corner->setTransform(util::Matrixd::translation(0,0,-1) * util::Matrixd::scaling(0.25,0.25,0.25));
+  return corner;
+}
+auto hexagonEdge() {
+  auto edge = std::make_shared<rt::Cylinder>();
+  edge->minimum() = 0;
+  edge->maximum() = 1;
+  edge->setTransform(util::Matrixd::translation(0,0,-1) * util::Matrixd::rotation_y(math::pi<>/-6) *
+                     util::Matrixd::rotation_z(math::pi<>/-2) * util::Matrixd::scaling(0.25,1,0.25));
+  return edge;
+}
+auto hexagonSide() {
+  auto side = std::make_shared<rt::Group>();
+  side->addChild(hexagonCorner());
+  side->addChild(hexagonEdge());
+  return side;
+}
+auto hexagon() {
+  auto hex = std::make_shared<rt::Group>();
+  for(int i =0; i < 5 ; i++) {
+    auto side = hexagonSide();
+    side->setTransform(util::Matrixd::rotation_y(i*math::pi<>/3));
+    hex->addChild(side);
+  }
+  return hex;
+}
 int main(int argc, const char **argv)
 {
   (void)argc;
   (void)argv;
   auto world = rt::World();
   auto cone = rt::Cone();
-  cone.maximum() = 0.5;
+  /*cone.maximum() = 0.5;
   cone.minimum() = 0;
   cone.setTransform(util::Matrixd::translation(-1,0,0.5) *util::Matrixd::scaling(1,3,1)
                     );
@@ -58,8 +81,9 @@ int main(int argc, const char **argv)
   wall->setMaterial(rt::Material()
                        .setColor(util::Color(0.5, 0.9, 0.9))
                        .setSpecular(0));
-  world.shapes().emplace_back(std::move(wall));
+  world.shapes().emplace_back(std::move(wall));*/
   /////////////////////////////////////////////////////////////
+  world.shapes().emplace_back(hexagon());
   auto light = std::make_unique<rt::PointLight>(util::Tuple::point(-10, 10, -10),
     util::Color(1, 1, 1));
   world.lights().emplace_back(std::move(light));

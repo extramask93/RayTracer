@@ -4,12 +4,16 @@
 
 #include "Group.h"
 #include <intersections/Intersections.h>
+#include <misc/AABB.h>
 rt::Intersections rt::Group::localIntersect(const rt::Ray &ray) const
 {
   auto xs = rt::Intersections{};
-  for(const auto &child : m_childrenList) {
-    auto it = child->intersect(ray); // why not local?
-    xs.insert(xs.end(),it.begin(),it.end());
+  auto b = bounds();
+  if(b.intersect(ray)) {
+    for (const auto &child : m_childrenList) {
+      auto it = child->intersect(ray);// why not local?
+      xs.insert(xs.end(), it.begin(), it.end());
+    }
   }
   return xs;
 }
@@ -33,5 +37,20 @@ rt::Group& rt::Group::addChild(const std::shared_ptr<Shape> &child)
 }
 rt::AABB rt::Group::bounds() const
 {
-  return rt::AABB();
+  //convert bounds of all objects into group space
+  std::vector<rt::AABB> transformedBounds;
+  for(const auto &child: m_childrenList) {
+    auto bounds = child->parentSpaceBounds();
+    transformedBounds.push_back(bounds);
+  }
+    //convert a point from object space to its parent space, thus multiply the point by the object's transformation matrix
+    //when transforming an entire bounding box, first transform all eight of the cube's corners and then find single
+    //bounding box that fits them all
+
+  //combine them into single bounding box
+  auto newaabb = rt::AABB();
+  for(const auto& bound : transformedBounds) {
+    newaabb.add(bound);
+  }
+  return newaabb;
 }

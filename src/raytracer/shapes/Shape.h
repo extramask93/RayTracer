@@ -30,6 +30,7 @@ public:
   virtual util::Tuple worldToObject(const util::Tuple &point) const;
   virtual util::Tuple normalToWorld(const util::Tuple &vector) const;
   virtual rt::AABB bounds() const = 0;
+  virtual rt::AABB parentSpaceBounds() const;
   virtual ~Shape() = default;
   Shape(const Shape &copyFrom) = default;
   Shape(Shape &&moveFrom) = default;

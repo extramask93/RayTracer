@@ -84,4 +84,8 @@ util::Tuple Shape::normalToWorld(const util::Tuple &vector) const
   }
   return n2;
 }
+rt::AABB Shape::parentSpaceBounds() const
+{
+  return bounds().transform(m_transform);
+}
 }// namespace rt
