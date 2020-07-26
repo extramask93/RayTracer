@@ -8,13 +8,13 @@
 namespace rt {
 std::unique_ptr<World> rt::World::defaultWorld()
 {
-  auto sphere1 = std::make_unique<Sphere>(Sphere());
+  auto sphere1 = std::make_shared<Sphere>(Sphere());
   auto material1 = rt::Material();
   material1.setColor(util::Color(0.8,1.0,0.6));
   material1.setDiffuse(0.7);
   material1.setSpecular(0.2);
   sphere1->setMaterial(material1);
-  auto sphere2 = std::make_unique<Sphere>(Sphere());
+  auto sphere2 = std::make_shared<Sphere>(Sphere());
   sphere2->setTransform(util::Matrixd::scaling(0.5,0.5,0.5));
   auto light = std::make_unique<PointLight>(
     PointLight(util::Tuple::point(-10,10,-10),util::Color(1,1,1)));
@@ -25,7 +25,7 @@ std::unique_ptr<World> rt::World::defaultWorld()
   return result;
 }
 
-std::vector<std::unique_ptr<Shape>> &World::shapes() const
+std::vector<std::shared_ptr<Shape>> &World::shapes() const
 {
   return m_shapes;
 }

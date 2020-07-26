@@ -16,12 +16,12 @@ class World : public IIntersect
 public:
   static std::unique_ptr<World> defaultWorld();
   [[nodiscard]] std::vector<std::unique_ptr<PointLight>>& lights() const;
-  [[nodiscard]] std::vector<std::unique_ptr<Shape>>& shapes() const;
+  [[nodiscard]] std::vector<std::shared_ptr<Shape>>& shapes() const;
   Intersections intersect(const Ray &ray) const override;
 
 private:
   mutable std::vector<std::unique_ptr<PointLight>> m_lights;
-  mutable std::vector<std::unique_ptr<Shape>> m_shapes;
+  mutable std::vector<std::shared_ptr<Shape>> m_shapes;
 };
 }// namespace rt
 

@@ -89,7 +89,7 @@ int main(int argc, const char **argv)
   world.lights().emplace_back(std::move(light));
 
   auto camera = rt::Camera(200, 100, std::numbers::pi / 3);
-  auto transform = rt::viewTransformation(util::Tuple::point(0,1.5,-4),util::Tuple::point(0,1,0),util::Tuple::vector(0,1,0));
+  auto transform = rt::viewTransformation(util::Tuple::point(0,1.5,-4),util::Tuple::point(0,0,0),util::Tuple::vector(0,1,0));
   camera.setTransform(transform);
 
   util::Canvas canvas = rt::render(camera, world);
