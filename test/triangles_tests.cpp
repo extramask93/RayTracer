@@ -26,9 +26,9 @@ SCENARIO("Finding the normal on a triangle") {
   GIVEN("") {
     auto t = std::make_shared<rt::Triangle>(util::Tuple::point(0,1,0), util::Tuple::point(-1,0,0), util::Tuple::point(1,0,0));
     WHEN("") {
-      auto n1 = t->localNormalAt(util::Tuple::point(0,0.5,0));
-      auto n2 = t->localNormalAt(util::Tuple::point(-0.5,0.75,0));
-      auto n3 = t->localNormalAt(util::Tuple::point(0.5,0.25,0));
+      auto n1 = t->localNormalAt(util::Tuple::point(0, 0.5, 0), rt::Intersection(0, nullptr));
+      auto n2 = t->localNormalAt(util::Tuple::point(-0.5, 0.75, 0), rt::Intersection(0, nullptr));
+      auto n3 = t->localNormalAt(util::Tuple::point(0.5, 0.25, 0), rt::Intersection(0, nullptr));
       THEN("") {
         REQUIRE(n1 == t->normal());
         REQUIRE(n2 == t->normal());

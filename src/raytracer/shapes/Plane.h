@@ -12,7 +12,7 @@ class Plane : public Shape
 {
 public:
   Intersections localIntersect(const Ray &ray) const override;
-  util::Tuple localNormalAt(const util::Tuple &point) const override;
+  util::Tuple localNormalAt(const util::Tuple &point, const rt::Intersection &intersection) const override;
   AABB bounds() const override;
 
 };

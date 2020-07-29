@@ -12,7 +12,7 @@ class Sphere : public Shape
 public:
   explicit Sphere();
   Intersections localIntersect(const Ray &ray)const override;
-  util::Tuple localNormalAt(const util::Tuple &point)const override;
+  util::Tuple localNormalAt(const util::Tuple &point, const rt::Intersection &intersection) const override;
   static Sphere glassSphere();
   AABB bounds() const override;
 

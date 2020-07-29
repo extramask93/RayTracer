@@ -157,7 +157,7 @@ SCENARIO("The normal on a sphere at a point on the x axis") {
   GIVEN("A sphere") {
     auto s = rt::Sphere();
     WHEN("Computing a normal vector") {
-      auto n = s.normalAt(util::Tuple::point(1,0,0));
+      auto n = s.normalAt(util::Tuple::point(1, 0, 0), rt::Intersection(0, nullptr));
       THEN("") {
         REQUIRE(n == util::Tuple::vector(1,0,0));
       }
@@ -168,7 +168,7 @@ SCENARIO("The normal on a sphere at a point on the y axis") {
   GIVEN("A sphere") {
     auto s = rt::Sphere();
     WHEN("Computing a normal vector") {
-      auto n = s.normalAt(util::Tuple::point(0,1,0));
+      auto n = s.normalAt(util::Tuple::point(0, 1, 0), rt::Intersection(0, nullptr));
       THEN("") {
         REQUIRE(n == util::Tuple::vector(0,1,0));
       }
@@ -179,7 +179,7 @@ SCENARIO("The normal on a sphere at a point on the z axis") {
   GIVEN("A sphere") {
     auto s = rt::Sphere();
     WHEN("Computing a normal vector") {
-      auto n = s.normalAt(util::Tuple::point(0,0,1));
+      auto n = s.normalAt(util::Tuple::point(0, 0, 1), rt::Intersection(0, nullptr));
       THEN("") {
         REQUIRE(n == util::Tuple::vector(0,0,1));
       }
@@ -191,7 +191,7 @@ SCENARIO("The normal on a sphere at a nonaxial point") {
     auto s = rt::Sphere();
     WHEN("Computing a normal vector") {
       double cord = std::sqrt(3)/3;
-      auto n = s.normalAt(util::Tuple::point(cord,cord,cord));
+      auto n = s.normalAt(util::Tuple::point(cord, cord, cord), rt::Intersection(0, nullptr));
       THEN("") {
         REQUIRE(n == util::Tuple::vector(cord,cord,cord));
       }
@@ -203,7 +203,7 @@ SCENARIO("The normal is a normalized vector") {
     auto s = rt::Sphere();
     WHEN("Computing a normal vector") {
       double cord = std::sqrt(3)/3;
-      auto n = s.normalAt(util::Tuple::point(cord,cord,cord));
+      auto n = s.normalAt(util::Tuple::point(cord, cord, cord), rt::Intersection(0, nullptr));
       auto k = n;
       n.normalize();
       THEN("") {
@@ -217,7 +217,7 @@ SCENARIO("Computing the normal on a translated sphere") {
     auto s = rt::Sphere();
     s.setTransform(util::Matrixd::translation(0,1,0));
     WHEN("Computing normal") {
-      auto normal = s.normalAt(util::Tuple::point(0,1.70711, -0.70711));
+      auto normal = s.normalAt(util::Tuple::point(0, 1.70711, -0.70711), rt::Intersection(0, nullptr));
       THEN("") {
         REQUIRE(normal == util::Tuple::vector(0,0.70711,-0.70711));
       }
@@ -229,7 +229,7 @@ SCENARIO("Computing the normal on a transformed sphere") {
     auto s = rt::Sphere();
     s.setTransform(util::Matrixd::scaling(1,0.5,1).rotate_z(std::numbers::pi/5));
     WHEN("Computing normal") {
-      auto normal = s.normalAt(util::Tuple::point(0,sqrt(2)/2, -sqrt(2)/2));
+      auto normal = s.normalAt(util::Tuple::point(0, sqrt(2) / 2, -sqrt(2) / 2), rt::Intersection(0, nullptr));
       THEN("") {
         REQUIRE(normal == util::Tuple::vector(0,0.97014,-0.24254));
       }

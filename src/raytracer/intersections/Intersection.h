@@ -9,42 +9,27 @@
 #include <initializer_list>
 #include <vector>
 #include <algorithm>
-#include <shapes/Shape.h>
 #include <optional>
 namespace rt {
-
+class Shape;
 class Intersection
 {
 public:
-  constexpr Intersection(double t, const Shape * shape);
-  [[nodiscard]] constexpr bool operator==(const Intersection &other) const;
-  [[nodiscard]] constexpr bool operator<(const Intersection &other) const;
-  [[nodiscard]] constexpr double t() const;
-  [[nodiscard]] constexpr const rt::Shape*  object() const;
+  Intersection(double t, const Shape * shape, double u = 0.0, double v = 0.0);
+  [[nodiscard]]  bool operator==(const Intersection &other) const;
+  [[nodiscard]]  bool operator<(const Intersection &other) const;
+  [[nodiscard]]  double t() const;
+  [[nodiscard]]  double u() const;
+  [[nodiscard]]  double v() const;
+  [[nodiscard]]  const rt::Shape*  object() const;
 private:
   const Shape * m_shape;
   double m_t;
+  double m_u;
+  double m_v;
 };
 
-constexpr Intersection::Intersection(double t, const Shape * shape):  m_shape(shape), m_t(t)
-{
-}
-constexpr bool Intersection::operator==(const Intersection &other) const
-{
-  return (m_t == other.m_t) && (*m_shape == *other.m_shape);
-}
-constexpr bool Intersection::operator<(const Intersection &other) const
-{
-  return m_t < other.m_t;
-}
-constexpr const Shape* Intersection::object() const
-{
-  return m_shape;
-}
-constexpr double Intersection::t() const
-{
-  return m_t;
-}
+
 
 }
 

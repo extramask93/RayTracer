@@ -90,7 +90,7 @@ SCENARIO("Computing the normal vector on a cone") {
     for(const auto &c : cases) {
       WHEN("")
       {
-        auto n = shape.localNormalAt(std::get<0>(c));
+        auto n = shape.localNormalAt(std::get<0>(c), rt::Intersection(0, nullptr));
         THEN("")
         {
           REQUIRE(n == std::get<1>(c));

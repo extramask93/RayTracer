@@ -11,7 +11,7 @@ class Cylinder : public Shape
 {
 public:
   Intersections localIntersect(const Ray &ray) const override;
-  util::Tuple localNormalAt(const util::Tuple &point) const override;
+  util::Tuple localNormalAt(const util::Tuple &point, const rt::Intersection &intersection) const override;
   double &minimum();
   const double &minimum() const;
   double &maximum();

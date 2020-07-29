@@ -13,7 +13,8 @@ Computations prepareComputations(const Intersection &i, const Ray &ray,const rt:
   comp.object = i.object();
   comp.point = ray.position(comp.t);
   comp.eyev = -ray.direction();
-  comp.normalv = comp.object->normalAt(comp.point);
+  comp.normalv = comp.object->normalAt(comp.point,
+    intersections.size() > 0 ? intersections.front() : rt::Intersection(0, nullptr));
   comp.inside = false;
   if(comp.normalv.dot(comp.eyev) < 0) {
     comp.inside = true;

@@ -42,13 +42,14 @@ Intersections Shape::intersect(const Ray &ray) const
   auto rayInObjectSpace = ray.transform(m_transform.inverse());
   return localIntersect(rayInObjectSpace);
 }
-util::Tuple Shape::normalAt(const util::Tuple &point) const
+util::Tuple Shape::normalAt(const util::Tuple &point, const rt::Intersection &interserction) const
 {
   /*auto worldToObjectSpaceTransform = m_transform.inverse();
   auto objectSpacePoint = worldToObjectSpaceTransform * point;
 */
+  (void)interserction;
   const auto localPoint = worldToObject(point);
-  const auto localNormal = localNormalAt(localPoint);
+  const auto localNormal = localNormalAt(localPoint, interserction);
   return normalToWorld(localNormal);
   /*auto worldNormal = m_transform.inverse().transpose() * objectNormal;
   worldNormal.w() = 0;

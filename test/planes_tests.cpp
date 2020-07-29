@@ -8,9 +8,9 @@ SCENARIO("The normal of a plane is constat everywhere") {
   GIVEN("") {
     auto p = rt::Plane();
     WHEN("") {
-      auto n1 = p.localNormalAt(util::Tuple::point(0,0,0));
-      auto n2 = p.localNormalAt(util::Tuple::point(10,0,-10));
-      auto n3 = p.localNormalAt(util::Tuple::point(-5,0,150));
+      auto n1 = p.localNormalAt(util::Tuple::point(0, 0, 0), rt::Intersection(0, nullptr));
+      auto n2 = p.localNormalAt(util::Tuple::point(10, 0, -10), rt::Intersection(0, nullptr));
+      auto n3 = p.localNormalAt(util::Tuple::point(-5, 0, 150), rt::Intersection(0, nullptr));
       THEN("") {
         REQUIRE(n1 == util::Tuple::vector(0,1,0));
         REQUIRE(n2 == util::Tuple::vector(0,1,0));

@@ -14,9 +14,10 @@ rt::Intersections rt::Plane::localIntersect(const rt::Ray &ray) const
     return rt::Intersections{rt::Intersection(t,this)};
   }
 }
-util::Tuple rt::Plane::localNormalAt(const util::Tuple &point) const
+util::Tuple rt::Plane::localNormalAt(const util::Tuple &point, const rt::Intersection &intersection) const
 {
   (void)point;
+  (void)intersection;
   return util::Tuple::vector(0,1,0);
 }
 rt::AABB rt::Plane::bounds() const

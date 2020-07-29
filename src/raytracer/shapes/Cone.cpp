@@ -35,8 +35,9 @@ rt::Intersections rt::Cone::localIntersect(const rt::Ray &ray) const
   intersectCaps(ray, result);
   return result;
 }
-util::Tuple rt::Cone::localNormalAt(const util::Tuple &point) const
+util::Tuple rt::Cone::localNormalAt(const util::Tuple &point, const rt::Intersection &intersection) const
 {
+  (void)intersection;
   auto dist = pow(point.x(),2) + pow(point.z(),2);
   if(dist < 1 && point.y() >= m_max - EPSILON) {
     return util::Tuple::vector(0,1,0);

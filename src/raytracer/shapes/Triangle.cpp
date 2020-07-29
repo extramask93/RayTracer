@@ -30,9 +30,10 @@ rt::Intersections rt::Triangle::localIntersect(const rt::Ray &ray) const
   auto t = f * e2().dot(originCrossE1);
   return Intersections{Intersection(t,this)};
 }
-util::Tuple rt::Triangle::localNormalAt(const util::Tuple &point) const
+util::Tuple rt::Triangle::localNormalAt(const util::Tuple &point, const rt::Intersection &intersection) const
 {
   (void)point;
+  (void)intersection;
   return m_normal;
 }
 rt::Triangle::Triangle(const util::Tuple &p1, const util::Tuple &p2, const util::Tuple &p3) : Shape(), m_p1(p1),

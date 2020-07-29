@@ -5,6 +5,7 @@
 #include <Tuple.h>
 #include <Matrix.h>
 #include <shapes/Sphere.h>
+#include <shapes/Triangle.h>
 #include <intersections/Intersection.h>
 #include <intersections/Intersections.h>
 #include <misc/Computations.h>
@@ -298,6 +299,20 @@ SCENARIO("The Schlick approximation with a small angle and n2 > n1") {
     auto reflectance = rt::schlick(comps);
     THEN("") {
       REQUIRE(reflectance == Approx(0.48873));
+    }
+  }
+}
+SCENARIO("An intersection can encapsulate u and v") {
+  GIVEN("") {
+    auto s = std::make_shared<rt::Triangle>(util::Tuple::point(0,1,0),
+      util::Tuple::point(-1,0,0), util::Tuple::point(1,0,0));
+    WHEN("")
+    {
+      auto i = rt::Intersection(3.5,s.get(),0.2,0.4);
+      THEN("") {
+        REQUIRE(i.u() == 0.2);
+        REQUIRE(i.v() == 0.4);
+      }
     }
   }
 }

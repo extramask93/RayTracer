@@ -19,7 +19,7 @@ public:
   const util::Tuple& normal() const;
   AABB bounds() const override;
   Intersections localIntersect(const Ray &ray) const override;
-  util::Tuple localNormalAt(const util::Tuple &point) const override;
+  util::Tuple localNormalAt(const util::Tuple &point, const rt::Intersection &intersection) const override;
 
 protected:
   util::Tuple m_p1;

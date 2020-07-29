@@ -27,8 +27,9 @@ rt::Sphere::Sphere() : Shape()
 {
 
 }
-util::Tuple rt::Sphere::localNormalAt(const util::Tuple &point) const
+util::Tuple rt::Sphere::localNormalAt(const util::Tuple &point, const rt::Intersection &intersection) const
 {
+  (void)intersection;
   return (point - m_origin);
 }
 rt::Sphere rt::Sphere::glassSphere()

@@ -71,7 +71,7 @@ SCENARIO("Normal vector on a cylinder")
     for (const auto &c : cases) {
       WHEN("")
       {
-        auto n = cyl.localNormalAt(std::get<0>(c));
+        auto n = cyl.localNormalAt(std::get<0>(c), rt::Intersection(0, nullptr));
         THEN("")
         {
           REQUIRE(n == std::get<1>(c));
@@ -178,7 +178,7 @@ SCENARIO("Normal vector on a cylinder's end caps")
     for (const auto &c : cases) {
       WHEN("")
       {
-        auto n = cyl.localNormalAt(std::get<0>(c));
+        auto n = cyl.localNormalAt(std::get<0>(c), rt::Intersection(0, nullptr));
         THEN("")
         {
           REQUIRE(n == std::get<1>(c));

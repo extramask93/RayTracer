@@ -46,7 +46,7 @@ SCENARIO("the normal on the surface of a cube") {
     auto c = rt::Cube();
     for (const auto &loc : cases) {
       auto p = std::get<0>(loc);
-      auto normal  = c.localNormalAt(p);
+      auto normal  = c.localNormalAt(p, rt::Intersection(0, nullptr));
       THEN("") {
         REQUIRE(normal == std::get<1>(loc));
       }

@@ -10,9 +10,13 @@ add_subdirectory(raytracer)
 # Generic test that uses conan libs
 add_executable(intro main.cpp)
 add_executable(sphere sphere.cpp)
+add_executable(teapot teapot.cpp)
 target_link_libraries(
         sphere PRIVATE project_options project_warnings utils raytracer
         )
 target_link_libraries(
   intro PRIVATE project_options project_warnings utils
                 )
+target_link_libraries(
+        teapot PRIVATE project_options project_warnings utils raytracer
+)

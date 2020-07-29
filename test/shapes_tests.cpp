@@ -55,7 +55,7 @@ SCENARIO("Finding the normal on a child object") {
     s->setTransform(util::Matrixd::translation(5,0,0));
     g2->addChild(s);
     WHEN("") {
-      auto n = s->normalAt(util::Tuple::point(1.7321,1.1547,-5.5774));
+      auto n = s->normalAt(util::Tuple::point(1.7321, 1.1547, -5.5774), rt::Intersection(0, nullptr));
       THEN("") {
         REQUIRE(n == util::Tuple::vector(0.2857,0.42854,-0.85716));
       }

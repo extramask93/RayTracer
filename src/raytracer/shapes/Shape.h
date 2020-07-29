@@ -9,6 +9,7 @@
 #include <misc/AABB.h>
 #include <materials/Material.h>
 #include <intersections/IIntersect.h>
+#include <intersections/Intersection.h>
 namespace rt {
 class Intersection;
 class Intersections;
@@ -17,7 +18,7 @@ class Shape : public IIntersect
 public:
   explicit Shape();
   virtual Intersections intersect(const Ray &ray) const override final;
-  virtual util::Tuple normalAt(const util::Tuple &point) const final;
+  virtual util::Tuple normalAt(const util::Tuple &point, const rt::Intersection &interserction = rt::Intersection(0, nullptr)) const final;
   virtual void setTransform(const util::Matrixd &transform);
   virtual const util::Matrixd& transform() const;
   virtual util::Matrixd& transform() ;
@@ -37,7 +38,7 @@ public:
   Shape& operator=(const Shape &assignFrom) = default;
   Shape& operator=(Shape &&moveFrom) = default;
   virtual Intersections localIntersect(const Ray &ray) const = 0;
-  virtual util::Tuple localNormalAt(const util::Tuple &point) const = 0;
+  virtual util::Tuple localNormalAt(const util::Tuple &point, const rt::Intersection &intersection) const = 0;
 protected:
   unsigned m_id;
   rt::Material m_material;
