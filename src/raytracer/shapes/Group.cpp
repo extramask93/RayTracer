@@ -59,3 +59,7 @@ std::vector<std::shared_ptr<rt::Shape>> &rt::Group::children()
 {
   return m_childrenList;
 }
+const std::vector<std::shared_ptr<rt::Shape>> &rt::Group::children() const
+{
+  return m_childrenList;
+}

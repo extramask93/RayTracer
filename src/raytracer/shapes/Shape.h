@@ -26,7 +26,7 @@ public:
   virtual rt::Material& material() ;
   virtual void setMaterial(const rt::Material &mat);
   virtual const std::shared_ptr<const Shape> parent() const;
-  virtual void setParent(const std::shared_ptr<Shape> &parent);
+  virtual void setParent(std::shared_ptr<Shape> parent);
   virtual bool operator==(const Shape &other) const final;
   virtual util::Tuple worldToObject(const util::Tuple &point) const;
   virtual util::Tuple normalToWorld(const util::Tuple &vector) const;
