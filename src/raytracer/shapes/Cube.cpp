@@ -13,6 +13,9 @@ rt::Intersections rt::Cube::localIntersect(const rt::Ray &ray) const
   auto [ztmin,ztmax] = checkAxis(ray.origin().z(), ray.direction().z());
   auto tmin = std::max({xtmin,ytmin,ztmin});
   auto tmax = std::min({xtmax,ytmax,ztmax});
+  if(tmin > tmax) {
+    return rt::Intersections{};
+  }
   return rt::Intersections{rt::Intersection(tmin, this), rt::Intersection(tmax,this)};
 }
 util::Tuple rt::Cube::localNormalAt(const util::Tuple &point, const rt::Intersection &intersection) const
