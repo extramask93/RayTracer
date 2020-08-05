@@ -25,5 +25,11 @@ util::Matrixd& Pattern::transform()
 {
   return m_transform;
 }
+util::Color Pattern::uvPatternAt(double u, double v) const
+{
+  (void)u;
+  (void)v;
+  return util::Color(0, 0, 0);
+}
 
 }// namespace rt

@@ -46,6 +46,7 @@ public:
   TupleType g;
   TupleType b;
   static const util::Color BLACK;
+  static const util::Color WHITE;
 };
 }// namespace util
 

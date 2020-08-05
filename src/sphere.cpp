@@ -15,6 +15,8 @@
 #include <patterns/LinearGradientPattern.h>
 #include <patterns/RingPattern.h>
 #include <patterns/RadialGradientPattern.h>
+#include <patterns/TextureMap.h>
+#include <patterns/UVCheckers.h>
 #include <shapes/Cone.h>
 #include <shapes/Group.h>
 auto hexagonCorner() {
@@ -50,12 +52,14 @@ int main(int argc, const char **argv)
   (void)argc;
   (void)argv;
   auto world = rt::World();
-  auto cone = rt::Cone();
-  /*cone.maximum() = 0.5;
-  cone.minimum() = 0;
-  cone.setTransform(util::Matrixd::translation(-1,0,0.5) *util::Matrixd::scaling(1,3,1)
-                    );
-  world.shapes().emplace_back(std::make_unique<rt::Cone>(cone));
+  auto shape = rt::Sphere();
+  auto material = rt::Material();
+  auto pattern = rt::TextureMap(new rt::UVCheckers(20,10,util::Color(0,0.5,0),util::Color(1,1,1)),rt::spherical_map);
+  material.setPattern(std::make_unique<rt::TextureMap>(pattern));
+  material.setAmbient(0.1).setSpecular(0.4).setShininess(10).setDiffuse(0.6);
+  shape.setMaterial(material);
+  world.shapes().emplace_back(std::make_unique<rt::Sphere>(shape));
+  /*
   /////////////////////////////////////////////////////////////////
   auto sphere2 = std::make_unique<rt::Sphere>();
   sphere2->setTransform(util::Matrixd::translation(-1.25,1.5,0.5)*util::Matrixd::scaling(0.25,0.25,0.25));
@@ -83,13 +87,13 @@ int main(int argc, const char **argv)
                        .setSpecular(0));
   world.shapes().emplace_back(std::move(wall));*/
   /////////////////////////////////////////////////////////////
-  world.shapes().emplace_back(hexagon());
+
   auto light = std::make_unique<rt::PointLight>(util::Tuple::point(-10, 10, -10),
     util::Color(1, 1, 1));
   world.lights().emplace_back(std::move(light));
 
-  auto camera = rt::Camera(200, 100, std::numbers::pi / 3);
-  auto transform = rt::viewTransformation(util::Tuple::point(0,1.5,-4),util::Tuple::point(0,0,0),util::Tuple::vector(0,1,0));
+  auto camera = rt::Camera(400, 400, 0.5);
+  auto transform = rt::viewTransformation(util::Tuple::point(0,0,-5),util::Tuple::point(0,0,0),util::Tuple::vector(0,1,0));
   camera.setTransform(transform);
 
   util::Canvas canvas = rt::render(camera, world);

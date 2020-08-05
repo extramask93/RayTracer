@@ -36,6 +36,8 @@ util::Canvas render(const rt::Camera &c, const rt::World &world);
 util::Color patternAtObject(const rt::Pattern &pattern, const rt::Shape &shape, const util::Tuple &point);
 util::Color reflectedColor(const rt::World &world, const rt::Computations &comps, short callsLeft=4);
 util::Color refractedColor(const rt::World &world, const rt::Computations &comps, short callsLeft=4);
+std::pair<double, double> spherical_map(const util::Tuple &point);
+std::pair<double, double> planar_map(const util::Tuple &point);
 double schlick(const Computations &comps);
 bool equal(double x, double y);
 }// namespace rt

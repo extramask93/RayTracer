@@ -33,6 +33,8 @@ target_sources(raytracer
         patterns/CheckersPattern.cpp
         patterns/RadialGradientPattern.cpp
         patterns/TestPattern.cpp
+        patterns/UVCheckers.cpp
+        patterns/TextureMap.cpp
         parser/ObjParser.cpp
         PUBLIC
         ${CMAKE_CURRENT_LIST_DIR}/ray/Ray.h
@@ -63,6 +65,8 @@ target_sources(raytracer
         ${CMAKE_CURRENT_LIST_DIR}/patterns/CheckersPattern.h
         ${CMAKE_CURRENT_LIST_DIR}/patterns/RadialGradientPattern.h
         ${CMAKE_CURRENT_LIST_DIR}/patterns/TestPattern.h
+        ${CMAKE_CURRENT_LIST_DIR}/patterns/UVCheckers.h
+        ${CMAKE_CURRENT_LIST_DIR}/patterns/TextureMap.h
         ${CMAKE_CURRENT_LIST_DIR}/parser/ObjParser.h
         )
 target_include_directories(raytracer

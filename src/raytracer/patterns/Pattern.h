@@ -17,6 +17,7 @@ public:
   [[nodiscard]] virtual const util::Matrixd& transform() const;
   [[nodiscard]] virtual util::Matrixd& transform() ;
   [[nodiscard]] virtual util::Color patternAt(const util::Tuple &point) const = 0;
+  [[nodiscard]] virtual util::Color uvPatternAt(double u, double v) const;
   auto clone() const { return std::unique_ptr<Pattern>(clone_impl()); }
 public:
   virtual ~Pattern() = default;

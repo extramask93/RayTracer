@@ -209,4 +209,21 @@ bool equal(double x, double y)
 {
   return std::fabs(x-y) < std::numeric_limits<double>::epsilon()*EPSILON;
 }
+std::pair<double, double> spherical_map(const util::Tuple &point)
+{
+  auto theta = std::atan2(point.x(),point.z());
+  auto vec = util::Tuple::vector(point.x(),point.y(),point.z());
+  auto radius = vec.magnitude();
+  auto phi = acos(point.y() / radius);
+  auto raw_u = theta / (2*math::pi<>);
+  auto u = 1 - (raw_u + 0.5);
+  auto v = 1 - phi / math::pi<>;
+  return std::pair<double, double>(u,v);
+}
+std::pair<double, double> planar_map(const util::Tuple &point)
+{
+  double u = point.x() - floor(point.x());
+  double v = point.z() - floor(point.z());
+  return std::make_pair(u,v);
+}
 }

@@ -29,7 +29,7 @@ SCENARIO("Evaluating the rule for a CSG operation")
 {
   GIVEN("Truth table with input values and expected outputs")
   {
-    auto truthTable = std::vector<std::tuple<rt::CSGOpType, bool, bool, bool, bool>>{
+    const auto truthTable = std::vector<std::tuple<rt::CSGOpType, bool, bool, bool, bool>>{
       { rt::CSGOpType::kUnion, true, true, true, false },
       { rt::CSGOpType::kUnion, true, true, false, true },
       { rt::CSGOpType::kUnion, true, false, true, false },
@@ -57,7 +57,7 @@ SCENARIO("Evaluating the rule for a CSG operation")
       { rt::CSGOpType::kDifference, false, false, true, false },
       { rt::CSGOpType::kDifference, false, false, false, false },
     };
-    auto [op, lhit, inl, inr, re] = GENERATE_COPY(from_range(truthTable));
+    const auto [op, lhit, inl, inr, re] = GENERATE_COPY(from_range(truthTable));
     WHEN("Checking for an allowed intersection")
     {
       auto result = rt::Csg::intersectionAllowed(op, lhit, inl, inr);
