@@ -1,7 +1,7 @@
 add_library(raytracer "")
 target_link_libraries(raytracer PRIVATE project_options project_warnings
         )
-target_link_libraries(raytracer PUBLIC utils)
+target_link_libraries(raytracer PUBLIC utils pthread)
 
 target_sources(raytracer
         PRIVATE

@@ -38,6 +38,7 @@ util::Color reflectedColor(const rt::World &world, const rt::Computations &comps
 util::Color refractedColor(const rt::World &world, const rt::Computations &comps, short callsLeft=4);
 std::pair<double, double> spherical_map(const util::Tuple &point);
 std::pair<double, double> planar_map(const util::Tuple &point);
+std::pair<double, double> cylindrical_map(const util::Tuple &point);
 double schlick(const Computations &comps);
 bool equal(double x, double y);
 }// namespace rt

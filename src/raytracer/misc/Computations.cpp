@@ -4,6 +4,8 @@
 
 #include "Computations.h"
 #include <intersections/Intersections.h>
+#include <thread>
+#include <iostream>
 #include <misc/Shader.h>
 namespace rt {
 Computations prepareComputations(const Intersection &i, const Ray &ray,const rt::Intersections &intersections){
@@ -126,15 +128,31 @@ rt::Ray rayForPixel(const Camera &c, unsigned int px, unsigned int py)
   auto direction = (pixel-origin).normalize();
   return rt::Ray(origin, direction);
 }
-util::Canvas render(const Camera &c, const World &world)
-{
-  auto canvas = util::Canvas(c.hsize(),c.vsize());
-  for(unsigned y = 0; y < c.vsize(); y++) {
+void renderSome(const unsigned from, const unsigned to,const Camera &c,
+  const World &world, util::Canvas &canvas) {
+  for(unsigned y = from; y < to; y++) {
     for(unsigned x = 0; x < c.hsize(); x++) {
       auto ray = rayForPixel(c,x,y);
       auto color = rt::colorAt(world,ray);
       canvas(x,y) = color;
     }
+  }
+
+}
+util::Canvas render(const Camera &c, const World &world)
+{
+  auto canvas = util::Canvas(c.hsize(),c.vsize());
+  const auto n = std::thread::hardware_concurrency();
+  std::vector<std::thread> threads;
+  const auto step = c.vsize() / n;
+  unsigned current =0;
+  for(unsigned i = 0; i < n; i++) {
+    threads.push_back(std::thread(renderSome,current, i == n-1? c.vsize(): current+step,std::ref(c),std::ref(world),
+      std::ref(canvas)));
+    current += step;
+  }
+  for(auto &thread: threads) {
+    thread.join();
   }
   return canvas;
 }
@@ -226,4 +244,13 @@ std::pair<double, double> planar_map(const util::Tuple &point)
   double v = point.z() - floor(point.z());
   return std::make_pair(u,v);
 }
+std::pair<double, double> cylindrical_map(const util::Tuple &point)
+{
+  auto theta = std::atan2(point.x(), point.z());
+  auto rawU = theta / (2*math::pi<>);
+  auto u = 1 - (rawU + 0.5);
+  auto v = point.y() - floor(point.y());
+  return std::make_pair(u,v);
+}
+
 }

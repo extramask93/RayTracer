@@ -248,18 +248,21 @@ SCENARIO("Using planar mapping on a 3D point") {
 
 SCENARIO("Using cylindircal mapping on a 3D point") {
   const auto examples = std::vector<std::tuple<util::Tuple, double, double>> {
-    {util::Tuple::point(0.25,0,0.5), 0.25, 0.5},
-    {util::Tuple::point(0.25,0,-0.25), 0.25, 0.75},
-    {util::Tuple::point(0.25,0.5,-0.25), 0.25, 0.75},
-    {util::Tuple::point(1.25,0,0.5), 0.25, 0.5},
-    {util::Tuple::point(0.25,0,-1.75), 0.25, 0.25},
-    {util::Tuple::point(1,0,-1), 0.0, 0.0},
-    {util::Tuple::point(0,0,0), 0.0, 0.0},
+    {util::Tuple::point(0, 0, -1), 0.0, 0.0},
+    {util::Tuple::point(0, 0.5, -1), 0.0, 0.5},
+    {util::Tuple::point(0, 1, -1), 0.0, 0.0},
+    {util::Tuple::point(0.70711, 0.5, -0.70711), 0.125, 0.5},
+    {util::Tuple::point(1, 0.5, 0), 0.25, 0.5},
+    {util::Tuple::point(0.70711, 0.5, 0.70711), 0.375, 0.5},
+    {util::Tuple::point(0, -0.25, 1), 0.5, 0.75},
+    {util::Tuple::point(-0.70711, 0.5, 0.70711), 0.625, 0.5},
+    {util::Tuple::point(-1, 1.25, 0), 0.75, 0.25},
+    {util::Tuple::point(-0.70711, 0.5, -0.70711), 0.875, 0.5},
   };
   GIVEN("") {
     const auto [p,uex,vex] = GENERATE_COPY(from_range(examples));
     WHEN(""){
-      auto [u,v] = rt::planar_map(p);
+      auto [u,v] = rt::cylindrical_map(p);
       THEN("") {
         REQUIRE(u == uex);
         REQUIRE(v == vex);
